@@ -26,21 +26,122 @@ public class GestionEmpleados extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        numEmpleado = new javax.swing.JTextField();
+        nombreEmpleado = new javax.swing.JTextField();
+        ciEmpleado = new javax.swing.JTextField();
+        direccionEmpleado = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listaEmpleados = new javax.swing.JList();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel1 = new javax.swing.JLabel();
+        numEmpleadoSeleccionado = new javax.swing.JLabel();
+        nombreEmpleadoSeleccionado = new javax.swing.JLabel();
+        ciEmpleadoSeleccionado = new javax.swing.JLabel();
+        direccionEmpleadoSeleccionado = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
+
+        numEmpleado.setText("Ingrese número de empleado");
+        getContentPane().add(numEmpleado);
+        numEmpleado.setBounds(20, 170, 170, 22);
+
+        nombreEmpleado.setText("Ingrese nombre");
+        nombreEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreEmpleadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(nombreEmpleado);
+        nombreEmpleado.setBounds(20, 50, 170, 22);
+
+        ciEmpleado.setText("Ingrese cédula");
+        ciEmpleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ciEmpleadoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ciEmpleado);
+        ciEmpleado.setBounds(20, 90, 170, 22);
+
+        direccionEmpleado.setText("Ingrese dirección");
+        getContentPane().add(direccionEmpleado);
+        direccionEmpleado.setBounds(20, 130, 170, 22);
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel3.setText("Empleado:");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(220, 190, 150, 17);
+
+        jButton1.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        jButton1.setText("Registrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(20, 210, 90, 23);
+
+        jScrollPane1.setToolTipText("");
+
+        listaEmpleados.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(listaEmpleados);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(220, 50, 110, 120);
+
+        jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(200, 20, 10, 260);
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setText("Registrar Empleado:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(20, 20, 150, 20);
+
+        numEmpleadoSeleccionado.setText("<Num Emplado>");
+        getContentPane().add(numEmpleadoSeleccionado);
+        numEmpleadoSeleccionado.setBounds(220, 270, 100, 16);
+
+        nombreEmpleadoSeleccionado.setText("<Nombre>");
+        getContentPane().add(nombreEmpleadoSeleccionado);
+        nombreEmpleadoSeleccionado.setBounds(220, 210, 70, 16);
+
+        ciEmpleadoSeleccionado.setText("<CI>");
+        getContentPane().add(ciEmpleadoSeleccionado);
+        ciEmpleadoSeleccionado.setBounds(300, 210, 70, 16);
+
+        direccionEmpleadoSeleccionado.setText("<Dirección>");
+        getContentPane().add(direccionEmpleadoSeleccionado);
+        direccionEmpleadoSeleccionado.setBounds(220, 240, 70, 16);
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setText("Lista de empleados:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(220, 20, 150, 17);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void nombreEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreEmpleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreEmpleadoActionPerformed
+
+    private void ciEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ciEmpleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ciEmpleadoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +179,20 @@ public class GestionEmpleados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField ciEmpleado;
+    private javax.swing.JLabel ciEmpleadoSeleccionado;
+    private javax.swing.JTextField direccionEmpleado;
+    private javax.swing.JLabel direccionEmpleadoSeleccionado;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JList listaEmpleados;
+    private javax.swing.JTextField nombreEmpleado;
+    private javax.swing.JLabel nombreEmpleadoSeleccionado;
+    private javax.swing.JTextField numEmpleado;
+    private javax.swing.JLabel numEmpleadoSeleccionado;
     // End of variables declaration//GEN-END:variables
 }
