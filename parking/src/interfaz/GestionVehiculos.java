@@ -31,7 +31,7 @@ public class GestionVehiculos extends javax.swing.JFrame {
         marcaVehiculo = new javax.swing.JTextField();
         modeloVehiculo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        registrarVehiculo = new javax.swing.JButton();
+        botonVaciar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaVehiculo = new javax.swing.JList();
         jSeparator1 = new javax.swing.JSeparator();
@@ -41,6 +41,7 @@ public class GestionVehiculos extends javax.swing.JFrame {
         marcaVehiculoSeleccionado = new javax.swing.JLabel();
         modeloVehiculoSeleccionado = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        registrarVehiculo1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -81,15 +82,15 @@ public class GestionVehiculos extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(220, 190, 150, 17);
 
-        registrarVehiculo.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        registrarVehiculo.setText("Registrar");
-        registrarVehiculo.addActionListener(new java.awt.event.ActionListener() {
+        botonVaciar.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        botonVaciar.setText("Vaciar");
+        botonVaciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registrarVehiculoActionPerformed(evt);
+                botonVaciarActionPerformed(evt);
             }
         });
-        getContentPane().add(registrarVehiculo);
-        registrarVehiculo.setBounds(20, 210, 90, 23);
+        getContentPane().add(botonVaciar);
+        botonVaciar.setBounds(20, 240, 90, 23);
 
         jScrollPane1.setToolTipText("");
 
@@ -133,6 +134,16 @@ public class GestionVehiculos extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(220, 20, 150, 17);
 
+        registrarVehiculo1.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        registrarVehiculo1.setText("Registrar");
+        registrarVehiculo1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarVehiculo1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(registrarVehiculo1);
+        registrarVehiculo1.setBounds(20, 210, 90, 23);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -144,13 +155,17 @@ public class GestionVehiculos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_marcaVehiculoActionPerformed
 
-    private void registrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarVehiculoActionPerformed
+    private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_registrarVehiculoActionPerformed
+    }//GEN-LAST:event_botonVaciarActionPerformed
 
     private void estadoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoVehiculoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_estadoVehiculoActionPerformed
+
+    private void registrarVehiculo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarVehiculo1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrarVehiculo1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -188,6 +203,7 @@ public class GestionVehiculos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonVaciar;
     private javax.swing.JTextField estadoVehiculo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -202,6 +218,6 @@ public class GestionVehiculos extends javax.swing.JFrame {
     private javax.swing.JTextField modeloVehiculo;
     private javax.swing.JLabel modeloVehiculoSeleccionado;
     private javax.swing.JLabel notaVehiculoSeleccionado;
-    private javax.swing.JButton registrarVehiculo;
+    private javax.swing.JButton registrarVehiculo1;
     // End of variables declaration//GEN-END:variables
 }

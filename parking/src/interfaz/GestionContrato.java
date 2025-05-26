@@ -49,7 +49,7 @@ public class GestionContrato extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("Vehiculo");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(30, 20, 61, 20);
+        jLabel3.setBounds(30, 20, 60, 20);
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Cliente");

@@ -41,6 +41,7 @@ public class GestionEmpleados extends javax.swing.JFrame {
         ciEmpleadoSeleccionado = new javax.swing.JLabel();
         direccionEmpleadoSeleccionado = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        botonVaciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -128,6 +129,16 @@ public class GestionEmpleados extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(220, 20, 150, 17);
 
+        botonVaciar.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        botonVaciar.setText("Vaciar");
+        botonVaciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVaciarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonVaciar);
+        botonVaciar.setBounds(20, 240, 90, 23);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -142,6 +153,10 @@ public class GestionEmpleados extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonVaciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -179,6 +194,7 @@ public class GestionEmpleados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonVaciar;
     private javax.swing.JTextField ciEmpleado;
     private javax.swing.JLabel ciEmpleadoSeleccionado;
     private javax.swing.JTextField direccionEmpleado;
