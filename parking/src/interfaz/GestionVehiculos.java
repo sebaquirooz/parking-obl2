@@ -33,7 +33,7 @@ public class GestionVehiculos extends javax.swing.JFrame {
         marcaVehiculoSeleccionado = new javax.swing.JLabel();
         modeloVehiculoSeleccionado = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        registrarVehiculo1 = new javax.swing.JButton();
+        registrarVehiculo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -126,15 +126,15 @@ public class GestionVehiculos extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(220, 20, 150, 17);
 
-        registrarVehiculo1.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        registrarVehiculo1.setText("Registrar");
-        registrarVehiculo1.addActionListener(new java.awt.event.ActionListener() {
+        registrarVehiculo.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        registrarVehiculo.setText("Registrar");
+        registrarVehiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registrarVehiculo1ActionPerformed(evt);
+                registrarVehiculoActionPerformed(evt);
             }
         });
-        getContentPane().add(registrarVehiculo1);
-        registrarVehiculo1.setBounds(20, 210, 90, 23);
+        getContentPane().add(registrarVehiculo);
+        registrarVehiculo.setBounds(20, 210, 90, 23);
 
         setBounds(0, 0, 416, 309);
     }// </editor-fold>//GEN-END:initComponents
@@ -155,9 +155,12 @@ public class GestionVehiculos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_estadoVehiculoActionPerformed
 
-    private void registrarVehiculo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarVehiculo1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_registrarVehiculo1ActionPerformed
+    private void registrarVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarVehiculoActionPerformed
+        String matriculaDelVehiculo = matriculaVehiculo.getText();
+        String marcaDelVehiculo = marcaVehiculo.getText();
+        String modeloDelVehiculo = modeloVehiculo.getText();
+        String estadoDelVehiculo = estadoVehiculo.getText();
+    }//GEN-LAST:event_registrarVehiculoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,6 +213,6 @@ public class GestionVehiculos extends javax.swing.JFrame {
     private javax.swing.JTextField modeloVehiculo;
     private javax.swing.JLabel modeloVehiculoSeleccionado;
     private javax.swing.JLabel notaVehiculoSeleccionado;
-    private javax.swing.JButton registrarVehiculo1;
+    private javax.swing.JButton registrarVehiculo;
     // End of variables declaration//GEN-END:variables
 }
