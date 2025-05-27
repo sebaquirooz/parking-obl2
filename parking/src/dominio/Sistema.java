@@ -15,6 +15,15 @@ public class Sistema {
 	private ArrayList<Contrato> listaContratos;
 
     
+        
+    public Sistema(){
+        this.listaEmpleados = new ArrayList<>();
+        this.listaClientes =  new ArrayList<>();
+        this.listaPersonas =  new ArrayList<>();
+        this.listaVehiculos =  new ArrayList<>();
+        this.listaContratos =  new ArrayList<>();  
+    }    
+    
     public ArrayList<Cliente> getListaClientes() {
         return listaClientes;
     }
@@ -56,8 +65,8 @@ public class Sistema {
     }
     
     public boolean verificarEmpleado (String cedula){
-        for (int i = 0; i < listaEmpleados.size(); i++){
-            if (listaEmpleados.get(i).getCedula().equals(cedula)){
+        for (int i = 0; i < this.listaEmpleados.size(); i++){
+            if (this.listaEmpleados.get(i).getCedula().equals(cedula)){
                 return false;
             }
         }
@@ -67,7 +76,7 @@ public class Sistema {
     public void registrarEmpleado(String nombre, String cedula, String direccion, int numeroEmpleado){
         if(verificarEmpleado(cedula)){
             Empleado empleadoNuevo = new Empleado(nombre, cedula, direccion, numeroEmpleado);
-            listaEmpleados.add(empleadoNuevo);
+            this.listaEmpleados.add(empleadoNuevo);
         }
     }
     

@@ -86,11 +86,6 @@ public class GestionVehiculos extends javax.swing.JFrame {
 
         jScrollPane1.setToolTipText("");
 
-        listaVehiculo.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listaVehiculo);
 
         getContentPane().add(jScrollPane1);
