@@ -12,6 +12,14 @@ public class GestionEmpleados extends javax.swing.JFrame {
     public GestionEmpleados(Sistema unSistema){
         this.sistema = unSistema;
         initComponents();
+        resetCampos();
+    }
+    
+    public void resetCampos(){
+        nombreEmpleado.setText("Ingrese nombre");
+        ciEmpleado.setText("Ingrese cédula");
+        direccionEmpleado.setText("Ingrese dirección");
+        numEmpleado.setText("Ingrese número de empleado");
     }
     
     
@@ -82,11 +90,6 @@ public class GestionEmpleados extends javax.swing.JFrame {
 
         jScrollPane1.setToolTipText("");
 
-        listaEmpleados.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listaEmpleados);
 
         getContentPane().add(jScrollPane1);
@@ -153,6 +156,8 @@ public class GestionEmpleados extends javax.swing.JFrame {
         }
         else{
             sistema.registrarEmpleado(nombreDelEmpleado, cedulaDelEmpleado, direccionDelEmpleado, numDelEmpleado);
+            this.resetCampos();
+            
         }
     }//GEN-LAST:event_registrarEmpleadoActionPerformed
 
