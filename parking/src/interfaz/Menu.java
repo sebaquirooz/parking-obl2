@@ -1,19 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/Application.java to edit this template
- */
 package interfaz;
+import dominio.*;
 
-/**
- *
- * @author seba2
- */
+
+
 public class Menu extends javax.swing.JFrame {
+    
+    private Sistema sistema; 
 
-    /**
-     * Creates new form Menu
-     */
+
     public Menu() {
+        initComponents();
+    }
+    
+    public Menu(Sistema unSistema){
+        this.sistema = unSistema;
         initComponents();
     }
 
@@ -46,6 +46,7 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Gestión");
@@ -172,18 +173,7 @@ public class Menu extends javax.swing.JFrame {
 
         setJMenuBar(menuBar);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
-        );
-
-        pack();
+        setBounds(0, 0, 416, 311);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
