@@ -25,10 +25,10 @@ public class Menu extends javax.swing.JFrame {
 
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        opcionCliente = new javax.swing.JMenuItem();
+        opcionVehiculos = new javax.swing.JMenuItem();
+        opcionEmpleados = new javax.swing.JMenuItem();
+        opcionContratos = new javax.swing.JMenuItem();
         editMenu = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
@@ -48,37 +48,37 @@ public class Menu extends javax.swing.JFrame {
         fileMenu.setMnemonic('f');
         fileMenu.setText("Gestión");
 
-        jMenuItem1.setText("Gestión de Clientes");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        opcionCliente.setText("Gestión de Clientes");
+        opcionCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                opcionClienteActionPerformed(evt);
             }
         });
-        fileMenu.add(jMenuItem1);
+        fileMenu.add(opcionCliente);
 
-        jMenuItem4.setText("Gestión de Vehículos");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        opcionVehiculos.setText("Gestión de Vehículos");
+        opcionVehiculos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                opcionVehiculosActionPerformed(evt);
             }
         });
-        fileMenu.add(jMenuItem4);
+        fileMenu.add(opcionVehiculos);
 
-        jMenuItem6.setText("Gestión de Empleados");
-        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+        opcionEmpleados.setText("Gestión de Empleados");
+        opcionEmpleados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem6ActionPerformed(evt);
+                opcionEmpleadosActionPerformed(evt);
             }
         });
-        fileMenu.add(jMenuItem6);
+        fileMenu.add(opcionEmpleados);
 
-        jMenuItem5.setText("Gestión de Contratos");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        opcionContratos.setText("Gestión de Contratos");
+        opcionContratos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                opcionContratosActionPerformed(evt);
             }
         });
-        fileMenu.add(jMenuItem5);
+        fileMenu.add(opcionContratos);
 
         menuBar.add(fileMenu);
 
@@ -173,22 +173,23 @@ public class Menu extends javax.swing.JFrame {
         setBounds(0, 0, 416, 311);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+
+    private void opcionClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         GestionClientes ventanaGestionClientes = new GestionClientes(sistema);
         ventanaGestionClientes.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void opcionVehiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
        GestionVehiculos ventanaGestionVehiculos = new GestionVehiculos(sistema);
        ventanaGestionVehiculos.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void opcionContratosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         GestionContrato ventanaGestionContrato = new GestionContrato(sistema);
         ventanaGestionContrato.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void opcionEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         GestionEmpleados ventanaGestionEmpleados = new GestionEmpleados(sistema);
         ventanaGestionEmpleados.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
@@ -269,20 +270,20 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem opcionCliente;
+    private javax.swing.JMenuItem opcionContratos;
+    private javax.swing.JMenuItem opcionEmpleados;
+    private javax.swing.JMenuItem opcionVehiculos;
     // End of variables declaration//GEN-END:variables
 
 }
