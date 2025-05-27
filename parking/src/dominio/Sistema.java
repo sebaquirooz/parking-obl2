@@ -95,4 +95,20 @@ public class Sistema {
             this.listaVehiculos.add(vehiculoNuevo);
         }
     }
+    
+    public boolean verificarCliente (String cedula){
+        for (int i = 0; i < this.listaClientes.size(); i++){
+            if (this.listaClientes.get(i).getCedula().equals(cedula)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void registrarCliente (String nombre, String cedula, String direccion, int celular, int añoIngreso){
+        if (this.verificarCliente(cedula)){
+            Cliente clienteNuevo = new Cliente (nombre, cedula, direccion, celular, añoIngreso);
+            this.listaClientes.add(clienteNuevo);
+        }
+    }
 }

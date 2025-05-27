@@ -12,5 +12,4 @@ public class Entrada {
 
 	private Empleado empleado;
 
-
 }

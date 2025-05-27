@@ -1,5 +1,6 @@
 package interfaz;
 import dominio.*;
+import java.time.LocalDate;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -7,6 +8,8 @@ import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 public class GestionClientes extends javax.swing.JFrame {
 
     private Sistema sistema;
+    
+    private UtilDateModel model = new UtilDateModel();
     
     public GestionClientes() {
         initComponents();
@@ -16,14 +19,20 @@ public class GestionClientes extends javax.swing.JFrame {
         this.sistema = unSistema;
         initComponents();
         cargarCompFecha();
+        resetCampos();
     }
     
-    
+    public void resetCampos(){
+        nombreCliente.setText("Ingrese nombre");
+        ciCliente.setText("Ingrese cédula");
+        direccionCliente.setText("Ingrese dirección");
+        celularCliente.setText("Ingrese número de empleado");
+    }
     
     //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
-        UtilDateModel model = new UtilDateModel();
-        model.setDate(2025, 5, 27);
+        LocalDate fechaActual = LocalDate.now();
+        model.setDate(fechaActual.getYear(), fechaActual.getMonthValue(), fechaActual.getDayOfMonth());
         model.setSelected(true);
         JDatePanelImpl datePanel = new JDatePanelImpl(model);
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
@@ -35,7 +44,7 @@ public class GestionClientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ingresoCliente = new javax.swing.JTextField();
+        celularCliente = new javax.swing.JTextField();
         nombreCliente = new javax.swing.JTextField();
         ciCliente = new javax.swing.JTextField();
         direccionCliente = new javax.swing.JTextField();
@@ -56,14 +65,14 @@ public class GestionClientes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
-        ingresoCliente.setText("Ingrese celular");
-        ingresoCliente.addActionListener(new java.awt.event.ActionListener() {
+        celularCliente.setText("Ingrese celular");
+        celularCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ingresoClienteActionPerformed(evt);
+                celularClienteActionPerformed(evt);
             }
         });
-        getContentPane().add(ingresoCliente);
-        ingresoCliente.setBounds(20, 170, 170, 22);
+        getContentPane().add(celularCliente);
+        celularCliente.setBounds(20, 170, 170, 22);
 
         nombreCliente.setText("Ingrese nombre");
         nombreCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -179,20 +188,24 @@ public class GestionClientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_eliminarClienteActionPerformed
 
-    private void ingresoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresoClienteActionPerformed
+    private void celularClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_celularClienteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ingresoClienteActionPerformed
+    }//GEN-LAST:event_celularClienteActionPerformed
 
     private void registrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarClienteActionPerformed
         String nombreDelCliente = nombreCliente.getText();
         String cedulaDelCliente = ciCliente.getText();
         String direccionDelCliente = direccionCliente.getText();
+        int celularDelCliente = Integer.parseInt(celularCliente.getText());
+        int añoDeIngreso = model.getYear();
+        if (" ".equals(nombreCliente.getText()) || " ".equals(ciCliente.getText()) || " ".equals(direccionCliente.getText()) || " ".equals(celularCliente.getText())){
+            // Alerta faltan campos por llenar
+        }
+        else{
+            sistema.registrarCliente(nombreDelCliente, cedulaDelCliente, direccionDelCliente, celularDelCliente, añoDeIngreso);
+            this.resetCampos();
+        }
         
-        
-        
-        
-
-
     }//GEN-LAST:event_registrarClienteActionPerformed
 
     private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
@@ -237,12 +250,12 @@ public class GestionClientes extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel añoIngresoCliente;
     private javax.swing.JButton botonVaciar;
+    private javax.swing.JTextField celularCliente;
     private javax.swing.JTextField ciCliente;
     private javax.swing.JLabel ciClienteSeleccionado;
     private javax.swing.JTextField direccionCliente;
     private javax.swing.JLabel direccionClienteSeleccionado;
     private javax.swing.JButton eliminarCliente;
-    private javax.swing.JTextField ingresoCliente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
