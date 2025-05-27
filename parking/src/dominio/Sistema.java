@@ -95,4 +95,8 @@ public class Sistema {
             this.listaVehiculos.add(vehiculoNuevo);
         }
     }
+    
+    public Empleado[] obtenerListaEmpleados(){
+        return this.getListaEmpleados().toArray(new Empleado[this.getListaEmpleados().size()]);
+    }
 }

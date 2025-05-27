@@ -8,6 +8,8 @@ public class GestionClientes extends javax.swing.JFrame {
 
     private Sistema sistema;
     
+    private UtilDateModel model = new UtilDateModel();
+    
     public GestionClientes() {
         initComponents();
     }
@@ -18,11 +20,8 @@ public class GestionClientes extends javax.swing.JFrame {
         cargarCompFecha();
     }
     
-    
-    
     //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
-        UtilDateModel model = new UtilDateModel();
         model.setDate(2025, 5, 27);
         model.setSelected(true);
         JDatePanelImpl datePanel = new JDatePanelImpl(model);
@@ -30,6 +29,11 @@ public class GestionClientes extends javax.swing.JFrame {
         getContentPane().add(datePicker);      
         datePicker.setBounds(20, 200, 170, 22);
     }
+    
+    
+    
+    
+    
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -51,7 +55,6 @@ public class GestionClientes extends javax.swing.JFrame {
         direccionClienteSeleccionado = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         registrarCliente = new javax.swing.JButton();
-        botonVaciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -100,7 +103,7 @@ public class GestionClientes extends javax.swing.JFrame {
             }
         });
         getContentPane().add(eliminarCliente);
-        eliminarCliente.setBounds(220, 270, 90, 23);
+        eliminarCliente.setBounds(250, 330, 90, 23);
 
         jScrollPane1.setToolTipText("");
 
@@ -116,7 +119,7 @@ public class GestionClientes extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(200, 20, 10, 260);
+        jSeparator1.setBounds(200, 20, 10, 340);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Registrar Cliente:");
@@ -125,7 +128,7 @@ public class GestionClientes extends javax.swing.JFrame {
 
         añoIngresoCliente.setText("<Año ingreso>");
         getContentPane().add(añoIngresoCliente);
-        añoIngresoCliente.setBounds(300, 230, 100, 16);
+        añoIngresoCliente.setBounds(220, 290, 100, 16);
 
         nombreClienteSeleccionado.setText("<Nombre>");
         getContentPane().add(nombreClienteSeleccionado);
@@ -133,7 +136,7 @@ public class GestionClientes extends javax.swing.JFrame {
 
         ciClienteSeleccionado.setText("<CI>");
         getContentPane().add(ciClienteSeleccionado);
-        ciClienteSeleccionado.setBounds(300, 200, 70, 16);
+        ciClienteSeleccionado.setBounds(220, 260, 70, 16);
 
         direccionClienteSeleccionado.setText("<Dirección>");
         getContentPane().add(direccionClienteSeleccionado);
@@ -154,17 +157,7 @@ public class GestionClientes extends javax.swing.JFrame {
         getContentPane().add(registrarCliente);
         registrarCliente.setBounds(60, 240, 90, 23);
 
-        botonVaciar.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        botonVaciar.setText("Vaciar");
-        botonVaciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonVaciarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(botonVaciar);
-        botonVaciar.setBounds(60, 270, 90, 23);
-
-        setBounds(0, 0, 412, 318);
+        setBounds(0, 0, 412, 396);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreClienteActionPerformed
@@ -194,10 +187,6 @@ public class GestionClientes extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_registrarClienteActionPerformed
-
-    private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonVaciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -236,7 +225,6 @@ public class GestionClientes extends javax.swing.JFrame {
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel añoIngresoCliente;
-    private javax.swing.JButton botonVaciar;
     private javax.swing.JTextField ciCliente;
     private javax.swing.JLabel ciClienteSeleccionado;
     private javax.swing.JTextField direccionCliente;
