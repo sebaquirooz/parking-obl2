@@ -155,6 +155,12 @@ public class GestionVehiculos extends javax.swing.JFrame {
         String marcaDelVehiculo = marcaVehiculo.getText();
         String modeloDelVehiculo = modeloVehiculo.getText();
         String estadoDelVehiculo = estadoVehiculo.getText();
+        if (" ".equals(matriculaVehiculo.getText()) || " ".equals(marcaVehiculo.getText()) || " ".equals(modeloVehiculo.getText()) || " ".equals(estadoVehiculo.getText())){
+            // Alerta faltan campos por llenar
+        }
+        else{
+            sistema.registrarVehiculo(matriculaDelVehiculo, marcaDelVehiculo, modeloDelVehiculo, estadoDelVehiculo);
+        }
     }//GEN-LAST:event_registrarVehiculoActionPerformed
 
     /**

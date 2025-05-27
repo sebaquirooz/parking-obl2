@@ -48,7 +48,7 @@ public class Sistema {
         this.listaPersonas = listaPersonas;
     }
 
-    public ArrayList<Vehiculo> getListaVehiculo() {
+    public ArrayList<Vehiculo> getListaVehiculos() {
         return listaVehiculos;
     }
 
@@ -72,10 +72,27 @@ public class Sistema {
         }
         return true;
     }
+    
     public void registrarEmpleado(String nombre, String cedula, String direccion, int numeroEmpleado){
         if(verificarEmpleado(cedula)){
             Empleado empleadoNuevo = new Empleado(nombre, cedula, direccion, numeroEmpleado);
             this.listaEmpleados.add(empleadoNuevo);
+        }
+    }
+    
+    public boolean verificarVehiculo (String matricula){
+        for (int i = 0; i < this.listaVehiculos.size(); i++){
+            if (this.listaVehiculos.get(i).getMatricula().equals(matricula)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    public void registrarVehiculo (String matricula, String marca, String modelo, String nota){
+        if (this.verificarVehiculo(matricula)){
+            Vehiculo vehiculoNuevo = new Vehiculo (matricula, marca, modelo, nota);
+            this.listaVehiculos.add(vehiculoNuevo);
         }
     }
 }
