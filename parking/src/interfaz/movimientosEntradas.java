@@ -1,5 +1,7 @@
 package interfaz;
 import dominio.*;
+import java.time.LocalDate;
+import java.util.*;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -8,6 +10,7 @@ public class movimientosEntradas extends javax.swing.JFrame {
 
     private Sistema sistema;
     
+    private UtilDateModel model = new UtilDateModel();
     
     public movimientosEntradas() {
         initComponents();
@@ -23,8 +26,8 @@ public class movimientosEntradas extends javax.swing.JFrame {
     
      //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
-        UtilDateModel model = new UtilDateModel();
-        model.setDate(2025, 5, 27);
+        LocalDate fechaActual = LocalDate.now();
+        model.setDate(fechaActual.getYear(), fechaActual.getMonthValue(), fechaActual.getDayOfMonth());
         model.setSelected(true);
         JDatePanelImpl datePanel = new JDatePanelImpl(model);
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
@@ -48,10 +51,10 @@ public class movimientosEntradas extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         listaEmpleados = new javax.swing.JList();
         jLabel5 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
         botonVaciar = new javax.swing.JButton();
         registrarEntrada = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        horaEntrada = new javax.swing.JTextField();
+        labelContrato = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -115,16 +118,6 @@ public class movimientosEntradas extends javax.swing.JFrame {
         getContentPane().add(jLabel5);
         jLabel5.setBounds(360, 20, 160, 17);
 
-        jCheckBox1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jCheckBox1.setText("Contrato mensual");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jCheckBox1);
-        jCheckBox1.setBounds(350, 190, 160, 21);
-
         botonVaciar.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         botonVaciar.setText("Vaciar");
         botonVaciar.addActionListener(new java.awt.event.ActionListener() {
@@ -145,33 +138,46 @@ public class movimientosEntradas extends javax.swing.JFrame {
         getContentPane().add(registrarEntrada);
         registrarEntrada.setBounds(350, 220, 90, 23);
 
-        jTextField1.setText("Ingrese hora (HH:MM)");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        horaEntrada.setText("Ingrese hora (HH:MM)");
+        horaEntrada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                horaEntradaActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(190, 80, 140, 30);
+        getContentPane().add(horaEntrada);
+        horaEntrada.setBounds(190, 80, 140, 30);
+
+        labelContrato.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labelContrato.setText("<Contrato>");
+        getContentPane().add(labelContrato);
+        labelContrato.setBounds(350, 190, 80, 17);
 
         setBounds(0, 0, 541, 312);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botonVaciarActionPerformed
 
     private void registrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaActionPerformed
-        // TODO add your handling code here:
+        Vehiculo vehiculoSeleccionado = (Vehiculo) listaVehiculosEstacionados.getSelectedValue();
+        Empleado empleadoSeleccionado = (Empleado) listaEmpleados.getSelectedValue();
+        Date fechaEntrada = model.getValue();
+        String horaDeEntrada = horaEntrada.getText();
+        if (listaVehiculosEstacionados.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || horaEntrada.getText() == " "){
+            // algo
+        }
+        else {
+            sistema.registrarEntrada(vehiculoSeleccionado, empleadoSeleccionado, fechaEntrada, horaEntrada //Terminar
+        }
+                
+        
+        
     }//GEN-LAST:event_registrarEntradaActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void horaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaEntradaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_horaEntradaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -210,7 +216,7 @@ public class movimientosEntradas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonVaciar;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JTextField horaEntrada;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -220,7 +226,7 @@ public class movimientosEntradas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel labelContrato;
     private javax.swing.JList listaEmpleados;
     private javax.swing.JList listaVehiculosEstacionados;
     private javax.swing.JTextArea notaEntradas;

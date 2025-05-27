@@ -9,6 +9,8 @@ public class Vehiculo {
 	private String modelo;
 
 	private String estado;
+        
+        private boolean contrato;
 
 	private boolean estacionado;
 
