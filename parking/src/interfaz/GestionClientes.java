@@ -1,10 +1,21 @@
 package interfaz;
+import dominio.*;
+
 public class GestionClientes extends javax.swing.JFrame {
 
+    private Sistema sistema;
+    
     public GestionClientes() {
         initComponents();
     }
 
+    public GestionClientes(Sistema unSistema){
+        this.sistema = unSistema;
+        initComponents();
+
+    }
+    
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -30,7 +41,7 @@ public class GestionClientes extends javax.swing.JFrame {
         registrarCliente3 = new javax.swing.JButton();
         botonVaciar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         ingresoCliente.setText("Ingrese fecha de ingreso");
@@ -171,7 +182,7 @@ public class GestionClientes extends javax.swing.JFrame {
         getContentPane().add(botonVaciar);
         botonVaciar.setBounds(20, 240, 90, 23);
 
-        pack();
+        setBounds(0, 0, 412, 318);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreClienteActionPerformed
