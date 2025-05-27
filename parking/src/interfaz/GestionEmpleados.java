@@ -24,7 +24,7 @@ public class GestionEmpleados extends javax.swing.JFrame {
         ciEmpleado = new javax.swing.JTextField();
         direccionEmpleado = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        registrarEmpleado = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaEmpleados = new javax.swing.JList();
         jSeparator1 = new javax.swing.JSeparator();
@@ -70,15 +70,15 @@ public class GestionEmpleados extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(220, 190, 150, 17);
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        jButton1.setText("Registrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        registrarEmpleado.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        registrarEmpleado.setText("Registrar");
+        registrarEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                registrarEmpleadoActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1);
-        jButton1.setBounds(20, 210, 90, 23);
+        getContentPane().add(registrarEmpleado);
+        registrarEmpleado.setBounds(20, 210, 90, 23);
 
         jScrollPane1.setToolTipText("");
 
@@ -143,9 +143,18 @@ public class GestionEmpleados extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ciEmpleadoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void registrarEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEmpleadoActionPerformed
+        String nombreDelEmpleado = nombreEmpleado.getText();
+        String cedulaDelEmpleado = ciEmpleado.getText();
+        String direccionDelEmpleado = direccionEmpleado.getText();
+        int numDelEmpleado = Integer.parseInt(numEmpleado.getText());
+        if (" ".equals(nombreEmpleado.getText()) || " ".equals(ciEmpleado.getText()) || " ".equals(direccionEmpleado.getText()) || " ".equals(numEmpleado.getText())){
+            // Alerta faltan campos por llenar
+        }
+        else{
+            sistema.registrarEmpleado(nombreDelEmpleado, cedulaDelEmpleado, direccionDelEmpleado, numDelEmpleado);
+        }
+    }//GEN-LAST:event_registrarEmpleadoActionPerformed
 
     private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
         // TODO add your handling code here:
@@ -192,7 +201,6 @@ public class GestionEmpleados extends javax.swing.JFrame {
     private javax.swing.JLabel ciEmpleadoSeleccionado;
     private javax.swing.JTextField direccionEmpleado;
     private javax.swing.JLabel direccionEmpleadoSeleccionado;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -203,5 +211,6 @@ public class GestionEmpleados extends javax.swing.JFrame {
     private javax.swing.JLabel nombreEmpleadoSeleccionado;
     private javax.swing.JTextField numEmpleado;
     private javax.swing.JLabel numEmpleadoSeleccionado;
+    private javax.swing.JButton registrarEmpleado;
     // End of variables declaration//GEN-END:variables
 }

@@ -4,13 +4,39 @@ public class Persona {
 
 	private String nombre;
 
-	private int cedula;
+	private String cedula;
 
-	private String[][] direccion;
+	private String direccion;
 
-	private int celular;
+    public Persona(String nombre, String cedula, String direccion) {
+        this.nombre = nombre;
+        this.cedula = cedula;
+        this.direccion = direccion;
+    }
 
-	private String rol;
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+    
 
 }

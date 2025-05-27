@@ -1,9 +1,11 @@
 package dominio;
 
-public class Cliente {
+public class Cliente{
 
 	private Persona persona;
-
+        
+        private int celular;
+        
 	private int añoIngreso;
 
 
