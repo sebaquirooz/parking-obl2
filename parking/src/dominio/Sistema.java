@@ -96,6 +96,7 @@ public class Sistema {
         }
     }
     
+
     public boolean verificarCliente (String cedula){
         for (int i = 0; i < this.listaClientes.size(); i++){
             if (this.listaClientes.get(i).getCedula().equals(cedula)){
@@ -110,5 +111,9 @@ public class Sistema {
             Cliente clienteNuevo = new Cliente (nombre, cedula, direccion, celular, añoIngreso);
             this.listaClientes.add(clienteNuevo);
         }
+    }
+
+    public Empleado[] obtenerListaEmpleados(){
+        return this.getListaEmpleados().toArray(new Empleado[this.getListaEmpleados().size()]);
     }
 }

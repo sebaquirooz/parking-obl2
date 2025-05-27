@@ -20,6 +20,7 @@ public class GestionEmpleados extends javax.swing.JFrame {
         ciEmpleado.setText("Ingrese cédula");
         direccionEmpleado.setText("Ingrese dirección");
         numEmpleado.setText("Ingrese número de empleado");
+        listaEmpleados.setListData(sistema.obtenerListaEmpleados());
     }
     
     
@@ -34,7 +35,7 @@ public class GestionEmpleados extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         registrarEmpleado = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaEmpleados = new javax.swing.JList();
+        listaEmpleados = new javax.swing.JList<>();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         numEmpleadoSeleccionado = new javax.swing.JLabel();
@@ -42,7 +43,6 @@ public class GestionEmpleados extends javax.swing.JFrame {
         ciEmpleadoSeleccionado = new javax.swing.JLabel();
         direccionEmpleadoSeleccionado = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        botonVaciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -86,10 +86,15 @@ public class GestionEmpleados extends javax.swing.JFrame {
             }
         });
         getContentPane().add(registrarEmpleado);
-        registrarEmpleado.setBounds(20, 210, 90, 23);
+        registrarEmpleado.setBounds(50, 210, 90, 23);
 
         jScrollPane1.setToolTipText("");
 
+        listaEmpleados.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaEmpleadosValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaEmpleados);
 
         getContentPane().add(jScrollPane1);
@@ -106,36 +111,26 @@ public class GestionEmpleados extends javax.swing.JFrame {
 
         numEmpleadoSeleccionado.setText("<Num Emplado>");
         getContentPane().add(numEmpleadoSeleccionado);
-        numEmpleadoSeleccionado.setBounds(220, 270, 100, 16);
+        numEmpleadoSeleccionado.setBounds(220, 270, 170, 16);
 
         nombreEmpleadoSeleccionado.setText("<Nombre>");
         getContentPane().add(nombreEmpleadoSeleccionado);
-        nombreEmpleadoSeleccionado.setBounds(220, 210, 70, 16);
+        nombreEmpleadoSeleccionado.setBounds(220, 210, 160, 20);
 
         ciEmpleadoSeleccionado.setText("<CI>");
         getContentPane().add(ciEmpleadoSeleccionado);
-        ciEmpleadoSeleccionado.setBounds(300, 210, 70, 16);
+        ciEmpleadoSeleccionado.setBounds(220, 300, 150, 16);
 
         direccionEmpleadoSeleccionado.setText("<Dirección>");
         getContentPane().add(direccionEmpleadoSeleccionado);
-        direccionEmpleadoSeleccionado.setBounds(220, 240, 70, 16);
+        direccionEmpleadoSeleccionado.setBounds(220, 240, 160, 16);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Lista de empleados:");
         getContentPane().add(jLabel2);
         jLabel2.setBounds(220, 20, 150, 17);
 
-        botonVaciar.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        botonVaciar.setText("Vaciar");
-        botonVaciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonVaciarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(botonVaciar);
-        botonVaciar.setBounds(20, 240, 90, 23);
-
-        setBounds(0, 0, 416, 309);
+        setBounds(0, 0, 420, 353);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nombreEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreEmpleadoActionPerformed
@@ -161,9 +156,14 @@ public class GestionEmpleados extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_registrarEmpleadoActionPerformed
 
-    private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonVaciarActionPerformed
+    private void listaEmpleadosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaEmpleadosValueChanged
+        Empleado empleadoSeleccionado = (Empleado) listaEmpleados.getSelectedValue();
+        nombreEmpleadoSeleccionado.setText(empleadoSeleccionado.getNombre());
+        ciEmpleadoSeleccionado.setText(empleadoSeleccionado.getCedula());
+        direccionEmpleadoSeleccionado.setText(empleadoSeleccionado.getDireccion());
+        numEmpleadoSeleccionado.setText(empleadoSeleccionado.getNumeroEmpleado() + "");
+
+    }//GEN-LAST:event_listaEmpleadosValueChanged
 
     /**
      * @param args the command line arguments
@@ -201,7 +201,6 @@ public class GestionEmpleados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonVaciar;
     private javax.swing.JTextField ciEmpleado;
     private javax.swing.JLabel ciEmpleadoSeleccionado;
     private javax.swing.JTextField direccionEmpleado;
@@ -211,7 +210,7 @@ public class GestionEmpleados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JList listaEmpleados;
+    private javax.swing.JList<Empleado> listaEmpleados;
     private javax.swing.JTextField nombreEmpleado;
     private javax.swing.JLabel nombreEmpleadoSeleccionado;
     private javax.swing.JTextField numEmpleado;
