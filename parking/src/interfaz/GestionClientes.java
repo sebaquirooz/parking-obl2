@@ -42,6 +42,10 @@ public class GestionClientes extends javax.swing.JFrame {
         direccionClienteSeleccionado = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         registrarCliente = new javax.swing.JButton();
+        registrarCliente1 = new javax.swing.JButton();
+        registrarCliente2 = new javax.swing.JButton();
+        registrarCliente3 = new javax.swing.JButton();
+        botonVaciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -144,6 +148,46 @@ public class GestionClientes extends javax.swing.JFrame {
         getContentPane().add(registrarCliente);
         registrarCliente.setBounds(20, 210, 90, 23);
 
+        registrarCliente1.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        registrarCliente1.setText("Registrar");
+        registrarCliente1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarCliente1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(registrarCliente1);
+        registrarCliente1.setBounds(20, 210, 90, 23);
+
+        registrarCliente2.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        registrarCliente2.setText("Registrar");
+        registrarCliente2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarCliente2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(registrarCliente2);
+        registrarCliente2.setBounds(20, 210, 90, 23);
+
+        registrarCliente3.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        registrarCliente3.setText("Registrar");
+        registrarCliente3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registrarCliente3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(registrarCliente3);
+        registrarCliente3.setBounds(20, 210, 90, 23);
+
+        botonVaciar.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        botonVaciar.setText("Vaciar");
+        botonVaciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVaciarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonVaciar);
+        botonVaciar.setBounds(20, 240, 90, 23);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -166,6 +210,22 @@ public class GestionClientes extends javax.swing.JFrame {
     private void registrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_registrarClienteActionPerformed
+
+    private void registrarCliente1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarCliente1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrarCliente1ActionPerformed
+
+    private void registrarCliente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarCliente2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrarCliente2ActionPerformed
+
+    private void registrarCliente3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarCliente3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_registrarCliente3ActionPerformed
+
+    private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonVaciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,6 +264,7 @@ public class GestionClientes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel añoIngresoCliente;
+    private javax.swing.JButton botonVaciar;
     private javax.swing.JTextField ciCliente;
     private javax.swing.JLabel ciClienteSeleccionado;
     private javax.swing.JTextField direccionCliente;
@@ -219,5 +280,8 @@ public class GestionClientes extends javax.swing.JFrame {
     private javax.swing.JTextField nombreCliente;
     private javax.swing.JLabel nombreClienteSeleccionado;
     private javax.swing.JButton registrarCliente;
+    private javax.swing.JButton registrarCliente1;
+    private javax.swing.JButton registrarCliente2;
+    private javax.swing.JButton registrarCliente3;
     // End of variables declaration//GEN-END:variables
 }
