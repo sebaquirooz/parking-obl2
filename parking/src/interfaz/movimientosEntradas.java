@@ -22,7 +22,12 @@ public class movimientosEntradas extends javax.swing.JFrame {
         cargarCompFecha();
 
     }
-    
+    public void resetCampos(){
+        notaEntrada.setText(" ");
+        horaEntrada.setText("Ingrese hora (HH:MM)");
+        listaVehiculosEstacionados.setListData(sistema.obtenerListaVehiculosNoEstacionados);
+        listaEmpleados.setListData(sistema.obtenerListaEmpleados());
+    }
     
      //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
@@ -170,6 +175,7 @@ public class movimientosEntradas extends javax.swing.JFrame {
         }
         else {
             sistema.registrarEntrada(vehiculoSeleccionado, empleadoSeleccionado, fechaEntrada, horaDeEntrada, notaDeEntrada);
+            resetCampos();
         }
                 
         

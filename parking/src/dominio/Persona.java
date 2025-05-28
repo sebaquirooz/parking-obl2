@@ -38,5 +38,9 @@ public class Persona {
         this.direccion = direccion;
     }
     
+        @Override
+    public String toString(){
+        return this.nombre;
+    }
 
 }

@@ -9,4 +9,16 @@ public class Empleado extends Persona{
         this.numeroEmpleado = numeroEmpleado;
     }
 
+    public int getNumeroEmpleado() {
+        return numeroEmpleado;
+    }
+
+    public void setNumeroEmpleado(int numeroEmpleado) {
+        this.numeroEmpleado = numeroEmpleado;
+    }
+    
+        @Override
+    public String toString() {
+        return this.getNombre() + " " + this.numeroEmpleado;
+    }
 }
