@@ -10,4 +10,31 @@ public class Historial {
 
 	private ArrayList<Servicio> listaServicios;
 
+    public Historial() {
+    }
+
+    public ArrayList<Entrada> getListaEntradas() {
+        return listaEntradas;
+    }
+
+    public void setListaEntradas(ArrayList<Entrada> listaEntradas) {
+        this.listaEntradas = listaEntradas;
+    }
+
+    public ArrayList<Salida> getListaSalidas() {
+        return listaSalidas;
+    }
+
+    public void setListaSalidas(ArrayList<Salida> listaSalidas) {
+        this.listaSalidas = listaSalidas;
+    }
+
+    public ArrayList<Servicio> getListaServicios() {
+        return listaServicios;
+    }
+
+    public void setListaServicios(ArrayList<Servicio> listaServicios) {
+        this.listaServicios = listaServicios;
+    }
+
 }

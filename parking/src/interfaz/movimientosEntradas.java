@@ -44,7 +44,7 @@ public class movimientosEntradas extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        notaEntradas = new javax.swing.JTextArea();
+        notaEntrada = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -81,9 +81,9 @@ public class movimientosEntradas extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(190, 20, 100, 17);
 
-        notaEntradas.setColumns(20);
-        notaEntradas.setRows(5);
-        jScrollPane2.setViewportView(notaEntradas);
+        notaEntrada.setColumns(20);
+        notaEntrada.setRows(5);
+        jScrollPane2.setViewportView(notaEntrada);
 
         getContentPane().add(jScrollPane2);
         jScrollPane2.setBounds(20, 190, 250, 90);
@@ -164,11 +164,12 @@ public class movimientosEntradas extends javax.swing.JFrame {
         Empleado empleadoSeleccionado = (Empleado) listaEmpleados.getSelectedValue();
         Date fechaEntrada = model.getValue();
         String horaDeEntrada = horaEntrada.getText();
-        if (listaVehiculosEstacionados.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || horaEntrada.getText() == " "){
+        String notaDeEntrada = notaEntrada.getText();
+        if (listaVehiculosEstacionados.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || " ".equals(horaEntrada.getText()) || " ".equals(notaEntrada.getText()) ){
             // algo
         }
         else {
-            sistema.registrarEntrada(vehiculoSeleccionado, empleadoSeleccionado, fechaEntrada, horaEntrada //Terminar
+            sistema.registrarEntrada(vehiculoSeleccionado, empleadoSeleccionado, fechaEntrada, horaDeEntrada, notaDeEntrada);
         }
                 
         
@@ -229,7 +230,7 @@ public class movimientosEntradas extends javax.swing.JFrame {
     private javax.swing.JLabel labelContrato;
     private javax.swing.JList listaEmpleados;
     private javax.swing.JList listaVehiculosEstacionados;
-    private javax.swing.JTextArea notaEntradas;
+    private javax.swing.JTextArea notaEntrada;
     private javax.swing.JButton registrarEntrada;
     // End of variables declaration//GEN-END:variables
 }
