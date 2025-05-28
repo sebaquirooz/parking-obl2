@@ -25,7 +25,7 @@ public class movimientosEntradas extends javax.swing.JFrame {
     public void resetCampos(){
         notaEntrada.setText(" ");
         horaEntrada.setText("Ingrese hora (HH:MM)");
-        listaVehiculosEstacionados.setListData(sistema.obtenerListaVehiculosNoEstacionados);
+        listaVehiculosEstacionados.setListData(sistema.obtenerListaVehiculosNoEstacionado());
         listaEmpleados.setListData(sistema.obtenerListaEmpleados());
     }
     

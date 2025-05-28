@@ -123,7 +123,7 @@ public class Sistema {
         return this.getListaEmpleados().toArray(new Empleado[this.getListaEmpleados().size()]);
     }
     
-    public Vehiculo[] obtenerListaVehiculosNoEstacionados() {
+    public Vehiculo[] obtenerListaVehiculosNoEstacionado() {
         ArrayList<Vehiculo> noEstacionados = new ArrayList<>();
         for (Vehiculo v: this.getListaVehiculos()){
             if (!v.isEstacionado()){
