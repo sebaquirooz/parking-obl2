@@ -1,6 +1,5 @@
 package dominio;
-
-import java.util.ArrayList;
+import java.util.*;
 
 public class Sistema {
 
@@ -91,7 +90,8 @@ public class Sistema {
     
     public void registrarVehiculo (String matricula, String marca, String modelo, String nota){
         if (this.verificarVehiculo(matricula)){
-            Vehiculo vehiculoNuevo = new Vehiculo (matricula, marca, modelo, nota);
+            Historial historialNuevo = new Historial();
+            Vehiculo vehiculoNuevo = new Vehiculo (matricula, marca, modelo, nota, historialNuevo);
             this.listaVehiculos.add(vehiculoNuevo);
         }
     }
@@ -112,8 +112,24 @@ public class Sistema {
             this.listaClientes.add(clienteNuevo);
         }
     }
-
+    
+    public void registrarEntrada (Vehiculo vehiculo, Empleado empleado, Date fecha, String hora, String nota){
+        vehiculo.setEstacionado(true);
+        Entrada entradaNueva = new Entrada (vehiculo, empleado, fecha, hora, nota);
+        vehiculo.getHistorial().getListaEntradas().add(entradaNueva);
+    }
+    
     public Empleado[] obtenerListaEmpleados(){
         return this.getListaEmpleados().toArray(new Empleado[this.getListaEmpleados().size()]);
+    }
+    
+    public Vehiculo[] obtenerListaVehiculosNoEstacionado() {
+        ArrayList<Vehiculo> noEstacionados = new ArrayList<>();
+        for (Vehiculo v: this.getListaVehiculos()){
+            if (!v.isEstacionado()){
+                noEstacionados.add(v);
+            }
+        }
+        return noEstacionados.toArray(new Vehiculo[this.getListaVehiculos().size()]);
     }
 }

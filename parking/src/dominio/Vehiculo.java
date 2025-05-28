@@ -10,18 +10,20 @@ public class Vehiculo {
 
 	private String estado;
         
-        private boolean contrato;
+        private Contrato contrato;
 
 	private boolean estacionado;
 
 	private Historial historial;
 
-    public Vehiculo(String matricula, String marca, String modelo, String estado) {
+    public Vehiculo(String matricula, String marca, String modelo, String estado, Historial historial) {
         this.matricula = matricula;
         this.marca = marca;
         this.modelo = modelo;
         this.estado = estado;
+        this.contrato = null;
         this.estacionado = false;
+        this.historial = historial;
     }
 
     public String getMatricula() {
