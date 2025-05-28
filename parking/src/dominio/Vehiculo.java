@@ -74,6 +74,8 @@ public class Vehiculo {
         this.historial = historial;
     }
     
-    
+    public String toString(){
+        return this.marca + " " + this.matricula;
+    }
 
 }

@@ -1,7 +1,7 @@
 package dominio;
 import java.util.*;
 
-public class Sistema {
+public class Sistema extends Observable{
 
 	private ArrayList<Cliente> listaClientes;
 
@@ -93,6 +93,8 @@ public class Sistema {
             Historial historialNuevo = new Historial();
             Vehiculo vehiculoNuevo = new Vehiculo (matricula, marca, modelo, nota, historialNuevo);
             this.listaVehiculos.add(vehiculoNuevo);
+            setChanged();
+            notifyObservers();
         }
     }
     
@@ -118,6 +120,12 @@ public class Sistema {
         Entrada entradaNueva = new Entrada (vehiculo, empleado, fecha, hora, nota);
         vehiculo.getHistorial().getListaEntradas().add(entradaNueva);
     }
+    
+    public Vehiculo[] obtenerListaVehiculos(){
+       
+        return this.getListaVehiculos().toArray(new Vehiculo[this.getListaVehiculos().size()]);
+    }
+    
     
     public Empleado[] obtenerListaEmpleados(){
         return this.getListaEmpleados().toArray(new Empleado[this.getListaEmpleados().size()]);

@@ -56,7 +56,7 @@ public class GestionClientes extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         eliminarCliente = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaCliente = new javax.swing.JList();
+        listaCliente = new javax.swing.JList<>();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         añoIngresoCliente = new javax.swing.JLabel();
@@ -117,11 +117,6 @@ public class GestionClientes extends javax.swing.JFrame {
 
         jScrollPane1.setToolTipText("");
 
-        listaCliente.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listaCliente);
 
         getContentPane().add(jScrollPane1);
@@ -250,7 +245,7 @@ public class GestionClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JList listaCliente;
+    private javax.swing.JList<CLiente> listaCliente;
     private javax.swing.JTextField nombreCliente;
     private javax.swing.JLabel nombreClienteSeleccionado;
     private javax.swing.JButton registrarCliente;

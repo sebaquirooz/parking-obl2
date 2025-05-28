@@ -1,6 +1,8 @@
 package interfaz;
 import dominio.*;
-public class GestionVehiculos extends javax.swing.JFrame {
+import java.util.*;
+
+public class GestionVehiculos extends javax.swing.JFrame implements Observer {
     
     private Sistema sistema;
     
@@ -10,8 +12,11 @@ public class GestionVehiculos extends javax.swing.JFrame {
 
     public GestionVehiculos(Sistema unSistema){
         this.sistema = unSistema;
+        sistema.addObserver(this);
         initComponents();
+        update(null,null);
     }
+    
     
     
     @SuppressWarnings("unchecked")
@@ -82,10 +87,15 @@ public class GestionVehiculos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(botonVaciar);
-        botonVaciar.setBounds(20, 240, 90, 23);
+        botonVaciar.setBounds(50, 240, 90, 23);
 
         jScrollPane1.setToolTipText("");
 
+        listaVehiculo.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaVehiculoValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaVehiculo);
 
         getContentPane().add(jScrollPane1);
@@ -93,7 +103,7 @@ public class GestionVehiculos extends javax.swing.JFrame {
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         getContentPane().add(jSeparator1);
-        jSeparator1.setBounds(200, 20, 10, 260);
+        jSeparator1.setBounds(200, 20, 10, 310);
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel1.setText("Registrar Vehiculo:");
@@ -102,19 +112,19 @@ public class GestionVehiculos extends javax.swing.JFrame {
 
         notaVehiculoSeleccionado.setText("<Estado>");
         getContentPane().add(notaVehiculoSeleccionado);
-        notaVehiculoSeleccionado.setBounds(220, 270, 100, 16);
+        notaVehiculoSeleccionado.setBounds(220, 270, 150, 16);
 
         matriculaVehiculoSeleccionado.setText("<Matricula>");
         getContentPane().add(matriculaVehiculoSeleccionado);
-        matriculaVehiculoSeleccionado.setBounds(220, 210, 70, 16);
+        matriculaVehiculoSeleccionado.setBounds(220, 210, 140, 16);
 
         marcaVehiculoSeleccionado.setText("<Marca>");
         getContentPane().add(marcaVehiculoSeleccionado);
-        marcaVehiculoSeleccionado.setBounds(300, 210, 70, 16);
+        marcaVehiculoSeleccionado.setBounds(220, 300, 160, 16);
 
         modeloVehiculoSeleccionado.setText("<Modelo>");
         getContentPane().add(modeloVehiculoSeleccionado);
-        modeloVehiculoSeleccionado.setBounds(220, 240, 70, 16);
+        modeloVehiculoSeleccionado.setBounds(220, 240, 150, 16);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Lista de vehiculos:");
@@ -129,9 +139,9 @@ public class GestionVehiculos extends javax.swing.JFrame {
             }
         });
         getContentPane().add(registrarVehiculo);
-        registrarVehiculo.setBounds(20, 210, 90, 23);
+        registrarVehiculo.setBounds(50, 210, 90, 23);
 
-        setBounds(0, 0, 416, 309);
+        setBounds(0, 0, 416, 358);
     }// </editor-fold>//GEN-END:initComponents
 
     private void matriculaVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matriculaVehiculoActionPerformed
@@ -161,7 +171,21 @@ public class GestionVehiculos extends javax.swing.JFrame {
         else{
             sistema.registrarVehiculo(matriculaDelVehiculo, marcaDelVehiculo, modeloDelVehiculo, estadoDelVehiculo);
         }
+        update(null,null);
     }//GEN-LAST:event_registrarVehiculoActionPerformed
+
+    private void listaVehiculoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaVehiculoValueChanged
+        Vehiculo vehiculoSelecc = (Vehiculo) listaVehiculo.getSelectedValue();
+        String matriculaVehiculo = vehiculoSelecc.getMatricula();
+        String marcaVehiculo = vehiculoSelecc.getMarca();
+        String modeloVehiculo = vehiculoSelecc.getModelo();
+        String estadoVehiculo = vehiculoSelecc.getEstado();
+        
+        matriculaVehiculoSeleccionado.setText(matriculaVehiculo);
+        marcaVehiculoSeleccionado.setText(marcaVehiculo);
+        modeloVehiculoSeleccionado.setText(modeloVehiculo);
+        notaVehiculoSeleccionado.setText(estadoVehiculo);
+    }//GEN-LAST:event_listaVehiculoValueChanged
 
     /**
      * @param args the command line arguments
@@ -216,4 +240,10 @@ public class GestionVehiculos extends javax.swing.JFrame {
     private javax.swing.JLabel notaVehiculoSeleccionado;
     private javax.swing.JButton registrarVehiculo;
     // End of variables declaration//GEN-END:variables
+
+    
+    @Override
+    public void update(Observable o, Object arg) {
+        listaVehiculo.setListData(sistema.obtenerListaVehiculos());
+    }
 }

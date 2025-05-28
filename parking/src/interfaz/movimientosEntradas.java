@@ -6,7 +6,7 @@ import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 
-public class movimientosEntradas extends javax.swing.JFrame {
+public class movimientosEntradas extends javax.swing.JFrame implements Observer{
 
     private Sistema sistema;
     
@@ -19,14 +19,9 @@ public class movimientosEntradas extends javax.swing.JFrame {
     public movimientosEntradas(Sistema unSistema){
         this.sistema = unSistema;
         initComponents();
-        cargarCompFecha();
-
-    }
-    public void resetCampos(){
-        notaEntrada.setText(" ");
-        horaEntrada.setText("Ingrese hora (HH:MM)");
-        listaVehiculosEstacionados.setListData(sistema.obtenerListaVehiculosNoEstacionado());
-        listaEmpleados.setListData(sistema.obtenerListaEmpleados());
+        this.cargarCompFecha();
+        this.sistema.addObserver(this);
+        update(null,null);
     }
     
      //Componente de libreria jdatepicker, hecho a mano
@@ -45,7 +40,7 @@ public class movimientosEntradas extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaVehiculosEstacionados = new javax.swing.JList();
+        listaVehiculosEstacionados = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -66,11 +61,6 @@ public class movimientosEntradas extends javax.swing.JFrame {
 
         jScrollPane1.setToolTipText("");
 
-        listaVehiculosEstacionados.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listaVehiculosEstacionados);
 
         getContentPane().add(jScrollPane1);
@@ -175,7 +165,7 @@ public class movimientosEntradas extends javax.swing.JFrame {
         }
         else {
             sistema.registrarEntrada(vehiculoSeleccionado, empleadoSeleccionado, fechaEntrada, horaDeEntrada, notaDeEntrada);
-            resetCampos();
+            update(null,null);
         }
                 
         
@@ -235,8 +225,16 @@ public class movimientosEntradas extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel labelContrato;
     private javax.swing.JList listaEmpleados;
-    private javax.swing.JList listaVehiculosEstacionados;
+    private javax.swing.JList<Vehiculo> listaVehiculosEstacionados;
     private javax.swing.JTextArea notaEntrada;
     private javax.swing.JButton registrarEntrada;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Observable o, Object arg) {
+         notaEntrada.setText(" ");
+        horaEntrada.setText("Ingrese hora (HH:MM)");
+        listaVehiculosEstacionados.setListData(sistema.obtenerListaVehiculosNoEstacionado());
+        listaEmpleados.setListData(sistema.obtenerListaEmpleados());
+    }
 }
