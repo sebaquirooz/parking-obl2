@@ -22,6 +22,15 @@ public class Salida extends Movimiento {
         this.tiempoTotal = tiempoTotal;
     }
     
+    public String calcularTiempoTotal(){
+        int horas = this.tiempoTotal/60;
+        int minutos = this.tiempoTotal% 60;
+        String retorno = horas +"h";
+        if (minutos > 0){
+            retorno+= " - " +minutos +" min";
+        }
+        return retorno;
+    }
     
 
 }
