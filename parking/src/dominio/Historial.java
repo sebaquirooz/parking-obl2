@@ -11,6 +11,9 @@ public class Historial {
 	private ArrayList<Servicio> listaServicios;
 
     public Historial() {
+        this.listaEntradas = new ArrayList<>();
+        this.listaSalidas = new ArrayList<>();
+        this.listaServicios =  new ArrayList<>();
     }
 
     public ArrayList<Entrada> getListaEntradas() {

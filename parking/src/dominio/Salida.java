@@ -2,13 +2,26 @@ package dominio;
 
 import java.util.Date;
 
-public class Salida {
+public class Salida extends Movimiento {
 
-	private Vehiculo vehiculo;
+    private int tiempoTotal;
+    
+    private Entrada entrada;
 
-	private Date dateSalida;
+    public Salida(Vehiculo vehiculo, Empleado empleado, Date fecha, String hora, String nota, int tiempoTotal, Entrada entrada) {
+        super(vehiculo, empleado, fecha, hora, nota);
+        this.tiempoTotal = tiempoTotal;
+        this.entrada = entrada;
+    }
 
-	private String estadoVehiculo;
+    public int getTiempoTotal() {
+        return tiempoTotal;
+    }
 
-	private int tiempoTotal;
+    public void setTiempoTotal(int tiempoTotal) {
+        this.tiempoTotal = tiempoTotal;
+    }
+    
+    
+
 }
