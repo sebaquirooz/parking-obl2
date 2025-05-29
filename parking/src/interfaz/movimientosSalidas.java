@@ -3,8 +3,9 @@ import dominio.*;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+import java.util.*;
 
-public class movimientosSalidas extends javax.swing.JFrame {
+public class movimientosSalidas extends javax.swing.JFrame implements Observer{
 
     private Sistema sistema;
 
@@ -16,6 +17,8 @@ public class movimientosSalidas extends javax.swing.JFrame {
         this.sistema = unSistema;
         initComponents();
         cargarCompFecha();
+        sistema.addObserver(this);
+        update(null,null);
     }
     
       //Componente de libreria jdatepicker, hecho a mano
@@ -27,6 +30,10 @@ public class movimientosSalidas extends javax.swing.JFrame {
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
         getContentPane().add(datePicker);      
         datePicker.setBounds(190, 50, 140, 22);
+    }
+    
+    public void update(Observable o, Object arg){
+        this.listaEmpleados.setListData(sistema.obtenerListaEmpleados());
     }
     
     

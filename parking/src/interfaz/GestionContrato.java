@@ -162,10 +162,10 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
         String clienteContrato = contratoSelecc.getCliente().toString();
         String empleadoContrato = contratoSelecc.getEmpleado().toString();
         
-        this.labelCliente.setText(clienteContrato + "(Cliente)");
-        this.labelEmpleado.setText(empleadoContrato + "(Empleado)");
-        this.labelValor.setText(valorContrato+ "(Valor)");
-        this.labelVehiculo.setText(vehiculoContrato + "(Vehículo)");
+        this.labelCliente.setText(clienteContrato + " (Cliente)");
+        this.labelEmpleado.setText(empleadoContrato + " (Empleado)");
+        this.labelValor.setText(valorContrato+ " (Valor)");
+        this.labelVehiculo.setText(vehiculoContrato + " (Vehículo)");
         
         
         //Falta poner el nro de contrato, pero hay que tener cuidado porque s epueden borrar los contratos.
