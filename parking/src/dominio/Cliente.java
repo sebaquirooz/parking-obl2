@@ -13,4 +13,20 @@ public class Cliente extends Persona{
         this.añoIngreso = añoIngreso;
     }   
 
+    public void setCelular(int celular) {
+        this.celular = celular;
+    }
+
+    public void setAñoIngreso(int añoIngreso) {
+        this.añoIngreso = añoIngreso;
+    }
+
+    public int getCelular() {
+        return celular;
+    }
+
+    public int getAñoIngreso() {
+        return añoIngreso;
+    }
+
 }

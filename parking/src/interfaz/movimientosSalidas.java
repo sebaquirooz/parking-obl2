@@ -46,7 +46,7 @@ public class movimientosSalidas extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listaEmpleados = new javax.swing.JList();
+        listaEmpleados = new javax.swing.JList<>();
         jLabel5 = new javax.swing.JLabel();
         botonVaciar = new javax.swing.JButton();
         registrarEntrada = new javax.swing.JButton();
@@ -61,11 +61,6 @@ public class movimientosSalidas extends javax.swing.JFrame {
 
         jScrollPane1.setToolTipText("");
 
-        listaVehiculosEstacionados.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listaVehiculosEstacionados);
 
         getContentPane().add(jScrollPane1);
@@ -103,11 +98,6 @@ public class movimientosSalidas extends javax.swing.JFrame {
 
         jScrollPane3.setToolTipText("");
 
-        listaEmpleados.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(listaEmpleados);
 
         getContentPane().add(jScrollPane3);
@@ -223,7 +213,7 @@ public class movimientosSalidas extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTree jTree1;
-    private javax.swing.JList listaEmpleados;
+    private javax.swing.JList<Empleado> listaEmpleados;
     private javax.swing.JList listaVehiculosEstacionados;
     private javax.swing.JTextArea notaEntradas;
     private javax.swing.JButton registrarEntrada;

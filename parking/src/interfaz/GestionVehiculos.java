@@ -12,11 +12,22 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
 
     public GestionVehiculos(Sistema unSistema){
         this.sistema = unSistema;
-        sistema.addObserver(this);
         initComponents();
+        sistema.addObserver(this);
         update(null,null);
     }
     
+       
+    @Override
+    public void update(Observable o, Object arg) {
+        this.matriculaVehiculo.setText("Ingrese matricula");
+        this.marcaVehiculo.setText("Ingrese marca");
+        this.modeloVehiculo.setText("Ingrese modelo");
+        this.estadoVehiculo.setText("Ingrese estado");
+        listaVehiculo.setListData(sistema.obtenerListaVehiculos());
+    }
+
+
     
     
     @SuppressWarnings("unchecked")
@@ -28,7 +39,6 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
         marcaVehiculo = new javax.swing.JTextField();
         modeloVehiculo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        botonVaciar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaVehiculo = new javax.swing.JList();
         jSeparator1 = new javax.swing.JSeparator();
@@ -78,16 +88,6 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
         jLabel3.setText("Vehiculo:");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(220, 190, 150, 17);
-
-        botonVaciar.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        botonVaciar.setText("Vaciar");
-        botonVaciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonVaciarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(botonVaciar);
-        botonVaciar.setBounds(50, 240, 90, 23);
 
         jScrollPane1.setToolTipText("");
 
@@ -152,10 +152,6 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
         // TODO add your handling code here:
     }//GEN-LAST:event_marcaVehiculoActionPerformed
 
-    private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonVaciarActionPerformed
-
     private void estadoVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoVehiculoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_estadoVehiculoActionPerformed
@@ -171,7 +167,6 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
         else{
             sistema.registrarVehiculo(matriculaDelVehiculo, marcaDelVehiculo, modeloDelVehiculo, estadoDelVehiculo);
         }
-        update(null,null);
     }//GEN-LAST:event_registrarVehiculoActionPerformed
 
     private void listaVehiculoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaVehiculoValueChanged
@@ -223,7 +218,6 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonVaciar;
     private javax.swing.JTextField estadoVehiculo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -240,10 +234,4 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
     private javax.swing.JLabel notaVehiculoSeleccionado;
     private javax.swing.JButton registrarVehiculo;
     // End of variables declaration//GEN-END:variables
-
-    
-    @Override
-    public void update(Observable o, Object arg) {
-        listaVehiculo.setListData(sistema.obtenerListaVehiculos());
-    }
 }

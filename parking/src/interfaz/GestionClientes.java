@@ -4,8 +4,9 @@ import java.time.LocalDate;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
+import java.util.*;
 
-public class GestionClientes extends javax.swing.JFrame {
+public class GestionClientes extends javax.swing.JFrame implements Observer{
 
     private Sistema sistema;
     
@@ -19,14 +20,17 @@ public class GestionClientes extends javax.swing.JFrame {
         this.sistema = unSistema;
         initComponents();
         cargarCompFecha();
-        resetCampos();
+        sistema.addObserver(this);
+        update(null,null);
     }
     
-    public void resetCampos(){
+    @Override
+    public void update(Observable o, Object arg) {
         nombreCliente.setText("Ingrese nombre");
         ciCliente.setText("Ingrese cédula");
         direccionCliente.setText("Ingrese dirección");
-        celularCliente.setText("Ingrese número de empleado");
+        celularCliente.setText("Ingrese número celular");
+        listaCliente.setListData(sistema.obtenerListaClientes());
     }
     
     //Componente de libreria jdatepicker, hecho a mano
@@ -39,12 +43,6 @@ public class GestionClientes extends javax.swing.JFrame {
         getContentPane().add(datePicker);      
         datePicker.setBounds(20, 200, 170, 22);
     }
-    
-    
-    
-    
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -76,7 +74,7 @@ public class GestionClientes extends javax.swing.JFrame {
             }
         });
         getContentPane().add(celularCliente);
-        celularCliente.setBounds(20, 170, 170, 22);
+        celularCliente.setBounds(20, 170, 170, 20);
 
         nombreCliente.setText("Ingrese nombre");
         nombreCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +115,11 @@ public class GestionClientes extends javax.swing.JFrame {
 
         jScrollPane1.setToolTipText("");
 
+        listaCliente.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaClienteValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaCliente);
 
         getContentPane().add(jScrollPane1);
@@ -174,7 +177,9 @@ public class GestionClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_ciClienteActionPerformed
 
     private void eliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarClienteActionPerformed
-        // TODO add your handling code here:
+        Cliente clienteSelecc = (Cliente) listaCliente.getSelectedValue();
+        sistema.eliminarCliente(clienteSelecc);
+        
     }//GEN-LAST:event_eliminarClienteActionPerformed
 
     private void celularClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_celularClienteActionPerformed
@@ -192,10 +197,21 @@ public class GestionClientes extends javax.swing.JFrame {
         }
         else{
             sistema.registrarCliente(nombreDelCliente, cedulaDelCliente, direccionDelCliente, celularDelCliente, añoDeIngreso);
-            this.resetCampos();
         }
-        
     }//GEN-LAST:event_registrarClienteActionPerformed
+    
+    private void listaClienteValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaClienteValueChanged
+        Cliente clienteSelecc = (Cliente) listaCliente.getSelectedValue();
+        String nombreCliente = clienteSelecc.getNombre();
+        String cedulaCliente = clienteSelecc.getCedula();
+        String direccionCliente = clienteSelecc.getDireccion();
+        int momentoIngreso = clienteSelecc.getAñoIngreso();
+
+        nombreClienteSeleccionado.setText(nombreCliente);
+        ciClienteSeleccionado.setText(cedulaCliente);
+        direccionClienteSeleccionado.setText(direccionCliente);
+        añoIngresoCliente.setText(momentoIngreso + "");
+    }//GEN-LAST:event_listaClienteValueChanged
 
     /**
      * @param args the command line arguments
@@ -245,7 +261,7 @@ public class GestionClientes extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JList<CLiente> listaCliente;
+    private javax.swing.JList<Cliente> listaCliente;
     private javax.swing.JTextField nombreCliente;
     private javax.swing.JLabel nombreClienteSeleccionado;
     private javax.swing.JButton registrarCliente;

@@ -1,7 +1,8 @@
 package interfaz;
 import dominio.*;
+import java.util.*;
 
-public class GestionEmpleados extends javax.swing.JFrame {
+public class GestionEmpleados extends javax.swing.JFrame implements Observer{
 
     private Sistema sistema;
 
@@ -12,18 +13,17 @@ public class GestionEmpleados extends javax.swing.JFrame {
     public GestionEmpleados(Sistema unSistema){
         this.sistema = unSistema;
         initComponents();
-        resetCampos();
+        sistema.addObserver(this);
+        update(null,null);
     }
     
-    public void resetCampos(){
+    public void update(Observable o, Object object0) {
         nombreEmpleado.setText("Ingrese nombre");
         ciEmpleado.setText("Ingrese cédula");
         direccionEmpleado.setText("Ingrese dirección");
         numEmpleado.setText("Ingrese número de empleado");
         listaEmpleados.setListData(sistema.obtenerListaEmpleados());
     }
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -150,9 +150,7 @@ public class GestionEmpleados extends javax.swing.JFrame {
             // Alerta faltan campos por llenar
         }
         else{
-            sistema.registrarEmpleado(nombreDelEmpleado, cedulaDelEmpleado, direccionDelEmpleado, numDelEmpleado);
-            this.resetCampos();
-            
+            sistema.registrarEmpleado(nombreDelEmpleado, cedulaDelEmpleado, direccionDelEmpleado, numDelEmpleado);            
         }
     }//GEN-LAST:event_registrarEmpleadoActionPerformed
 
@@ -217,4 +215,5 @@ public class GestionEmpleados extends javax.swing.JFrame {
     private javax.swing.JLabel numEmpleadoSeleccionado;
     private javax.swing.JButton registrarEmpleado;
     // End of variables declaration//GEN-END:variables
+
 }

@@ -24,6 +24,14 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
         update(null,null);
     }
     
+    @Override
+    public void update(Observable o, Object arg) {
+         notaEntrada.setText(" ");
+        horaEntrada.setText("Ingrese hora (HH:MM)");
+        listaVehiculosEstacionados.setListData(sistema.obtenerListaVehiculosNoEstacionado());
+        listaEmpleados.setListData(sistema.obtenerListaEmpleados());
+    }
+    
      //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
         LocalDate fechaActual = LocalDate.now();
@@ -49,7 +57,7 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
-        listaEmpleados = new javax.swing.JList();
+        listaEmpleados = new javax.swing.JList<>();
         jLabel5 = new javax.swing.JLabel();
         botonVaciar = new javax.swing.JButton();
         registrarEntrada = new javax.swing.JButton();
@@ -98,11 +106,6 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
 
         jScrollPane3.setToolTipText("");
 
-        listaEmpleados.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane3.setViewportView(listaEmpleados);
 
         getContentPane().add(jScrollPane3);
@@ -224,17 +227,10 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel labelContrato;
-    private javax.swing.JList listaEmpleados;
+    private javax.swing.JList<Empleado> listaEmpleados;
     private javax.swing.JList<Vehiculo> listaVehiculosEstacionados;
     private javax.swing.JTextArea notaEntrada;
     private javax.swing.JButton registrarEntrada;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public void update(Observable o, Object arg) {
-         notaEntrada.setText(" ");
-        horaEntrada.setText("Ingrese hora (HH:MM)");
-        listaVehiculosEstacionados.setListData(sistema.obtenerListaVehiculosNoEstacionado());
-        listaEmpleados.setListData(sistema.obtenerListaEmpleados());
-    }
 }

@@ -76,6 +76,8 @@ public class Sistema extends Observable{
         if(verificarEmpleado(cedula)){
             Empleado empleadoNuevo = new Empleado(nombre, cedula, direccion, numeroEmpleado);
             this.listaEmpleados.add(empleadoNuevo);
+            setChanged();
+            notifyObservers();
         }
     }
     
@@ -99,6 +101,14 @@ public class Sistema extends Observable{
     }
     
 
+    public void registrarContrato(Cliente unCliente, Vehiculo unVehiculo, Empleado unEmpleado, int unValor){
+        Contrato contratoNuevo = new Contrato(unCliente,unVehiculo,unEmpleado,unValor);
+        this.listaContratos.add(contratoNuevo);
+        setChanged();
+        notifyObservers(); 
+    }
+    
+    
     public boolean verificarCliente (String cedula){
         for (int i = 0; i < this.listaClientes.size(); i++){
             if (this.listaClientes.get(i).getCedula().equals(cedula)){
@@ -112,6 +122,8 @@ public class Sistema extends Observable{
         if (this.verificarCliente(cedula)){
             Cliente clienteNuevo = new Cliente (nombre, cedula, direccion, celular, añoIngreso);
             this.listaClientes.add(clienteNuevo);
+            setChanged();
+            notifyObservers();
         }
     }
     
@@ -125,6 +137,11 @@ public class Sistema extends Observable{
        
         return this.getListaVehiculos().toArray(new Vehiculo[this.getListaVehiculos().size()]);
     }
+    
+    public Cliente[] obtenerListaClientes(){
+        return this.getListaClientes().toArray(new Cliente[this.getListaClientes().size()]);
+    }
+    
     
     
     public Empleado[] obtenerListaEmpleados(){
@@ -140,4 +157,16 @@ public class Sistema extends Observable{
         }
         return noEstacionados.toArray(new Vehiculo[this.getListaVehiculos().size()]);
     }
-}
+    
+    public void eliminarCliente(Cliente unCliente){
+        this.listaClientes.remove(unCliente);
+        setChanged();
+        notifyObservers();
+        }
+    
+    public Contrato[] obtenerListaContratos(){
+        return this.getListaContratos().toArray(new Contrato[this.getListaContratos().size()]);
+    }
+    
+    }
+
