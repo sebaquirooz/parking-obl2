@@ -16,6 +16,8 @@ public class Sistema extends Observable {
     private ArrayList<Contrato> listaContratos;
 
     private ArrayList<Movimiento> listaMovimientos;
+    
+    private ArrayList<Servicio> listaServicios;
 
     public Sistema() {
         this.listaEmpleados = new ArrayList<>();
@@ -24,6 +26,19 @@ public class Sistema extends Observable {
         this.listaVehiculos = new ArrayList<>();
         this.listaContratos = new ArrayList<>();
         this.listaMovimientos = new ArrayList<>();
+        this.listaServicios = new ArrayList<>();
+    }
+
+    public void setListaVehiculos(ArrayList<Vehiculo> listaVehiculos) {
+        this.listaVehiculos = listaVehiculos;
+    }
+
+    public void setListaServicios(ArrayList<Servicio> listaServicios) {
+        this.listaServicios = listaServicios;
+    }
+
+    public ArrayList<Servicio> getListaServicios() {
+        return listaServicios;
     }
 
     public ArrayList<Cliente> getListaClientes() {
@@ -118,6 +133,13 @@ public class Sistema extends Observable {
         notifyObservers();
     }
 
+    public void registrarServicio(Vehiculo unVehiculo,Empleado unEmpleado, String unServicio,Date unaFecha,String unaHora, int unCosto){
+        Servicio servicioNuevo = new Servicio(unVehiculo,unEmpleado,unServicio,unaFecha,unaHora,unCosto);
+        this.listaServicios.add(servicioNuevo);
+        setChanged();
+        notifyObservers();
+    }
+    
     public boolean verificarCliente(String cedula) {
         for (int i = 0; i < this.listaClientes.size(); i++) {
             if (this.listaClientes.get(i).getCedula().equals(cedula)) {
@@ -145,6 +167,11 @@ public class Sistema extends Observable {
         notifyObservers();
     }
 
+    public Servicio[] obtenerListaServicios(){
+        return this.getListaServicios().toArray(new Servicio[this.getListaServicios().size()]);
+    }
+    
+    
     public Vehiculo[] obtenerListaVehiculos() {
 
         return this.getListaVehiculos().toArray(new Vehiculo[this.getListaVehiculos().size()]);
@@ -165,7 +192,17 @@ public class Sistema extends Observable {
                 noEstacionados.add(v);
             }
         }
-        return noEstacionados.toArray(new Vehiculo[this.getListaVehiculos().size()]);
+        return noEstacionados.toArray(new Vehiculo[noEstacionados.size()]);
+    }
+    
+    public Vehiculo[] obtenerVehiculoEstacionados(){
+        ArrayList<Vehiculo> vehiculosEstacionados = new ArrayList<>();
+        for (int i = 0; i < this.getListaVehiculos().size(); i++) {
+            if(this.getListaVehiculos().get(i).isEstacionado()){
+                vehiculosEstacionados.add(this.getListaVehiculos().get(i));
+            }
+        }
+        return vehiculosEstacionados.toArray(new Vehiculo[vehiculosEstacionados.size()]);  
     }
 
     public void eliminarCliente(Cliente unCliente) {
