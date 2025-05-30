@@ -26,7 +26,7 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
     
     @Override
     public void update(Observable o, Object arg) {
-         notaEntrada.setText(" ");
+        notaEntrada.setText(" ");
         horaEntrada.setText("Ingrese hora (HH:MM)");
         listaVehiculosEstacionados.setListData(sistema.obtenerListaVehiculosNoEstacionado());
         listaEmpleados.setListData(sistema.obtenerListaEmpleados());
@@ -168,7 +168,6 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
         }
         else {
             sistema.registrarEntrada(vehiculoSeleccionado, empleadoSeleccionado, fechaEntrada, horaDeEntrada, notaDeEntrada);
-            update(null,null);
         }
                 
         
