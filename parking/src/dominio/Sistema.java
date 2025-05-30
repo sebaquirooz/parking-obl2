@@ -1,6 +1,6 @@
 package dominio;
-
 import java.util.*;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
 
 public class Sistema extends Observable {
@@ -189,11 +189,46 @@ public class Sistema extends Observable {
         return entradasActivas.toArray(new Entrada[entradasActivas.size()]);
     }
     
+    public boolean verificarHora(String hora){
+        boolean retorno = false;
+        if (hora.length() == 5 && hora.charAt(2) == ':' && hora.charAt(3)>= 0 && hora.charAt(3) <= 9 && hora.charAt(4)>= 0 && hora.charAt(4) <= 9){
+            if (hora.charAt(0) == 1 || hora.charAt(0) == 0){
+                if (hora.charAt(1) >= 0 && hora.charAt(1) <= 9){
+                    retorno = true;
+                }
+                
+            }
+            else if (hora.charAt(0) == 2){
+                if (hora.charAt(1) >= 0 && hora.charAt(1) <= 4){
+                    retorno = true;
+                }
+            }
+        }
+        return retorno;
+    }
+    
     public Salida registrarSalida(Entrada entrada, Empleado empleado, Date fecha, String hora, String nota){
-        long dias = fecha - entrada.getFecha();
-        int tiempoTotal = fecha - entrada.getFecha();
-        
-        Salida salidaNueva = new Salida(entrada.getVehiculo(), empleado, fecha, hora, nota, tiempoTotal, entrada);
-        
+        Salida retorno = null;
+        LocalDate fechaSalida = LocalDate.of(fecha.getYear(), fecha.getMonth(), fecha.getDay());
+        LocalDate fechaEntrada = LocalDate.of(entrada.getFecha().getYear(), entrada.getFecha().getMonth(), entrada.getFecha().getDay());
+        int difDias = (int)ChronoUnit.DAYS.between(fechaEntrada, fechaSalida); //Esto devuelve un long, lo paso a int. Además, ChronoUnit hace (fechaSalida - fechaEntrada)
+        if (difDias >= 0){
+            LocalTime horaSalida = LocalTime.parse(hora);
+            LocalTime horaEntrada = LocalTime.parse(entrada.getHora());
+            int difMins = (int)ChronoUnit.MINUTES.between(horaEntrada,horaSalida);
+            if (difMins>0 && difDias == 0){
+                int tiempoTotal = difMins;
+                Salida salidaNueva = new Salida(entrada.getVehiculo(), empleado, fecha, hora, nota, tiempoTotal, entrada);
+                entrada.setSalida(salidaNueva);
+                retorno = salidaNueva;
+            }
+            else {
+                int tiempoTotal = difDias*1440 + difMins;
+                Salida salidaNueva = new Salida(entrada.getVehiculo(), empleado, fecha, hora, nota, tiempoTotal, entrada);
+                entrada.setSalida(salidaNueva);
+                retorno = salidaNueva;
+            }
+        }
+        return retorno;
     }
 }

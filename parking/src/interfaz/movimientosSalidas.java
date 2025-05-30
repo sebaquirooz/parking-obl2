@@ -1,5 +1,6 @@
 package interfaz;
 import dominio.*;
+import java.time.LocalDate;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -25,12 +26,12 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
     
       //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
-        UtilDateModel model = new UtilDateModel();
-        model.setDate(2025, 5, 27);
+        LocalDate fechaActual = LocalDate.now();
+        model.setDate(fechaActual.getYear(), fechaActual.getMonthValue(), fechaActual.getDayOfMonth());
         model.setSelected(true);
         JDatePanelImpl datePanel = new JDatePanelImpl(model);
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
-        getContentPane().add(datePicker);      
+        getContentPane().add(datePicker);       
         datePicker.setBounds(190, 50, 140, 22);
     }
     
@@ -49,7 +50,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         jScrollPane1 = new javax.swing.JScrollPane();
         listaEntradas = new javax.swing.JList();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelTiempoTotal = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         notaSalida = new javax.swing.JTextArea();
         jLabel4 = new javax.swing.JLabel();
@@ -81,10 +82,10 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         getContentPane().add(jLabel2);
         jLabel2.setBounds(20, 170, 160, 17);
 
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setText("<Tiempo total>");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(360, 200, 120, 17);
+        labelTiempoTotal.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labelTiempoTotal.setText("<Tiempo total>");
+        getContentPane().add(labelTiempoTotal);
+        labelTiempoTotal.setBounds(360, 200, 120, 17);
 
         notaSalida.setColumns(20);
         notaSalida.setRows(5);
@@ -170,11 +171,14 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         Date fechaSalida = model.getValue();
         String horaDeSalida = horaSalida.getText();
         String notaDeSalida = notaSalida.getText();
-        if (listaEntradas.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || " ".equals(horaSalida.getText()) || " ".equals(notaSalida.getText()) ){
+        if (listaEntradas.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || !sistema.verificarHora(horaDeSalida) || " ".equals(notaSalida.getText()) ){
             // algo
         }
         else {
-            sistema.registrarSalida(entrada, empleadoSeleccionado, fechaSalida, horaDeSalida, notaDeSalida);
+            Salida salidaNueva = sistema.registrarSalida(entrada, empleadoSeleccionado, fechaSalida, horaDeSalida, notaDeSalida);
+            if (salidaNueva != null){ // esto pa que entre solo si existe el objeto, si no existe devuelve un null entonces no entra
+                labelTiempoTotal.setText(salidaNueva.calcularTiempoTotal());
+            }
             update(null,null);
         }
     }//GEN-LAST:event_registrarSalidaActionPerformed
@@ -222,7 +226,6 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
     private javax.swing.JButton botonVaciar;
     private javax.swing.JTextField horaSalida;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -234,6 +237,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTree jTree1;
+    private javax.swing.JLabel labelTiempoTotal;
     private javax.swing.JList<Empleado> listaEmpleados;
     private javax.swing.JList listaEntradas;
     private javax.swing.JTextArea notaSalida;

@@ -175,7 +175,6 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
         String marcaVehiculo = vehiculoSelecc.getMarca();
         String modeloVehiculo = vehiculoSelecc.getModelo();
         String estadoVehiculo = vehiculoSelecc.getEstado();
-        
         matriculaVehiculoSeleccionado.setText(matriculaVehiculo);
         marcaVehiculoSeleccionado.setText(marcaVehiculo);
         modeloVehiculoSeleccionado.setText(modeloVehiculo);
