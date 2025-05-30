@@ -141,6 +141,8 @@ public class Sistema extends Observable {
         Entrada entradaNueva = new Entrada(vehiculo, empleado, fecha, hora, nota);
         vehiculo.getHistorial().getListaEntradas().add(entradaNueva);
         this.getListaMovimientos().add(entradaNueva);
+        setChanged();
+        notifyObservers();
     }
 
     public Vehiculo[] obtenerListaVehiculos() {
@@ -221,6 +223,7 @@ public class Sistema extends Observable {
                 Salida salidaNueva = new Salida(entrada.getVehiculo(), empleado, fecha, hora, nota, tiempoTotal, entrada);
                 entrada.setSalida(salidaNueva);
                 retorno = salidaNueva;
+                entrada.getVehiculo().setEstacionado(false);
             }
             else {
                 int tiempoTotal = difDias*1440 + difMins;
@@ -229,6 +232,8 @@ public class Sistema extends Observable {
                 retorno = salidaNueva;
             }
         }
+        setChanged();
+        notifyObservers();
         return retorno;
     }
 }

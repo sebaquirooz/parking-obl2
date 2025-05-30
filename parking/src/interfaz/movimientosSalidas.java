@@ -36,6 +36,8 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
     }
     
     public void update(Observable o, Object arg){
+        notaSalida.setText(" ");
+        horaSalida.setText("Ingrese hora (HH:MM)");
         this.listaEmpleados.setListData(sistema.obtenerListaEmpleados());
         this.listaEntradas.setListData(sistema.obtenerListaEntradas());
     }
@@ -171,16 +173,15 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         Date fechaSalida = model.getValue();
         String horaDeSalida = horaSalida.getText();
         String notaDeSalida = notaSalida.getText();
-        if (listaEntradas.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || !sistema.verificarHora(horaDeSalida) || " ".equals(notaSalida.getText()) ){
+        /*if (listaEntradas.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || !sistema.verificarHora(horaDeSalida) || " ".equals(notaSalida.getText()) ){
             // algo
         }
-        else {
+        else {*/
             Salida salidaNueva = sistema.registrarSalida(entrada, empleadoSeleccionado, fechaSalida, horaDeSalida, notaDeSalida);
             if (salidaNueva != null){ // esto pa que entre solo si existe el objeto, si no existe devuelve un null entonces no entra
                 labelTiempoTotal.setText(salidaNueva.calcularTiempoTotal());
             }
-            update(null,null);
-        }
+        //}
     }//GEN-LAST:event_registrarSalidaActionPerformed
 
     private void horaSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaSalidaActionPerformed
