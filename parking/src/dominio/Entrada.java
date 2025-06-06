@@ -1,13 +1,15 @@
 package dominio;
 
 import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Entrada extends Movimiento {
 
     private Salida salida;
 
-    public Entrada(Vehiculo vehiculo, Empleado empleado, Date fecha, String hora, String nota) {
-        super(vehiculo, empleado, fecha, hora, nota);
+    public Entrada(Vehiculo vehiculo, Empleado empleado, LocalDateTime fechayHora, String nota) {
+        super(vehiculo, empleado, fechayHora, nota);
         this.salida = null;
     }
 
@@ -21,7 +23,7 @@ public class Entrada extends Movimiento {
 
     @Override
     public String toString() {
-        return this.getVehiculo().getMatricula() + " " + this.getFecha() + " " + this.getHora();
+        return this.getVehiculo().getMatricula() + " " + this.getFechaYhora().format(DateTimeFormatter.ISO_DATE);
     }
 
 }

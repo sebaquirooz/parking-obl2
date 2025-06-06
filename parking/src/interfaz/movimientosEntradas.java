@@ -5,6 +5,10 @@ import java.util.*;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.LocalDateTime;
 
 public class movimientosEntradas extends javax.swing.JFrame implements Observer{
 
@@ -160,14 +164,20 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
     private void registrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaActionPerformed
         Vehiculo vehiculoSeleccionado = (Vehiculo) listaVehiculosEstacionados.getSelectedValue();
         Empleado empleadoSeleccionado = (Empleado) listaEmpleados.getSelectedValue();
+        
         Date fechaEntrada = model.getValue();
         String horaDeEntrada = horaEntrada.getText();
+        LocalDate localDate = fechaEntrada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime horaEnFormato = LocalTime.parse(horaDeEntrada, formatter);
+        LocalDateTime fechayHora = LocalDateTime.of(localDate,horaEnFormato);
+        
         String notaDeEntrada = notaEntrada.getText();
         if (listaVehiculosEstacionados.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || " ".equals(horaEntrada.getText()) || " ".equals(notaEntrada.getText()) ){
             // algo
         }
         else {
-            sistema.registrarEntrada(vehiculoSeleccionado, empleadoSeleccionado, fechaEntrada, horaDeEntrada, notaDeEntrada);
+            sistema.registrarEntrada(vehiculoSeleccionado, empleadoSeleccionado,fechayHora , notaDeEntrada);
         }
                 
         

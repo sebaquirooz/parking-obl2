@@ -18,6 +18,11 @@ public class Sistema extends Observable {
     private ArrayList<Movimiento> listaMovimientos;
     
     private ArrayList<Servicio> listaServicios;
+    
+    private ArrayList<Entrada> listaEntradas;
+    
+    private ArrayList<Salida> listaSalidas;
+
 
     public Sistema() {
         this.listaEmpleados = new ArrayList<>();
@@ -27,10 +32,28 @@ public class Sistema extends Observable {
         this.listaContratos = new ArrayList<>();
         this.listaMovimientos = new ArrayList<>();
         this.listaServicios = new ArrayList<>();
+        this.listaSalidas = new ArrayList<>();
+        this.listaEntradas = new ArrayList<>();
     }
 
     public void setListaVehiculos(ArrayList<Vehiculo> listaVehiculos) {
         this.listaVehiculos = listaVehiculos;
+    }
+    
+    public ArrayList<Entrada> getListaEntradas() {
+        return listaEntradas;
+    }
+
+    public void setListaEntradas(ArrayList<Entrada> listaEntradas) {
+        this.listaEntradas = listaEntradas;
+    }
+
+    public ArrayList<Salida> getListaSalidas() {
+        return listaSalidas;
+    }
+
+    public void setListaSalidas(ArrayList<Salida> listaSalidas) {
+        this.listaSalidas = listaSalidas;
     }
 
     public void setListaServicios(ArrayList<Servicio> listaServicios) {
@@ -129,6 +152,7 @@ public class Sistema extends Observable {
     public void registrarContrato(Cliente unCliente, Vehiculo unVehiculo, Empleado unEmpleado, int unValor) {
         Contrato contratoNuevo = new Contrato(unCliente, unVehiculo, unEmpleado, unValor);
         this.listaContratos.add(contratoNuevo);
+        unVehiculo.setContrato(contratoNuevo);
         setChanged();
         notifyObservers();
     }
@@ -158,15 +182,27 @@ public class Sistema extends Observable {
         }
     }
 
-    public void registrarEntrada(Vehiculo vehiculo, Empleado empleado, Date fecha, String hora, String nota) {
+    public void registrarEntrada(Vehiculo vehiculo, Empleado empleado, LocalDateTime fechayHora, String nota) {
         vehiculo.setEstacionado(true);
-        Entrada entradaNueva = new Entrada(vehiculo, empleado, fecha, hora, nota);
+        Entrada entradaNueva = new Entrada(vehiculo, empleado, fechayHora, nota);
         vehiculo.getHistorial().getListaEntradas().add(entradaNueva);
         this.getListaMovimientos().add(entradaNueva);
+        this.getListaEntradas().add(entradaNueva);
         setChanged();
         notifyObservers();
     }
 
+    public void registrarSalida(Entrada unaEntrada, Empleado unEmpleado, LocalDateTime fechayHora, String notaDeSalida){
+        unaEntrada.getVehiculo().setEstacionado(false); //Aca entrada solo tiene null en salida, hay que agarrar el super.
+        int tiempoTotal = (int) ChronoUnit.MINUTES.between(unaEntrada.getFechaYhora(), fechayHora);
+        Salida unaSalida = new Salida(unaEntrada.getVehiculo(),unEmpleado,fechayHora,notaDeSalida,tiempoTotal,unaEntrada);
+        unaEntrada.getVehiculo().getHistorial().getListaSalidas().add(unaSalida);
+        this.getListaMovimientos().add(unaSalida);
+        this.getListaSalidas().add(unaSalida);
+        setChanged();
+        notifyObservers();
+    }
+    
     public Servicio[] obtenerListaServicios(){
         return this.getListaServicios().toArray(new Servicio[this.getListaServicios().size()]);
     }
@@ -246,31 +282,13 @@ public class Sistema extends Observable {
         return retorno;
     }
     
-    public Salida registrarSalida(Entrada entrada, Empleado empleado, Date fecha, String hora, String nota){
-        Salida retorno = null;
-        LocalDate fechaSalida = LocalDate.of(fecha.getYear(), fecha.getMonth(), fecha.getDay());
-        LocalDate fechaEntrada = LocalDate.of(entrada.getFecha().getYear(), entrada.getFecha().getMonth(), entrada.getFecha().getDay());
-        int difDias = (int)ChronoUnit.DAYS.between(fechaEntrada, fechaSalida); //Esto devuelve un long, lo paso a int. Además, ChronoUnit hace (fechaSalida - fechaEntrada)
-        if (difDias >= 0){
-            LocalTime horaSalida = LocalTime.parse(hora);
-            LocalTime horaEntrada = LocalTime.parse(entrada.getHora());
-            int difMins = (int)ChronoUnit.MINUTES.between(horaEntrada,horaSalida);
-            if (difMins>0 && difDias == 0){
-                int tiempoTotal = difMins;
-                Salida salidaNueva = new Salida(entrada.getVehiculo(), empleado, fecha, hora, nota, tiempoTotal, entrada);
-                entrada.setSalida(salidaNueva);
-                retorno = salidaNueva;
-                entrada.getVehiculo().setEstacionado(false);
-            }
-            else {
-                int tiempoTotal = difDias*1440 + difMins;
-                Salida salidaNueva = new Salida(entrada.getVehiculo(), empleado, fecha, hora, nota, tiempoTotal, entrada);
-                entrada.setSalida(salidaNueva);
-                retorno = salidaNueva;
-            }
+   public String calcularTiempoTotal(Salida unaSalida){
+        int horas = unaSalida.getTiempoTotal()/60;
+        int minutos = unaSalida.getTiempoTotal()% 60;
+        String retorno = horas +" h";
+        if (minutos > 0){
+            retorno+= " - " +minutos +" min";
         }
-        setChanged();
-        notifyObservers();
         return retorno;
     }
 }

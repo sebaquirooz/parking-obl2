@@ -1,6 +1,9 @@
 package dominio;
 
 import java.util.*;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class Movimiento {
 
@@ -8,17 +11,14 @@ public class Movimiento {
 
     private Empleado empleado;
 
-    private Date fecha;
-
-    private String hora;
+    private LocalDateTime fechaYhora;
 
     private String nota;
 
-    public Movimiento(Vehiculo vehiculo, Empleado empleado, Date fecha, String hora, String nota) {
+    public Movimiento(Vehiculo vehiculo, Empleado empleado,LocalDateTime fechayHora, String nota) {
         this.vehiculo = vehiculo;
         this.empleado = empleado;
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fechaYhora = fechayHora;
         this.nota = nota;
     }
 
@@ -38,20 +38,12 @@ public class Movimiento {
         this.empleado = empleado;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public LocalDateTime getFechaYhora() {
+        return fechaYhora;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setFechaYhora(LocalDateTime fechaYhora) {
+        this.fechaYhora = fechaYhora;
     }
 
     public String getNota() {

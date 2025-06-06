@@ -1,16 +1,24 @@
 package dominio;
-
 import java.util.Date;
-
+import java.time.LocalDateTime;
+        
 public class Salida extends Movimiento {
 
     private int tiempoTotal;
     
     private Entrada entrada;
 
-    public Salida(Vehiculo vehiculo, Empleado empleado, Date fecha, String hora, String nota, int tiempoTotal, Entrada entrada) {
-        super(vehiculo, empleado, fecha, hora, nota);
+    public Salida(Vehiculo vehiculo, Empleado empleado, LocalDateTime fechayHora, String nota, int tiempoTotal, Entrada entrada) {
+        super(vehiculo, empleado, fechayHora, nota);
         this.tiempoTotal = tiempoTotal;
+        this.entrada = entrada;
+    }
+
+    public Entrada getEntrada() {
+        return entrada;
+    }
+
+    public void setEntrada(Entrada entrada) {
         this.entrada = entrada;
     }
 
@@ -20,16 +28,6 @@ public class Salida extends Movimiento {
 
     public void setTiempoTotal(int tiempoTotal) {
         this.tiempoTotal = tiempoTotal;
-    }
-    
-    public String calcularTiempoTotal(){
-        int horas = this.tiempoTotal/60;
-        int minutos = this.tiempoTotal% 60;
-        String retorno = horas +"h";
-        if (minutos > 0){
-            retorno+= " - " +minutos +" min";
-        }
-        return retorno;
     }
     
 

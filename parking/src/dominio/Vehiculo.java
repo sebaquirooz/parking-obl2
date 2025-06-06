@@ -54,6 +54,14 @@ public class Vehiculo {
         return estado;
     }
 
+    public Contrato getContrato() {
+        return contrato;
+    }
+
+    public void setContrato(Contrato contrato) {
+        this.contrato = contrato;
+    }
+
     public void setEstado(String estado) {
         this.estado = estado;
     }

@@ -1,6 +1,10 @@
 package interfaz;
 import dominio.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -61,10 +65,9 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         jScrollPane3 = new javax.swing.JScrollPane();
         listaEmpleados = new javax.swing.JList<>();
         jLabel5 = new javax.swing.JLabel();
-        botonVaciar = new javax.swing.JButton();
         registrarSalida = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        labelContrato = new javax.swing.JLabel();
         horaSalida = new javax.swing.JTextField();
 
         jScrollPane4.setViewportView(jTree1);
@@ -74,6 +77,11 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
 
         jScrollPane1.setToolTipText("");
 
+        listaEntradas.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaEntradasValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaEntradas);
 
         getContentPane().add(jScrollPane1);
@@ -87,7 +95,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         labelTiempoTotal.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         labelTiempoTotal.setText("<Tiempo total>");
         getContentPane().add(labelTiempoTotal);
-        labelTiempoTotal.setBounds(360, 200, 120, 17);
+        labelTiempoTotal.setBounds(360, 210, 170, 17);
 
         notaSalida.setColumns(20);
         notaSalida.setRows(5);
@@ -121,16 +129,6 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         getContentPane().add(jLabel5);
         jLabel5.setBounds(360, 20, 160, 17);
 
-        botonVaciar.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        botonVaciar.setText("Vaciar");
-        botonVaciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonVaciarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(botonVaciar);
-        botonVaciar.setBounds(360, 250, 90, 23);
-
         registrarSalida.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         registrarSalida.setText("Registrar");
         registrarSalida.addActionListener(new java.awt.event.ActionListener() {
@@ -139,17 +137,17 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
             }
         });
         getContentPane().add(registrarSalida);
-        registrarSalida.setBounds(360, 220, 90, 23);
+        registrarSalida.setBounds(360, 240, 90, 23);
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel6.setText("Fecha y hora");
         getContentPane().add(jLabel6);
         jLabel6.setBounds(190, 20, 100, 17);
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel7.setText("<Contrato>");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(360, 180, 100, 17);
+        labelContrato.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        labelContrato.setText("<Contrato>");
+        getContentPane().add(labelContrato);
+        labelContrato.setBounds(360, 180, 160, 17);
 
         horaSalida.setText("Ingrese hora (HH:MM)");
         horaSalida.addActionListener(new java.awt.event.ActionListener() {
@@ -163,30 +161,40 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         setBounds(0, 0, 557, 320);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonVaciarActionPerformed
-
     private void registrarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarSalidaActionPerformed
-        Entrada entrada = (Entrada) listaEntradas.getSelectedValue();
+        Entrada entrada = (Entrada) this.listaEntradas.getSelectedValue(); //Revisar esto para poder cargar la diferencia de minutos y horas porque no agarra el super de movimineto
         Empleado empleadoSeleccionado = (Empleado) listaEmpleados.getSelectedValue();
         Date fechaSalida = model.getValue();
         String horaDeSalida = horaSalida.getText();
         String notaDeSalida = notaSalida.getText();
-        /*if (listaEntradas.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || !sistema.verificarHora(horaDeSalida) || " ".equals(notaSalida.getText()) ){
-            // algo
-        }
-        else {*/
-            Salida salidaNueva = sistema.registrarSalida(entrada, empleadoSeleccionado, fechaSalida, horaDeSalida, notaDeSalida);
-            if (salidaNueva != null){ // esto pa que entre solo si existe el objeto, si no existe devuelve un null entonces no entra
-                labelTiempoTotal.setText(salidaNueva.calcularTiempoTotal());
+        
+        LocalDate localDate = fechaSalida.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime horaEnFormato = LocalTime.parse(horaDeSalida, formatter);
+        LocalDateTime fechayHora = LocalDateTime.of(localDate,horaEnFormato);
+        sistema.registrarSalida(entrada, empleadoSeleccionado, fechayHora, notaDeSalida);
+           
+            if(sistema.getListaSalidas().getLast().getEntrada().equals(entrada)){
+                this.labelTiempoTotal.setText(sistema.calcularTiempoTotal(sistema.getListaSalidas().getLast()));
             }
-        //}
     }//GEN-LAST:event_registrarSalidaActionPerformed
 
     private void horaSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaSalidaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_horaSalidaActionPerformed
+
+    private void listaEntradasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaEntradasValueChanged
+        Entrada unaEntrada = (Entrada) this.listaEntradas.getSelectedValue();
+        
+        String tieneContrato = "";
+                if(unaEntrada.getVehiculo().getContrato() != null){
+                    tieneContrato = "Tiene contrato";
+                }
+                    else{
+                        tieneContrato = "No tiene contrato";
+                    }
+        this.labelContrato.setText(tieneContrato);
+    }//GEN-LAST:event_listaEntradasValueChanged
 
     /**
      * @param args the command line arguments
@@ -224,13 +232,11 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonVaciar;
     private javax.swing.JTextField horaSalida;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -238,6 +244,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTree jTree1;
+    private javax.swing.JLabel labelContrato;
     private javax.swing.JLabel labelTiempoTotal;
     private javax.swing.JList<Empleado> listaEmpleados;
     private javax.swing.JList listaEntradas;
