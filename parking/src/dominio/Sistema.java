@@ -22,6 +22,8 @@ public class Sistema extends Observable {
     private ArrayList<Entrada> listaEntradas;
     
     private ArrayList<Salida> listaSalidas;
+    
+    private int contadorContratos;
 
 
     public Sistema() {
@@ -34,6 +36,7 @@ public class Sistema extends Observable {
         this.listaServicios = new ArrayList<>();
         this.listaSalidas = new ArrayList<>();
         this.listaEntradas = new ArrayList<>();
+        this.contadorContratos = 0;
     }
 
     public void setListaVehiculos(ArrayList<Vehiculo> listaVehiculos) {
@@ -104,6 +107,14 @@ public class Sistema extends Observable {
         this.listaContratos = listaContratos;
     }
 
+    public int getContadorContratos() {
+        return contadorContratos;
+    }
+
+    public void setContadorContratos(int contadorContratos) {
+        this.contadorContratos = contadorContratos;
+    }
+
     public ArrayList<Movimiento> getListaMovimientos() {
         return listaMovimientos;
     }
@@ -150,7 +161,8 @@ public class Sistema extends Observable {
     }
 
     public void registrarContrato(Cliente unCliente, Vehiculo unVehiculo, Empleado unEmpleado, int unValor) {
-        Contrato contratoNuevo = new Contrato(unCliente, unVehiculo, unEmpleado, unValor);
+        this.contadorContratos++;
+        Contrato contratoNuevo = new Contrato(unCliente, unVehiculo, unEmpleado, unValor, contadorContratos);
         this.listaContratos.add(contratoNuevo);
         unVehiculo.setContrato(contratoNuevo);
         setChanged();

@@ -12,11 +12,12 @@ public class Contrato {
 
 	private int valor;
 
-    public Contrato(Cliente unCliente, Vehiculo unVehiculo, Empleado unEmpleado, int unValor){
+    public Contrato(Cliente unCliente, Vehiculo unVehiculo, Empleado unEmpleado, int unValor, int numeroContrato){
         this.cliente = unCliente;
         this.empleado = unEmpleado;
         this.vehiculo = unVehiculo;
         this.valor = unValor;
+        this.numeroContrato = numeroContrato;
     }
 
     public void setNumeroContrato(int numeroContrato) {
