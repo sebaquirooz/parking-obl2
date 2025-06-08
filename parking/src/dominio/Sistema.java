@@ -198,7 +198,8 @@ public class Sistema extends Observable {
         Salida unaSalida = new Salida(unaEntrada.getVehiculo(),unEmpleado,fechayHora,notaDeSalida,tiempoTotal,unaEntrada);
         unaEntrada.getVehiculo().getHistorial().getListaSalidas().add(unaSalida);
         this.getListaMovimientos().add(unaSalida);
-        this.getListaSalidas().add(unaSalida);
+        this.getListaSalidas().add(unaSalida); 
+        unaEntrada.setSalida(unaSalida);
         setChanged();
         notifyObservers();
     }

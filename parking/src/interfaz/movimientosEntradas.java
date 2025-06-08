@@ -32,6 +32,7 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
     public void update(Observable o, Object arg) {
         notaEntrada.setText(" ");
         horaEntrada.setText("Ingrese hora (HH:MM)");
+        labelContrato.setText("<Contrato>");
         listaVehiculosEstacionados.setListData(sistema.obtenerListaVehiculosNoEstacionado());
         listaEmpleados.setListData(sistema.obtenerListaEmpleados());
     }
@@ -63,7 +64,6 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
         jScrollPane3 = new javax.swing.JScrollPane();
         listaEmpleados = new javax.swing.JList<>();
         jLabel5 = new javax.swing.JLabel();
-        botonVaciar = new javax.swing.JButton();
         registrarEntrada = new javax.swing.JButton();
         horaEntrada = new javax.swing.JTextField();
         labelContrato = new javax.swing.JLabel();
@@ -73,6 +73,11 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
 
         jScrollPane1.setToolTipText("");
 
+        listaVehiculosEstacionados.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaVehiculosEstacionadosValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaVehiculosEstacionados);
 
         getContentPane().add(jScrollPane1);
@@ -120,16 +125,6 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
         getContentPane().add(jLabel5);
         jLabel5.setBounds(360, 20, 160, 17);
 
-        botonVaciar.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        botonVaciar.setText("Vaciar");
-        botonVaciar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonVaciarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(botonVaciar);
-        botonVaciar.setBounds(350, 250, 90, 23);
-
         registrarEntrada.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         registrarEntrada.setText("Registrar");
         registrarEntrada.addActionListener(new java.awt.event.ActionListener() {
@@ -152,14 +147,10 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
         labelContrato.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         labelContrato.setText("<Contrato>");
         getContentPane().add(labelContrato);
-        labelContrato.setBounds(350, 190, 80, 17);
+        labelContrato.setBounds(350, 190, 150, 17);
 
         setBounds(0, 0, 541, 312);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void botonVaciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVaciarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonVaciarActionPerformed
 
     private void registrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaActionPerformed
         Vehiculo vehiculoSeleccionado = (Vehiculo) listaVehiculosEstacionados.getSelectedValue();
@@ -187,6 +178,16 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
     private void horaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaEntradaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_horaEntradaActionPerformed
+
+    private void listaVehiculosEstacionadosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaVehiculosEstacionadosValueChanged
+    Vehiculo unVehiculo = (Vehiculo) listaVehiculosEstacionados.getSelectedValue();
+    if(unVehiculo.getContrato() == null){
+        this.labelContrato.setText("No tiene contrato");
+    }
+    else{
+        this.labelContrato.setText("Tiene contrato");
+    }
+    }//GEN-LAST:event_listaVehiculosEstacionadosValueChanged
 
     /**
      * @param args the command line arguments
@@ -224,7 +225,6 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonVaciar;
     private javax.swing.JTextField horaEntrada;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

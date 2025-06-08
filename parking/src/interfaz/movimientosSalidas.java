@@ -54,7 +54,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         jScrollPane4 = new javax.swing.JScrollPane();
         jTree1 = new javax.swing.JTree();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaEntradas = new javax.swing.JList();
+        listaEntradas = new javax.swing.JList<>();
         jLabel2 = new javax.swing.JLabel();
         labelTiempoTotal = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -173,7 +173,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         LocalTime horaEnFormato = LocalTime.parse(horaDeSalida, formatter);
         LocalDateTime fechayHora = LocalDateTime.of(localDate,horaEnFormato);
         sistema.registrarSalida(entrada, empleadoSeleccionado, fechayHora, notaDeSalida);
-           
+        
             if(sistema.getListaSalidas().getLast().getEntrada().equals(entrada)){
                 this.labelTiempoTotal.setText(sistema.calcularTiempoTotal(sistema.getListaSalidas().getLast()));
             }
@@ -185,8 +185,9 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
 
     private void listaEntradasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaEntradasValueChanged
         Entrada unaEntrada = (Entrada) this.listaEntradas.getSelectedValue();
-        
-        String tieneContrato = "";
+        //Hacemos un condicional porque cuando se elimina una entrada de la lista llama a este eventListener y lo carga con null.
+        if(unaEntrada != null){
+            String tieneContrato = "";
                 if(unaEntrada.getVehiculo().getContrato() != null){
                     tieneContrato = "Tiene contrato";
                 }
@@ -194,6 +195,8 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
                         tieneContrato = "No tiene contrato";
                     }
         this.labelContrato.setText(tieneContrato);
+        }
+           
     }//GEN-LAST:event_listaEntradasValueChanged
 
     /**
@@ -247,7 +250,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
     private javax.swing.JLabel labelContrato;
     private javax.swing.JLabel labelTiempoTotal;
     private javax.swing.JList<Empleado> listaEmpleados;
-    private javax.swing.JList listaEntradas;
+    private javax.swing.JList<Entrada> listaEntradas;
     private javax.swing.JTextArea notaSalida;
     private javax.swing.JButton registrarSalida;
     // End of variables declaration//GEN-END:variables
