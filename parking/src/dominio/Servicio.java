@@ -1,12 +1,11 @@
 package dominio;
-
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Servicio {
 
 	private String tipo;
-
-	private Date fecha;
         
 	private Vehiculo vehiculo;
 
@@ -14,8 +13,8 @@ public class Servicio {
 
 	private int costo;
         
-        private String hora;
-
+        private LocalDateTime fechaYHora;
+        
     public String getTipo() {
         return tipo;
     }
@@ -36,14 +35,6 @@ public class Servicio {
         this.tipo = tipo;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public void setHora(String hora) {
-        this.hora = hora;
-    }
-
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
@@ -56,25 +47,25 @@ public class Servicio {
         this.costo = costo;
     }
 
-    public Servicio(Vehiculo unVehiculo,Empleado unEmpleado, String unServicio,Date unaFecha,String unaHora, int unCosto){
+    public Servicio(Vehiculo unVehiculo,Empleado unEmpleado, String unServicio,LocalDateTime unaFechaYunaHora, int unCosto){
         this.vehiculo = unVehiculo;
         this.costo = unCosto;
         this.empleado = unEmpleado;
         this.tipo = unServicio;
-        this.fecha = unaFecha;
-        this.hora = unaHora;
+        this.fechaYHora = unaFechaYunaHora;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public String getHora() {
-        return hora;
-    }
-    
+  
     public String toString(){
-        return this.getTipo() + this.getVehiculo() + this.getFecha();
+        return this.getTipo()+ " " + this.getVehiculo();
+    }
+
+    public LocalDateTime getFechaYHora() {
+        return fechaYHora;
+    }
+
+    public void setFechaYHora(LocalDateTime fechaYHora) {
+        this.fechaYHora = fechaYHora;
     }
         
 }

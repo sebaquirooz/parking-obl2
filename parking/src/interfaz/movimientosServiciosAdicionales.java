@@ -1,6 +1,10 @@
 package interfaz;
 import dominio.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -174,19 +178,24 @@ public class movimientosServiciosAdicionales extends javax.swing.JFrame implemen
         Date fechaElegida = model.getValue();
         String horaElegida = this.horaServicio.getText();
         int costoElegido = Integer.parseInt(this.costoServicio.getText());
+        LocalDate localDate = fechaElegida.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime horaEnFormato = LocalTime.parse(horaElegida, formatter);
+        LocalDateTime fechaYHora = LocalDateTime.of(localDate,horaEnFormato);
+        
         
         if(vehiculoElegido == null || empleadoElegido == null || servicioElegido == null || fechaElegida == null){
            //Alerta algo no se eligio 
         }
         else{
-            sistema.registrarServicio(vehiculoElegido, empleadoElegido, servicioElegido, fechaElegida, horaElegida, costoElegido);
+            sistema.registrarServicio(vehiculoElegido, empleadoElegido, servicioElegido, fechaYHora, costoElegido);
                 }
     }//GEN-LAST:event_botonRegistrarServicioActionPerformed
 
     private void listaServiciosVehiculoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaServiciosVehiculoValueChanged
         Servicio servicioElegido = (Servicio) this.listaServiciosVehiculo.getSelectedValue();
-        this.fechaSeleccionada.setText(servicioElegido.getFecha().toString());
-        this.labelHora.setText(servicioElegido.getHora());
+        this.fechaSeleccionada.setText(servicioElegido.getFechaYHora().getDayOfMonth() + "//" + servicioElegido.getFechaYHora().getMonthValue() + "//" + servicioElegido.getFechaYHora().getYear());
+        this.labelHora.setText(servicioElegido.getFechaYHora().getHour() + ":" + servicioElegido.getFechaYHora().getMinute() + servicioElegido.getFechaYHora().getSecond());
         this.labelCosto.setText(servicioElegido.getCosto() + "");
     }//GEN-LAST:event_listaServiciosVehiculoValueChanged
 

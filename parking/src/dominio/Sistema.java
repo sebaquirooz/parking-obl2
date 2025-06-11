@@ -169,8 +169,8 @@ public class Sistema extends Observable {
         notifyObservers();
     }
 
-    public void registrarServicio(Vehiculo unVehiculo,Empleado unEmpleado, String unServicio,Date unaFecha,String unaHora, int unCosto){
-        Servicio servicioNuevo = new Servicio(unVehiculo,unEmpleado,unServicio,unaFecha,unaHora,unCosto);
+    public void registrarServicio(Vehiculo unVehiculo,Empleado unEmpleado, String unServicio,LocalDateTime unaFechayUnaHora, int unCosto){
+        Servicio servicioNuevo = new Servicio(unVehiculo,unEmpleado,unServicio,unaFechayUnaHora,unCosto);
         this.listaServicios.add(servicioNuevo);
         setChanged();
         notifyObservers();
