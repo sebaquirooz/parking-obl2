@@ -67,7 +67,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         for (int i = 0; i < nombresServicios.size(); i++) {
             String nombre = nombresServicios.get(i);
             int cantidad = conteo.get(nombre);
-            resultados[i] = nombre + " (" + cantidad;
+            resultados[i] = nombre + " (" + cantidad + " )";
         }
         
         this.listaServiciosMasUtilizados.setListData(resultados);
