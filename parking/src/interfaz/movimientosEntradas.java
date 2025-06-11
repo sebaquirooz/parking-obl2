@@ -19,7 +19,7 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
     public movimientosEntradas() {
         initComponents();
     }
-
+    
     public movimientosEntradas(Sistema unSistema){
         this.sistema = unSistema;
         initComponents();
@@ -37,16 +37,16 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
         listaEmpleados.setListData(sistema.obtenerListaEmpleados());
     }
     
-     //Componente de libreria jdatepicker, hecho a mano
-    public void cargarCompFecha(){
-        LocalDate fechaActual = LocalDate.now();
-        model.setDate(fechaActual.getYear(), fechaActual.getMonthValue(), fechaActual.getDayOfMonth());
-        model.setSelected(true);
-        JDatePanelImpl datePanel = new JDatePanelImpl(model);
-        JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
-        getContentPane().add(datePicker);      
-        datePicker.setBounds(190, 50, 140, 22);
-    }
+        //Componente de libreria jdatepicker, hecho a mano
+       public void cargarCompFecha(){
+           LocalDate fechaActual = LocalDate.now();
+           model.setDate(fechaActual.getYear(), fechaActual.getMonthValue(), fechaActual.getDayOfMonth());
+           model.setSelected(true);
+           JDatePanelImpl datePanel = new JDatePanelImpl(model);
+           JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
+           getContentPane().add(datePicker);      
+           datePicker.setBounds(190, 50, 140, 22);
+       }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
