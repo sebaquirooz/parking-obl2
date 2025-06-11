@@ -31,7 +31,9 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     @Override
     public void update(Observable o, Object arg) {
         this.cargarListaServicios();
+        this.cargarMovimientos();
         listaVehiculos.setListData(sistema.obtenerListaVehiculos());
+        
     }
     
      //Componente de libreria jdatepicker, hecho a mano
@@ -44,7 +46,26 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         getContentPane().add(datePicker);      
         datePicker.setBounds(190, 50, 140, 22);
     }
+    
+    //A revisar
+    public void cargarMovimientos(){
+       ArrayList<Entrada> entradas = sistema.getListaEntradas();
+       ArrayList<Salida> salidas = sistema.getListaSalidas();
+       ArrayList<Servicio> servicios = sistema.getListaServicios();
+       DefaultTableModel modelo = (DefaultTableModel) tablaMovimientos.getModel();
+        modelo.setRowCount(0);
+        int filasMax = 0;
+        if (toggleEntradas.isSelected()) filasMax = Math.max(filasMax, entradas.size());
+        if (toggleSalidas.isSelected()) filasMax = Math.max(filasMax, salidas.size());
+        if (toggleServicios.isSelected()) filasMax = Math.max(filasMax, servicios.size());
+        for (int i = 0; i < filasMax; i++){
+            String e = (toggleEntradas.isSelected() && i < entradas.size()) ? entradas.get(i).toString() : ""; //? Para uso de valores ternarios, si es true lo mete en la row, si es false, mete un vacío
+            String s = (toggleSalidas.isSelected() && i < salidas.size()) ? salidas.get(i).toString() : "";
+            String sa = (toggleServicios.isSelected() && i < servicios.size()) ? servicios.get(i).toString() : "";
 
+            modelo.addRow(new Object[]{e, s, sa});
+        }
+    }
     
     public void cargarListaServicios(){
         HashMap<String, Integer> conteo = new HashMap<>();
@@ -84,13 +105,13 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         listaVehiculos = new javax.swing.JList<>();
         jLabel3 = new javax.swing.JLabel();
         ordenarFecha = new javax.swing.JButton();
-        radioSalidas = new javax.swing.JRadioButton();
-        radioServicios = new javax.swing.JRadioButton();
-        radioEntradas = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         tablaMovimientos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        toggleServicios = new javax.swing.JToggleButton();
+        toggleEntradas = new javax.swing.JToggleButton();
+        toggleSalidas = new javax.swing.JToggleButton();
         tabMovimientos = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -139,26 +160,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         tabHistorial.add(ordenarFecha);
         ordenarFecha.setBounds(560, 50, 140, 23);
 
-        radiosHistorial.add(radioSalidas);
-        radioSalidas.setText("Salidas");
-        tabHistorial.add(radioSalidas);
-        radioSalidas.setBounds(570, 110, 98, 21);
-
-        radiosHistorial.add(radioServicios);
-        radioServicios.setText("Servicio adicional");
-        tabHistorial.add(radioServicios);
-        radioServicios.setBounds(570, 160, 120, 21);
-
-        radiosHistorial.add(radioEntradas);
-        radioEntradas.setText("Entradas");
-        radioEntradas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioEntradasActionPerformed(evt);
-            }
-        });
-        tabHistorial.add(radioEntradas);
-        radioEntradas.setBounds(570, 130, 80, 30);
-
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel4.setText("Vehiculo");
         tabHistorial.add(jLabel4);
@@ -183,6 +184,21 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         jLabel1.setText("<Orden tabla>");
         tabHistorial.add(jLabel1);
         jLabel1.setBounds(560, 80, 140, 16);
+
+        toggleServicios.setSelected(true);
+        toggleServicios.setText("Servicios adicionales");
+        tabHistorial.add(toggleServicios);
+        toggleServicios.setBounds(560, 190, 150, 23);
+
+        toggleEntradas.setSelected(true);
+        toggleEntradas.setText("Entradas");
+        tabHistorial.add(toggleEntradas);
+        toggleEntradas.setBounds(560, 110, 150, 23);
+
+        toggleSalidas.setSelected(true);
+        toggleSalidas.setText("Salidas");
+        tabHistorial.add(toggleSalidas);
+        toggleSalidas.setBounds(560, 150, 150, 23);
 
         jTabbedPane1.addTab("Historial", tabHistorial);
 
@@ -258,10 +274,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         
     }//GEN-LAST:event_ordenarFechaActionPerformed
 
-    private void radioEntradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioEntradasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_radioEntradasActionPerformed
-
     private void listaVehiculosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaVehiculosValueChanged
         Vehiculo v = (Vehiculo) listaVehiculos.getSelectedValue();
         cargarMovimientos(v.getHistorial().getListaEntradas(), v.getHistorial().getListaSalidas(), v.getHistorial().getListaServicios());
@@ -276,9 +288,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
             
         }
     }
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -333,13 +343,13 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     private javax.swing.JList listaServiciosMasUtilizados;
     private javax.swing.JList<Vehiculo> listaVehiculos;
     private javax.swing.JButton ordenarFecha;
-    private javax.swing.JRadioButton radioEntradas;
-    private javax.swing.JRadioButton radioSalidas;
-    private javax.swing.JRadioButton radioServicios;
     private javax.swing.ButtonGroup radiosHistorial;
     private javax.swing.JPanel tabEstadisticas;
     private javax.swing.JPanel tabHistorial;
     private javax.swing.JPanel tabMovimientos;
     private javax.swing.JTable tablaMovimientos;
+    private javax.swing.JToggleButton toggleEntradas;
+    private javax.swing.JToggleButton toggleSalidas;
+    private javax.swing.JToggleButton toggleServicios;
     // End of variables declaration//GEN-END:variables
 }
