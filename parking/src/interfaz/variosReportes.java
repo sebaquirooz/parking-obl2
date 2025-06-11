@@ -30,6 +30,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     
     @Override
     public void update(Observable o, Object arg) {
+        this.cargarListaServicios();
         listaVehiculos.setListData(sistema.obtenerListaVehiculos());
     }
     
@@ -44,6 +45,33 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         datePicker.setBounds(190, 50, 140, 22);
     }
 
+    
+    public void cargarListaServicios(){
+        HashMap<String, Integer> conteo = new HashMap<>();
+        
+        for (int i = 0; i < sistema.getListaServicios().size(); i++) {
+            String nombreServicio = sistema.getListaServicios().get(i).getTipo();
+            conteo.put(nombreServicio, conteo.getOrDefault(nombreServicio,0)+1); //getOrDefault se fija si el servicio ya esta en el hashmap
+        }
+        
+        ArrayList<String> nombresServicios = new ArrayList<>(conteo.keySet());
+        
+        Collections.sort(nombresServicios, new Comparator<String>(){                    
+        @Override
+        public int compare(String a ,String b){
+            return Integer.compare(conteo.get(b),conteo.get(a));
+            }
+        });
+        
+        String[] resultados = new String[nombresServicios.size()];
+        for (int i = 0; i < nombresServicios.size(); i++) {
+            String nombre = nombresServicios.get(i);
+            int cantidad = conteo.get(nombre);
+            resultados[i] = nombre + " (" + cantidad;
+        }
+        
+        this.listaServiciosMasUtilizados.setListData(resultados);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -72,14 +100,14 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         jScrollPane4 = new javax.swing.JScrollPane();
         listaEmpleadosMovs = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
-        listaServiciosMasUtilizados = new javax.swing.JList<>();
+        listaServiciosMasUtilizados = new javax.swing.JList();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         labelEstadia = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
 
         jTabbedPane1.setBorder(new javax.swing.border.MatteBorder(null));
@@ -223,7 +251,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         getContentPane().add(jTabbedPane1);
         jTabbedPane1.setBounds(40, 40, 770, 310);
 
-        pack();
+        setBounds(0, 0, 897, 404);
     }// </editor-fold>//GEN-END:initComponents
 
     private void ordenarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordenarFechaActionPerformed
@@ -302,7 +330,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     private javax.swing.JLabel labelEstadia;
     private javax.swing.JList<Cliente> listaClientesContratos;
     private javax.swing.JList<Empleado> listaEmpleadosMovs;
-    private javax.swing.JList<Servicio> listaServiciosMasUtilizados;
+    private javax.swing.JList listaServiciosMasUtilizados;
     private javax.swing.JList<Vehiculo> listaVehiculos;
     private javax.swing.JButton ordenarFecha;
     private javax.swing.JRadioButton radioEntradas;
