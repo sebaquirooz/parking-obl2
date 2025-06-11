@@ -54,6 +54,8 @@ public class variosReportes extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        labelEstadia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -150,35 +152,20 @@ public class variosReportes extends javax.swing.JFrame {
 
         tabEstadisticas.setLayout(null);
 
-        listaClientesContratos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listaClientesContratos);
 
         tabEstadisticas.add(jScrollPane1);
-        jScrollPane1.setBounds(500, 60, 170, 146);
+        jScrollPane1.setBounds(500, 60, 170, 130);
 
-        listaEmpleadosMovs.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane4.setViewportView(listaEmpleadosMovs);
 
         tabEstadisticas.add(jScrollPane4);
-        jScrollPane4.setBounds(260, 60, 170, 146);
+        jScrollPane4.setBounds(260, 60, 170, 130);
 
-        listaServiciosMasUtilizados.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane5.setViewportView(listaServiciosMasUtilizados);
 
         tabEstadisticas.add(jScrollPane5);
-        jScrollPane5.setBounds(20, 60, 170, 146);
+        jScrollPane5.setBounds(20, 60, 170, 130);
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel5.setText("Servicios más utilizados");
@@ -195,10 +182,19 @@ public class variosReportes extends javax.swing.JFrame {
         tabEstadisticas.add(jLabel7);
         jLabel7.setBounds(220, 30, 260, 20);
 
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setText("Estadia más larga: ");
+        tabEstadisticas.add(jLabel2);
+        jLabel2.setBounds(30, 230, 140, 20);
+
+        labelEstadia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        tabEstadisticas.add(labelEstadia);
+        labelEstadia.setBounds(160, 230, 170, 0);
+
         jTabbedPane1.addTab("Estadisticas generales", tabEstadisticas);
 
         getContentPane().add(jTabbedPane1);
-        jTabbedPane1.setBounds(40, 40, 720, 320);
+        jTabbedPane1.setBounds(40, 40, 770, 310);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -248,6 +244,7 @@ public class variosReportes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -262,9 +259,10 @@ public class variosReportes extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JList<String> listaClientesContratos;
-    private javax.swing.JList<String> listaEmpleadosMovs;
-    private javax.swing.JList<String> listaServiciosMasUtilizados;
+    private javax.swing.JLabel labelEstadia;
+    private javax.swing.JList<Cliente> listaClientesContratos;
+    private javax.swing.JList<Empleado> listaEmpleadosMovs;
+    private javax.swing.JList<Servicio> listaServiciosMasUtilizados;
     private javax.swing.JList<Vehiculo> listaVehiculos;
     private javax.swing.JButton ordenarFecha;
     private javax.swing.JRadioButton radioEntradas;
