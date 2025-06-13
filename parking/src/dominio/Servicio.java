@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class Servicio {
+public class Servicio extends Movimiento {
 
 	private String tipo;
         
@@ -47,12 +47,10 @@ public class Servicio {
         this.costo = costo;
     }
 
-    public Servicio(Vehiculo unVehiculo,Empleado unEmpleado, String unServicio,LocalDateTime unaFechaYunaHora, int unCosto){
-        this.vehiculo = unVehiculo;
+    public Servicio(Vehiculo unVehiculo,Empleado unEmpleado, String unServicio,LocalDateTime fechayHora, int unCosto){
+        super(unVehiculo, unEmpleado, fechayHora);
         this.costo = unCosto;
-        this.empleado = unEmpleado;
         this.tipo = unServicio;
-        this.fechaYHora = unaFechaYunaHora;
     }
 
   
