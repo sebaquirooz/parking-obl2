@@ -13,13 +13,11 @@ public class Movimiento {
 
     private LocalDateTime fechaYhora;
 
-    private String nota;
 
-    public Movimiento(Vehiculo vehiculo, Empleado empleado,LocalDateTime fechayHora, String nota) {
+    public Movimiento(Vehiculo vehiculo, Empleado empleado,LocalDateTime fechayHora) {
         this.vehiculo = vehiculo;
         this.empleado = empleado;
         this.fechaYhora = fechayHora;
-        this.nota = nota;
     }
 
     public Vehiculo getVehiculo() {
@@ -44,14 +42,6 @@ public class Movimiento {
 
     public void setFechaYhora(LocalDateTime fechaYhora) {
         this.fechaYhora = fechaYhora;
-    }
-
-    public String getNota() {
-        return nota;
-    }
-
-    public void setNota(String nota) {
-        this.nota = nota;
     }
     
 }

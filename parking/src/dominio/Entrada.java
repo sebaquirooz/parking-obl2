@@ -6,9 +6,12 @@ import java.time.format.DateTimeFormatter;
 public class Entrada extends Movimiento {
 
     private Salida salida;
-
+    
+    private String nota;
+    
     public Entrada(Vehiculo vehiculo, Empleado empleado, LocalDateTime fechayHora, String nota) {
-        super(vehiculo, empleado, fechayHora, nota);
+        super(vehiculo, empleado, fechayHora);
+        this.nota = nota;
         this.salida = null;
     }
 
@@ -18,6 +21,14 @@ public class Entrada extends Movimiento {
 
     public void setSalida(Salida salida) {
         this.salida = salida;
+    }
+
+    public String getNota() {
+        return nota;
+    }
+
+    public void setNota(String nota) {
+        this.nota = nota;
     }
 
     @Override

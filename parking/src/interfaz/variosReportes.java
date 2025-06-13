@@ -31,7 +31,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     @Override
     public void update(Observable o, Object arg) {
         this.cargarListaServicios();
-        this.cargarMovimientos();
         listaVehiculos.setListData(sistema.obtenerListaVehiculos());
         
     }
@@ -48,23 +47,39 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     }
     
     //A revisar
-    public void cargarMovimientos(){
-       ArrayList<Entrada> entradas = sistema.getListaEntradas();
-       ArrayList<Salida> salidas = sistema.getListaSalidas();
-       ArrayList<Servicio> servicios = sistema.getListaServicios();
+    public void cargarMovimientos(ArrayList<Entrada> entradas, ArrayList<Salida> salidas, ArrayList<Servicio> servicios){
        DefaultTableModel modelo = (DefaultTableModel) tablaMovimientos.getModel();
-        modelo.setRowCount(0);
-        int filasMax = 0;
-        if (toggleEntradas.isSelected()) filasMax = Math.max(filasMax, entradas.size());
-        if (toggleSalidas.isSelected()) filasMax = Math.max(filasMax, salidas.size());
-        if (toggleServicios.isSelected()) filasMax = Math.max(filasMax, servicios.size());
+       modelo.setRowCount(0);
+       ArrayList<Movimiento> movimientosVehiculo = new ArrayList<>();
+       if (toggleEntradas.isSelected()){
+           for (Entrada e: entradas){
+               movimientosVehiculo.add(e);
+           }
+       }
+       if (toggleSalidas.isSelected()){
+           for (Salida s: salidas){
+               movimientosVehiculo.add(s);
+           }
+       }
+       if (toggleServicios.isSelected()){
+           for (Servicio sa: servicios){
+               movimientosVehiculo.add(sa);
+           }
+       }
+       
+       Collections.sort(movimientosVehiculo, new Comparator<LocalDateTime>(){                    
+        @Override
+        public int compare(String a ,String b){
+            return Integer.compare(conteo.get(b),conteo.get(a));
+            }
+        });
         for (int i = 0; i < filasMax; i++){
-            String e = (toggleEntradas.isSelected() && i < entradas.size()) ? entradas.get(i).toString() : ""; //? Para uso de valores ternarios, si es true lo mete en la row, si es false, mete un vacío
+            String mov = (toggleEntradas.isSelected() && i < entradas.size()) ? entradas.get(i).toString() : ""; //? Para uso de valores ternarios, si es true lo mete en la row, si es false, mete un vacío
             String s = (toggleSalidas.isSelected() && i < salidas.size()) ? salidas.get(i).toString() : "";
             String sa = (toggleServicios.isSelected() && i < servicios.size()) ? servicios.get(i).toString() : "";
 
-            modelo.addRow(new Object[]{e, s, sa});
-        }
+            modelo.addRow(new Object[]{mov});
+        }ai
     }
     
     public void cargarListaServicios(){
@@ -167,13 +182,13 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
 
         tablaMovimientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-                "Entradas", "Salidas", "Servicios adicionales"
+                "Entradas"
             }
         ));
         jScrollPane6.setViewportView(tablaMovimientos);
@@ -279,15 +294,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         cargarMovimientos(v.getHistorial().getListaEntradas(), v.getHistorial().getListaSalidas(), v.getHistorial().getListaServicios());
     }//GEN-LAST:event_listaVehiculosValueChanged
     
-    public void cargarMovimientos(ArrayList<Entrada> entradas, ArrayList<Salida> salidas, ArrayList<Servicio> servicios){
-       DefaultTableModel modelo = (DefaultTableModel) tablaMovimientos.getModel();
-        modelo.setRowCount(0);
-        int filas = Math.max(entradas.size(), Math.max(salidas.size(),servicios.size()));
-        //Lógica de los radio buttons
-        for (int i = 0; i < filas; i++){
-            
-        }
-    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
