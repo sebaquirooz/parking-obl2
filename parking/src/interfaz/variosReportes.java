@@ -30,6 +30,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     
     @Override
     public void update(Observable o, Object arg) {
+        this.cargarListaEmpleados();
         this.cargarListaServicios();
         listaVehiculos.setListData(sistema.obtenerListaVehiculos());
         
@@ -47,6 +48,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     }
     
     //A revisar
+    /*
     public void cargarMovimientos(ArrayList<Entrada> entradas, ArrayList<Salida> salidas, ArrayList<Servicio> servicios){
        DefaultTableModel modelo = (DefaultTableModel) tablaMovimientos.getModel();
        modelo.setRowCount(0);
@@ -80,6 +82,34 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
 
             modelo.addRow(new Object[]{mov});
         }ai
+    }
+    */
+    public void cargarListaEmpleados(){
+        HashMap<String, Integer> conteo = new HashMap<>();
+        
+        for (int i = 0; i < sistema.getListaMovimientos().size(); i++) {
+            String nombreEmpleado = sistema.getListaMovimientos().get(i).getEmpleado().getNombre();
+            conteo.put(nombreEmpleado, conteo.getOrDefault(nombreEmpleado,0)+1);
+        }
+        
+        ArrayList<String> nombresEmpleados = new ArrayList<>(conteo.keySet());
+        
+        
+        Collections.sort(nombresEmpleados, new Comparator<String>(){                    
+        @Override
+        public int compare(String a,String b){
+            return Integer.compare(conteo.get(a),conteo.get(b));
+            }
+        });
+        
+        String[] resultados = new String[nombresEmpleados.size()];
+        for (int i = 0; i < nombresEmpleados.size(); i++) {
+            String nombre = nombresEmpleados.get(i);
+            int cantidad = conteo.get(nombre);
+            resultados[i] = nombre + " (" + cantidad + " )";
+        }
+        
+        this.listaEmpleadosMovs.setListData(resultados);
     }
     
     public void cargarListaServicios(){
@@ -134,7 +164,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         jScrollPane1 = new javax.swing.JScrollPane();
         listaClientesContratos = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listaEmpleadosMovs = new javax.swing.JList<>();
+        listaEmpleadosMovs = new javax.swing.JList();
         jScrollPane5 = new javax.swing.JScrollPane();
         listaServiciosMasUtilizados = new javax.swing.JList();
         jLabel5 = new javax.swing.JLabel();
@@ -291,7 +321,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
 
     private void listaVehiculosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaVehiculosValueChanged
         Vehiculo v = (Vehiculo) listaVehiculos.getSelectedValue();
-        cargarMovimientos(v.getHistorial().getListaEntradas(), v.getHistorial().getListaSalidas(), v.getHistorial().getListaServicios());
+        //cargarMovimientos(v.getHistorial().getListaEntradas(), v.getHistorial().getListaSalidas(), v.getHistorial().getListaServicios());
     }//GEN-LAST:event_listaVehiculosValueChanged
     
 
@@ -345,7 +375,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel labelEstadia;
     private javax.swing.JList<Cliente> listaClientesContratos;
-    private javax.swing.JList<Empleado> listaEmpleadosMovs;
+    private javax.swing.JList listaEmpleadosMovs;
     private javax.swing.JList listaServiciosMasUtilizados;
     private javax.swing.JList<Vehiculo> listaVehiculos;
     private javax.swing.JButton ordenarFecha;
