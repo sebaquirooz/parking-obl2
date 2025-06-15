@@ -34,7 +34,10 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         this.cargarListaContratos();
         this.cargarListaEmpleados();
         this.cargarListaServicios();
-        listaVehiculos.setListData(sistema.obtenerListaVehiculos());        
+        listaVehiculos.setListData(sistema.obtenerListaVehiculos());
+        if (listaVehiculos.getSelectedValue() != null){
+            this.cargarMovimientos();
+        }
     }
     
     
@@ -49,8 +52,12 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         datePicker.setBounds(190, 50, 140, 22);
     }
     
-   
-    public void cargarMovimientos(ArrayList<Entrada> entradas, ArrayList<Salida> salidas, ArrayList<Servicio> servicios){
+    //A revisar
+    public void cargarMovimientos(){
+       Vehiculo v = (Vehiculo) listaVehiculos.getSelectedValue();
+       ArrayList<Entrada> entradas = v.getHistorial().getListaEntradas();
+       ArrayList<Salida> salidas = v.getHistorial().getListaSalidas();
+       ArrayList<Servicio> servicios = v.getHistorial().getListaServicios();
        DefaultTableModel modelo = (DefaultTableModel) tablaMovimientos.getModel();
        modelo.setRowCount(0);
        ArrayList<Movimiento> movimientosVehiculo = new ArrayList<>();
@@ -69,7 +76,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
                movimientosVehiculo.add(sa);
            }
        }
-       if (toggleOrden.isSelected()){
+       if (!toggleOrden.isSelected()){
             Collections.sort(movimientosVehiculo, new Comparator<Movimiento>() {
             @Override
             public int compare(Movimiento a, Movimiento b) {
@@ -85,9 +92,17 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
             }
             });
         }
+       
         for (int i = 0; i < movimientosVehiculo.size(); i++){
-            String mov = movimientosVehiculo.get(i).toString();
-
+            Movimiento m = movimientosVehiculo.get(i);
+            String tipoMov = "";
+            if (m instanceof Entrada){
+                tipoMov = "Entrada | ";
+            }
+            else if (m instanceof Salida){
+                tipoMov = "Salida | ";
+            }
+            String mov = tipoMov +m.toString();
             modelo.addRow(new Object[]{mov});
         }
     }
@@ -265,7 +280,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
                 {null}
             },
             new String [] {
-                "Entradas"
+                "Movimientos"
             }
         ));
         jScrollPane6.setViewportView(tablaMovimientos);
@@ -275,16 +290,31 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
 
         toggleServicios.setSelected(true);
         toggleServicios.setText("Servicios adicionales");
+        toggleServicios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleServiciosActionPerformed(evt);
+            }
+        });
         tabHistorial.add(toggleServicios);
         toggleServicios.setBounds(560, 190, 150, 23);
 
         toggleEntradas.setSelected(true);
         toggleEntradas.setText("Entradas");
+        toggleEntradas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleEntradasActionPerformed(evt);
+            }
+        });
         tabHistorial.add(toggleEntradas);
         toggleEntradas.setBounds(560, 110, 150, 23);
 
         toggleSalidas.setSelected(true);
         toggleSalidas.setText("Salidas");
+        toggleSalidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toggleSalidasActionPerformed(evt);
+            }
+        });
         tabHistorial.add(toggleSalidas);
         toggleSalidas.setBounds(560, 150, 150, 23);
 
@@ -368,13 +398,27 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     }// </editor-fold>//GEN-END:initComponents
 
     private void listaVehiculosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaVehiculosValueChanged
-        Vehiculo v = (Vehiculo) listaVehiculos.getSelectedValue();
-        //cargarMovimientos(v.getHistorial().getListaEntradas(), v.getHistorial().getListaSalidas(), v.getHistorial().getListaServicios());
+        if (listaVehiculos.getSelectedValue() != null){
+            update(null,null);
+        }
+        
     }//GEN-LAST:event_listaVehiculosValueChanged
 
     private void toggleOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleOrdenActionPerformed
-        // TODO add your handling code here:
+        update(null,null);
     }//GEN-LAST:event_toggleOrdenActionPerformed
+
+    private void toggleEntradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleEntradasActionPerformed
+        update(null,null);
+    }//GEN-LAST:event_toggleEntradasActionPerformed
+
+    private void toggleSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleSalidasActionPerformed
+        update(null,null);
+    }//GEN-LAST:event_toggleSalidasActionPerformed
+
+    private void toggleServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleServiciosActionPerformed
+        update(null,null);
+    }//GEN-LAST:event_toggleServiciosActionPerformed
     
 
     public static void main(String args[]) {

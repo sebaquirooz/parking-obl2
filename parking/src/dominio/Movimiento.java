@@ -44,4 +44,7 @@ public class Movimiento {
         this.fechaYhora = fechaYhora;
     }
     
+    protected static final DateTimeFormatter formatoMovimientos = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"); //protected para que las subclases puedan acceder y final para valor constante
+
+    
 }

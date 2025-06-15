@@ -83,7 +83,7 @@ public class Vehiculo {
     }
     
     public String toString(){
-        return this.marca + " " + this.matricula;
+        return this.modelo + " " + this.matricula;
     }
 
 }

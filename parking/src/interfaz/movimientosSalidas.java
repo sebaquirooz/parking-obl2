@@ -172,6 +172,9 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         LocalTime horaEnFormato = LocalTime.parse(horaDeSalida, formatter);
         LocalDateTime fechayHora = LocalDateTime.of(localDate,horaEnFormato);
+        if (listaEntradas.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || " ".equals(horaSalida.getText()) || " ".equals(horaSalida.getText()) ){
+            // algo
+        }
         sistema.registrarSalida(entrada, empleadoSeleccionado, fechayHora, notaDeSalida);
         
             if(sistema.getListaSalidas().getLast().getEntrada().equals(entrada)){

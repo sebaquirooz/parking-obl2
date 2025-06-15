@@ -33,7 +33,7 @@ public class Entrada extends Movimiento {
 
     @Override
     public String toString() {
-        return this.getVehiculo().getMatricula() + " " + this.getFechaYhora().format(DateTimeFormatter.ISO_DATE);
+        return this.getVehiculo().getMatricula() + " | " + this.getFechaYhora().format(formatoMovimientos);
     }
 
 }
