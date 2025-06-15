@@ -173,6 +173,7 @@ public class Sistema extends Observable {
         Servicio servicioNuevo = new Servicio(unVehiculo,unEmpleado,unServicio,unaFechayUnaHora,unCosto);
         this.listaServicios.add(servicioNuevo);
         this.listaMovimientos.add(servicioNuevo);
+        unVehiculo.getHistorial().getListaServicios().add(servicioNuevo);
         setChanged();
         notifyObservers();
     }

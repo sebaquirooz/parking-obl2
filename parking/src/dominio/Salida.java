@@ -41,5 +41,10 @@ public class Salida extends Movimiento {
         this.nota = nota;
     }
     
+    @Override
+    public String toString() {
+        return this.getVehiculo().getMatricula() + " | " + this.getFechaYhora().format(formatoMovimientos);
+    }
+    
 
 }

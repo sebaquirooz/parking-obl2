@@ -34,7 +34,8 @@ public class Servicio extends Movimiento {
     }
 
   
-    public String toString(){
-        return this.getTipo()+ " " + this.getVehiculo();
-    } 
+     @Override
+    public String toString() {
+        return this.getTipo() +" | " +this.getVehiculo().getMatricula() +" | "+ this.getFechaYhora().format(formatoMovimientos);
+    }
 }
