@@ -69,7 +69,6 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         jLabel6 = new javax.swing.JLabel();
         labelContrato = new javax.swing.JLabel();
         horaSalida = new javax.swing.JTextField();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
 
         jScrollPane4.setViewportView(jTree1);
 
@@ -158,8 +157,6 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         });
         getContentPane().add(horaSalida);
         horaSalida.setBounds(190, 80, 140, 30);
-        getContentPane().add(jTabbedPane1);
-        jTabbedPane1.setBounds(0, 0, 200, 130);
 
         setBounds(0, 0, 557, 320);
     }// </editor-fold>//GEN-END:initComponents
@@ -249,7 +246,6 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTree jTree1;
     private javax.swing.JLabel labelContrato;
     private javax.swing.JLabel labelTiempoTotal;
