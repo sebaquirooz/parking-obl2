@@ -35,9 +35,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         this.cargarListaEmpleados();
         this.cargarListaServicios();
         listaVehiculos.setListData(sistema.obtenerListaVehiculos());
-        if (listaVehiculos.getSelectedValue() != null){
-            this.cargarMovimientos();
-        }
     }
     
     
@@ -398,10 +395,9 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     }// </editor-fold>//GEN-END:initComponents
 
     private void listaVehiculosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaVehiculosValueChanged
-        if (listaVehiculos.getSelectedValue() != null){
-            update(null,null);
+        if(this.listaVehiculos.getSelectedValue() != null){
+            this.cargarMovimientos();
         }
-        
     }//GEN-LAST:event_listaVehiculosValueChanged
 
     private void toggleOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleOrdenActionPerformed
