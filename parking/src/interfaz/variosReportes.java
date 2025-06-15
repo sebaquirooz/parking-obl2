@@ -34,9 +34,9 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         this.cargarListaContratos();
         this.cargarListaEmpleados();
         this.cargarListaServicios();
-        listaVehiculos.setListData(sistema.obtenerListaVehiculos());
-        
+        listaVehiculos.setListData(sistema.obtenerListaVehiculos());        
     }
+    
     
      //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
