@@ -30,15 +30,16 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     
     @Override
     public void update(Observable o, Object arg) {
+        this.cargarEstadia();
+        this.cargarListaContratos();
         this.cargarListaEmpleados();
         this.cargarListaServicios();
         listaVehiculos.setListData(sistema.obtenerListaVehiculos());
         if (listaVehiculos.getSelectedValue() != null){
             this.cargarMovimientos();
         }
-        
-        
     }
+    
     
      //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
@@ -105,6 +106,57 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
             modelo.addRow(new Object[]{mov});
         }
     }
+   
+    public void cargarEstadia(){
+        
+        Salida salidaElegida = null;
+        int maximo = 0;
+        
+        for (int i = 0; i < sistema.getListaSalidas().size(); i++) {
+            if(sistema.getListaSalidas().get(i).getTiempoTotal()>maximo){
+                maximo = sistema.getListaSalidas().get(i).getTiempoTotal();
+                salidaElegida = sistema.getListaSalidas().get(i);
+            }
+        }
+        
+        if(salidaElegida == null){
+            this.labelEstadia.setText("No hay ninguna estadía registada.");
+        }
+        else{
+            this.labelEstadia.setText(salidaElegida.getVehiculo().getMarca() + " " + sistema.calcularTiempoTotal(salidaElegida));
+        }
+    }
+    
+    
+    public  void cargarListaContratos(){
+        HashMap<String, Integer> conteo = new HashMap<>();
+        
+        for (int i = 0; i < sistema.getListaContratos().size(); i++) {
+            String nombreCliente = sistema.getListaContratos().get(i).getCliente().getNombre();
+            conteo.put(nombreCliente, conteo.getOrDefault(nombreCliente,0)+1);
+        }
+        
+        ArrayList<String> nombresClientes = new ArrayList<>(conteo.keySet());
+        
+        Collections.sort(nombresClientes, new Comparator<String>(){                    
+        @Override
+        public int compare(String a,String b){
+            return Integer.compare(conteo.get(b),conteo.get(a));
+            }
+        });
+        
+        String[] resultados = new String[nombresClientes.size()];
+        
+        for (int i = 0; i < nombresClientes.size(); i++) {
+            String nombre = nombresClientes.get(i);
+            int cantidad = conteo.get(nombre);
+            
+            resultados[i] = nombre + " (" + cantidad + " )";
+        }
+        
+        this.listaClientesContratos.setListData(resultados);
+    }
+    
     public void cargarListaEmpleados(){
         HashMap<String, Integer> conteo = new HashMap<>();
         
@@ -182,7 +234,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         jTable2 = new javax.swing.JTable();
         tabEstadisticas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listaClientesContratos = new javax.swing.JList<>();
+        listaClientesContratos = new javax.swing.JList();
         jScrollPane4 = new javax.swing.JScrollPane();
         listaEmpleadosMovs = new javax.swing.JList();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -335,7 +387,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
 
         labelEstadia.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         tabEstadisticas.add(labelEstadia);
-        labelEstadia.setBounds(160, 230, 170, 0);
+        labelEstadia.setBounds(160, 230, 340, 20);
 
         jTabbedPane1.addTab("Estadisticas generales", tabEstadisticas);
 
@@ -417,7 +469,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable2;
     private javax.swing.JLabel labelEstadia;
-    private javax.swing.JList<Cliente> listaClientesContratos;
+    private javax.swing.JList listaClientesContratos;
     private javax.swing.JList listaEmpleadosMovs;
     private javax.swing.JList listaServiciosMasUtilizados;
     private javax.swing.JList<Vehiculo> listaVehiculos;
