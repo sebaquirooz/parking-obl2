@@ -2,8 +2,9 @@ package dominio;
 import java.util.*;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.io.Serializable;
 
-public class Sistema extends Observable {
+public class Sistema extends Observable implements Serializable {
 
     private ArrayList<Cliente> listaClientes;
 
