@@ -232,7 +232,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         toggleOrden = new javax.swing.JToggleButton();
         exportarHistorial = new javax.swing.JButton();
         tabMovimientos = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
         tabEstadisticas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaClientesContratos = new javax.swing.JList();
@@ -340,11 +339,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         jTabbedPane1.addTab("Historial", tabHistorial);
 
         tabMovimientos.setLayout(null);
-
-        jPanel1.setLayout(new java.awt.GridLayout());
-        tabMovimientos.add(jPanel1);
-        jPanel1.setBounds(110, 40, 290, 150);
-
         jTabbedPane1.addTab("Movimientos", tabMovimientos);
 
         tabEstadisticas.setLayout(null);
@@ -476,7 +470,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
