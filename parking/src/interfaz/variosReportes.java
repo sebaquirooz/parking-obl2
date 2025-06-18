@@ -6,7 +6,9 @@ import javax.swing.table.DefaultTableModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
-    
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class variosReportes extends javax.swing.JFrame implements Observer{
     
@@ -24,6 +26,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         this.sistema = unSistema;
         initComponents();
         this.cargarCompFecha();
+        this.tabMovimientos();
         this.sistema.addObserver(this);
         update(null,null);              
     }
@@ -36,7 +39,38 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         this.cargarListaServicios();
         listaVehiculos.setListData(sistema.obtenerListaVehiculos());
     }
+ 
     
+    private class MovListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+        // este código se ejecutará al presionar el botón, obtengo cuál botón
+        JButton cual = ((JButton) e.getSource());
+        // código a completar según el botón presionado
+        }
+    }
+    
+    public void tabMovimientos(){
+        cargarCompFecha();
+        JPanel panelMovimientos = new JPanel(new GridLayout(4,3));
+        panelMovimientos.setBounds(260, 80, 190, 140); 
+        panelMovimientos.setPreferredSize(new Dimension(50,40));
+        tabMovimientosBotones.add(panelMovimientos);
+        
+        String[] horarios = {"00:00 - 5:59", "6:00 - 11:59", "12:00 - 17:59", "18:00 - 23:59"};
+
+        for (int fila = 0; fila < 4; fila++) {
+            for (int col = 0; col < 3; col++) {
+                String texto = horarios[fila]; // el texto ahora depende de la columna
+                JButton boton = new JButton(texto);
+                boton.setBackground(Color.BLACK);
+                boton.setForeground(Color.WHITE);
+                boton.setMargin(new Insets(5, 5, 5, 5));
+                boton.addActionListener(new MovListener());
+                panelMovimientos.add(boton);
+            }
+        }
+    }
+
     
      //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
@@ -45,9 +79,10 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         model.setSelected(true);
         JDatePanelImpl datePanel = new JDatePanelImpl(model);
         JDatePickerImpl datePicker = new JDatePickerImpl(datePanel);
-        getContentPane().add(datePicker);      
-        datePicker.setBounds(190, 50, 140, 22);
+        tabMovimientos.add(datePicker);      
+        datePicker.setBounds(30, 30, 150, 40);
     }
+    
     
     //A revisar
     public void cargarMovimientos(){
@@ -226,9 +261,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         toggleEntradas = new javax.swing.JToggleButton();
         toggleSalidas = new javax.swing.JToggleButton();
         toggleOrden = new javax.swing.JToggleButton();
-        tabMovimientos = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         tabEstadisticas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaClientesContratos = new javax.swing.JList();
@@ -241,6 +273,12 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         labelEstadia = new javax.swing.JLabel();
+        tabMovimientos = new javax.swing.JPanel();
+        tabMovimientosBotones = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        botonSeleccion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -326,25 +364,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
 
         jTabbedPane1.addTab("Historial", tabHistorial);
 
-        tabMovimientos.setLayout(null);
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "<Fecha actual>", "<Fecha +1>", "<Fecha +2>"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable2);
-
-        tabMovimientos.add(jScrollPane3);
-        jScrollPane3.setBounds(220, 0, 452, 260);
-
-        jTabbedPane1.addTab("Movimientos", tabMovimientos);
-
         tabEstadisticas.setLayout(null);
 
         jScrollPane1.setViewportView(listaClientesContratos);
@@ -388,6 +407,35 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
 
         jTabbedPane1.addTab("Estadisticas generales", tabEstadisticas);
 
+        tabMovimientos.setLayout(null);
+
+        tabMovimientosBotones.setLayout(new java.awt.GridLayout());
+        tabMovimientos.add(tabMovimientosBotones);
+        tabMovimientosBotones.setBounds(200, 30, 410, 200);
+
+        jLabel1.setText("jLabel1");
+        tabMovimientos.add(jLabel1);
+        jLabel1.setBounds(470, 10, 90, 16);
+
+        jLabel8.setText("jLabel1");
+        tabMovimientos.add(jLabel8);
+        jLabel8.setBounds(200, 10, 90, 16);
+
+        jLabel9.setText("jLabel1");
+        tabMovimientos.add(jLabel9);
+        jLabel9.setBounds(340, 10, 90, 16);
+
+        botonSeleccion.setText("Seleccionar");
+        botonSeleccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSeleccionActionPerformed(evt);
+            }
+        });
+        tabMovimientos.add(botonSeleccion);
+        botonSeleccion.setBounds(30, 70, 120, 23);
+
+        jTabbedPane1.addTab("Movimientos", tabMovimientos);
+
         getContentPane().add(jTabbedPane1);
         jTabbedPane1.setBounds(40, 40, 770, 310);
 
@@ -415,6 +463,11 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     private void toggleServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleServiciosActionPerformed
         update(null,null);
     }//GEN-LAST:event_toggleServiciosActionPerformed
+
+    private void botonSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSeleccionActionPerformed
+        //ACA agarrar fecha cargar boitones etc
+
+    }//GEN-LAST:event_botonSeleccionActionPerformed
     
 
     public static void main(String args[]) {
@@ -450,20 +503,22 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonSeleccion;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel labelEstadia;
     private javax.swing.JList listaClientesContratos;
     private javax.swing.JList listaEmpleadosMovs;
@@ -473,6 +528,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     private javax.swing.JPanel tabEstadisticas;
     private javax.swing.JPanel tabHistorial;
     private javax.swing.JPanel tabMovimientos;
+    private javax.swing.JPanel tabMovimientosBotones;
     private javax.swing.JTable tablaMovimientos;
     private javax.swing.JToggleButton toggleEntradas;
     private javax.swing.JToggleButton toggleOrden;

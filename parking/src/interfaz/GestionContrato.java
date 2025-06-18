@@ -119,7 +119,7 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
 
         labelNroContrato.setText("<Número de contrato>");
         getContentPane().add(labelNroContrato);
-        labelNroContrato.setBounds(150, 390, 210, 16);
+        labelNroContrato.setBounds(150, 390, 240, 16);
 
         labelValor.setText("<Valor>");
         getContentPane().add(labelValor);
@@ -135,7 +135,7 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
 
         labelEmpleado.setText("<Empleado>");
         getContentPane().add(labelEmpleado);
-        labelEmpleado.setBounds(150, 360, 210, 16);
+        labelEmpleado.setBounds(150, 360, 230, 16);
 
         setBounds(0, 0, 416, 428);
     }// </editor-fold>//GEN-END:initComponents
@@ -161,17 +161,13 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
         String vehiculoContrato = contratoSelecc.getVehiculo().toString();
         String clienteContrato = contratoSelecc.getCliente().toString();
         String empleadoContrato = contratoSelecc.getEmpleado().toString();
+        int numeroContrato = contratoSelecc.getNumeroContrato();
         
         this.labelCliente.setText(clienteContrato + " (Cliente)");
         this.labelEmpleado.setText(empleadoContrato + " (Empleado)");
         this.labelValor.setText(valorContrato+ " (Valor)");
         this.labelVehiculo.setText(vehiculoContrato + " (Vehículo)");
-        
-        
-        //Falta poner el nro de contrato, pero hay que tener cuidado porque s epueden borrar los contratos.
-
-
-
+        this.labelNroContrato.setText("" + numeroContrato + " (Número contrato)");
     }//GEN-LAST:event_listaContratosValueChanged
 
     /**
