@@ -50,38 +50,36 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     }
     
     //A revisar
-    public void cargarMovimientos(){
-       Vehiculo v = (Vehiculo) listaVehiculos.getSelectedValue();
-       ArrayList<Entrada> entradas = v.getHistorial().getListaEntradas();
-       ArrayList<Salida> salidas = v.getHistorial().getListaSalidas();
-       ArrayList<Servicio> servicios = v.getHistorial().getListaServicios();
-       DefaultTableModel modelo = (DefaultTableModel) tablaMovimientos.getModel();
-       modelo.setRowCount(0);
-       ArrayList<Movimiento> movimientosVehiculo = new ArrayList<>();
-       if (toggleEntradas.isSelected()){
-           for (Entrada e: entradas){
-               movimientosVehiculo.add(e);
-           }
-       }
-       if (toggleSalidas.isSelected()){
-           for (Salida s: salidas){
-               movimientosVehiculo.add(s);
-           }
-       }
-       if (toggleServicios.isSelected()){
-           for (Servicio sa: servicios){
-               movimientosVehiculo.add(sa);
-           }
-       }
-       if (!toggleOrden.isSelected()){
+    public Movimiento[] generarListaHistorial(){
+        Vehiculo v = (Vehiculo) listaVehiculos.getSelectedValue();
+        ArrayList<Entrada> entradas = v.getHistorial().getListaEntradas();
+        ArrayList<Salida> salidas = v.getHistorial().getListaSalidas();
+        ArrayList<Servicio> servicios = v.getHistorial().getListaServicios();
+        ArrayList<Movimiento> movimientosVehiculo = new ArrayList<>();
+        if (toggleEntradas.isSelected()){
+            for (Entrada e: entradas){
+                movimientosVehiculo.add(e);
+            }
+        }
+        if (toggleSalidas.isSelected()){
+            for (Salida s: salidas){
+                movimientosVehiculo.add(s);
+            }
+        }
+        if (toggleServicios.isSelected()){
+            for (Servicio sa: servicios){
+                movimientosVehiculo.add(sa);
+            }
+        }
+        if (!toggleOrden.isSelected()){
             Collections.sort(movimientosVehiculo, new Comparator<Movimiento>() {
             @Override
             public int compare(Movimiento a, Movimiento b) {
                 return a.getFechaYhora().compareTo(b.getFechaYhora());
             }
-        }); 
-       }
-       else{
+            }); 
+        }
+        else{
             Collections.sort(movimientosVehiculo, new Comparator<Movimiento>() {
             @Override
             public int compare(Movimiento a, Movimiento b) {
@@ -89,9 +87,15 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
             }
             });
         }
-       
-        for (int i = 0; i < movimientosVehiculo.size(); i++){
-            Movimiento m = movimientosVehiculo.get(i);
+        return movimientosVehiculo.toArray(new Movimiento[movimientosVehiculo.size()]);
+    }
+    
+    public void cargarMovimientos(){
+        DefaultTableModel modelo = (DefaultTableModel) tablaMovimientos.getModel();
+        modelo.setRowCount(0);
+        Movimiento[] historialSeleccionado = this.generarListaHistorial();
+        for (int i = 0; i < historialSeleccionado.length; i++){
+            Movimiento m = historialSeleccionado[i];
             String tipoMov = "";
             if (m instanceof Entrada){
                 tipoMov = "Entrada | ";
@@ -226,9 +230,9 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         toggleEntradas = new javax.swing.JToggleButton();
         toggleSalidas = new javax.swing.JToggleButton();
         toggleOrden = new javax.swing.JToggleButton();
+        exportarHistorial = new javax.swing.JButton();
         tabMovimientos = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
         tabEstadisticas = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaClientesContratos = new javax.swing.JList();
@@ -293,7 +297,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
             }
         });
         tabHistorial.add(toggleServicios);
-        toggleServicios.setBounds(560, 190, 150, 23);
+        toggleServicios.setBounds(560, 170, 150, 23);
 
         toggleEntradas.setSelected(true);
         toggleEntradas.setText("Entradas");
@@ -303,7 +307,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
             }
         });
         tabHistorial.add(toggleEntradas);
-        toggleEntradas.setBounds(560, 110, 150, 23);
+        toggleEntradas.setBounds(560, 90, 150, 23);
 
         toggleSalidas.setSelected(true);
         toggleSalidas.setText("Salidas");
@@ -313,7 +317,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
             }
         });
         tabHistorial.add(toggleSalidas);
-        toggleSalidas.setBounds(560, 150, 150, 23);
+        toggleSalidas.setBounds(560, 130, 150, 23);
 
         toggleOrden.setText("Ordenar por fecha");
         toggleOrden.addActionListener(new java.awt.event.ActionListener() {
@@ -322,26 +326,24 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
             }
         });
         tabHistorial.add(toggleOrden);
-        toggleOrden.setBounds(560, 70, 150, 23);
+        toggleOrden.setBounds(560, 50, 150, 23);
+
+        exportarHistorial.setText("Exportar historial");
+        exportarHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportarHistorialActionPerformed(evt);
+            }
+        });
+        tabHistorial.add(exportarHistorial);
+        exportarHistorial.setBounds(560, 210, 150, 23);
 
         jTabbedPane1.addTab("Historial", tabHistorial);
 
         tabMovimientos.setLayout(null);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "<Fecha actual>", "<Fecha +1>", "<Fecha +2>"
-            }
-        ));
-        jScrollPane3.setViewportView(jTable2);
-
-        tabMovimientos.add(jScrollPane3);
-        jScrollPane3.setBounds(220, 0, 452, 260);
+        jPanel1.setLayout(new java.awt.GridLayout());
+        tabMovimientos.add(jPanel1);
+        jPanel1.setBounds(110, 40, 290, 150);
 
         jTabbedPane1.addTab("Movimientos", tabMovimientos);
 
@@ -415,6 +417,23 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     private void toggleServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toggleServiciosActionPerformed
         update(null,null);
     }//GEN-LAST:event_toggleServiciosActionPerformed
+
+    private void exportarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarHistorialActionPerformed
+        Movimiento[] historialSeleccionado = this.generarListaHistorial();
+        ArchivoGrabacion historial = new ArchivoGrabacion(this.listaVehiculos.getSelectedValue().getMatricula()+".txt");
+        for (Movimiento m: historialSeleccionado){
+            String linea = "";
+            if (m instanceof Entrada){
+                linea = "Entrada | ";
+            }
+            else if (m instanceof Salida){
+                linea = "Salida | ";
+            }
+            linea += m.toString();
+            historial.grabarLinea(linea);
+        }
+        historial.cerrar();
+    }//GEN-LAST:event_exportarHistorialActionPerformed
     
 
     public static void main(String args[]) {
@@ -450,20 +469,20 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton exportarHistorial;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel labelEstadia;
     private javax.swing.JList listaClientesContratos;
     private javax.swing.JList listaEmpleadosMovs;
