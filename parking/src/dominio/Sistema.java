@@ -307,4 +307,8 @@ public class Sistema extends Observable implements Serializable {
         }
         return retorno;
     }
+    
+    public void reiniciarSistema(){
+        
+    }
 }

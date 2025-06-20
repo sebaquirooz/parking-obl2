@@ -1,5 +1,9 @@
 package interfaz;
 import dominio.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.Path;
+import javax.swing.JOptionPane;
 
 
 
@@ -33,12 +37,12 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
-        helpMenu = new javax.swing.JMenu();
+        buttonGrabacion = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        menuRecuperacion = new javax.swing.JMenuItem();
+        menuGrabacion = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem13 = new javax.swing.JMenuItem();
 
@@ -111,8 +115,13 @@ public class Menu extends javax.swing.JFrame {
 
         menuBar.add(editMenu);
 
-        helpMenu.setMnemonic('h');
-        helpMenu.setText("Varios");
+        buttonGrabacion.setMnemonic('h');
+        buttonGrabacion.setText("Varios");
+        buttonGrabacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGrabacionActionPerformed(evt);
+            }
+        });
 
         jMenuItem9.setText("Reportes");
         jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
@@ -120,31 +129,23 @@ public class Menu extends javax.swing.JFrame {
                 jMenuItem9ActionPerformed(evt);
             }
         });
-        helpMenu.add(jMenuItem9);
+        buttonGrabacion.add(jMenuItem9);
 
-        jMenuItem2.setText("Recuperación de datos");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        menuRecuperacion.setText("Recuperación de datos");
+        menuRecuperacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                menuRecuperacionActionPerformed(evt);
             }
         });
-        helpMenu.add(jMenuItem2);
+        buttonGrabacion.add(menuRecuperacion);
 
-        jMenuItem3.setText("Grabación de datos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuGrabacion.setText("Grabación de datos");
+        menuGrabacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menuGrabacionActionPerformed(evt);
             }
         });
-        helpMenu.add(jMenuItem3);
-
-        jMenuItem10.setText("MiniJuego");
-        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem10ActionPerformed(evt);
-            }
-        });
-        helpMenu.add(jMenuItem10);
+        buttonGrabacion.add(menuGrabacion);
 
         jMenuItem11.setText("Información de Autores");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
@@ -152,9 +153,17 @@ public class Menu extends javax.swing.JFrame {
                 jMenuItem11ActionPerformed(evt);
             }
         });
-        helpMenu.add(jMenuItem11);
+        buttonGrabacion.add(jMenuItem11);
 
-        menuBar.add(helpMenu);
+        jMenuItem10.setText("MiniJuego");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        buttonGrabacion.add(jMenuItem10);
+
+        menuBar.add(buttonGrabacion);
 
         jMenu1.setText("Terminar");
 
@@ -209,13 +218,27 @@ public class Menu extends javax.swing.JFrame {
         ventanaVariosReportes.setVisible(true);
     }//GEN-LAST:event_jMenuItem9ActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void menuRecuperacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRecuperacionActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Confirma querer recuperar los datos? En caso de no haber datos guardados, se reiniciara el sistema.", "Recuperación de datos.",JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Datos recuperados.", "Recuperación de datos", -1);
+            Persistencia.cargarSistema();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Grabación de datos cancelada.", "Grabación de datos", -1);
+        }
+    }//GEN-LAST:event_menuRecuperacionActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void menuGrabacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuGrabacionActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Confirma querer grabar los datos?", "Grabación de datos.",JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Datos grabados.", "Grabación de datos", -1);
+            Persistencia.guardarSistema(sistema);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Grabación de datos cancelada.", "Grabación de datos", -1);
+        }
+    }//GEN-LAST:event_menuGrabacionActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         minijuego ventanaMinijuego = new minijuego();
@@ -235,6 +258,17 @@ public class Menu extends javax.swing.JFrame {
     private void jMenuItem13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem13ActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void buttonGrabacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGrabacionActionPerformed
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Confirma querer grabar los datos?", "Grabación de datos.",JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(null, "Datos grabados.", "Grabación de datos", -1);
+            Persistencia.guardarSistema(sistema);
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Grabación de datos cancelada.", "Grabación de datos", -1);
+        }
+    }//GEN-LAST:event_buttonGrabacionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -272,20 +306,20 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu buttonGrabacion;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu fileMenu;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenuItem menuGrabacion;
+    private javax.swing.JMenuItem menuRecuperacion;
     private javax.swing.JMenuItem opcionCliente;
     private javax.swing.JMenuItem opcionContratos;
     private javax.swing.JMenuItem opcionEmpleados;

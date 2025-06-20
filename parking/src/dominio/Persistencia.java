@@ -5,11 +5,11 @@ import java.nio.file.*;
 
 public class Persistencia {
 
-    public static void guardarSistema(Sistema sistema) {
+    public static void guardarSistema(Sistema unSistema) {
         try (
             ObjectOutputStream out = new ObjectOutputStream(
                     Files.newOutputStream(Paths.get("DATOS.ser")))) {
-            out.writeObject(sistema);
+            out.writeObject(unSistema);
             System.out.println("Sistema guardado correctamente.");
         } catch (IOException e) {
             e.printStackTrace();
@@ -22,7 +22,7 @@ public class Persistencia {
         Sistema unSistema = null;
         try {
             ObjectInputStream in = new ObjectInputStream(
-                    Files.newInputStream(Paths.get("datos.ser")));
+                    Files.newInputStream(Paths.get("DATOS.ser")));
             unSistema = (Sistema) in.readObject();
             System.out.println("Sistema cargado.");
             in.close();
@@ -31,4 +31,6 @@ public class Persistencia {
             e.printStackTrace();
         }
         return unSistema;
+    
     }
+}
