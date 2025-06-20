@@ -20,7 +20,8 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     
     private UtilDateModel model = new UtilDateModel();
 
-   
+   private JButton[][] botonesMovimientos = new JButton[4][3]; //Hacemos este atributo para luego cuando tenemos que cara
+
     public variosReportes() {
         initComponents();
         
@@ -48,6 +49,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
  
     private class MovListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
+        if(labelDiaSelecc.getText() != "Día seleccionado"){
         JButton cual = ((JButton) e.getSource());
         String[] filaCol = cual.getName().split(" ");
         String fila = filaCol[0];
@@ -57,7 +59,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         String[] partes = cual.getText().split(" - ");
         LocalTime horaInicio = LocalTime.parse(partes[0]);
         LocalTime horaFin = LocalTime.parse(partes[1]);
-        System.out.println(horaInicio.toString());
         // Obtener la fecha del label correspondiente
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fecha = null;
@@ -93,6 +94,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
                 }
             }
     }
+    }
 
 
 
@@ -104,7 +106,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         panelMovimientos.setPreferredSize(new Dimension(50,40));
         tabMovimientosBotones.add(panelMovimientos);
         
-        String[] horarios = {"00:00 - 5:59", "6:00 - 11:59", "12:00 - 17:59", "18:00 - 23:59"};
+        String[] horarios = {"00:00 - 05:59", "06:00 - 11:59", "12:00 - 17:59", "18:00 - 23:59"};
 
         for (int fila = 0; fila < 4; fila++) {
             for (int col = 0; col < 3; col++) {
@@ -116,9 +118,50 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
                 boton.addActionListener(new MovListener());
                 boton.setName(fila + " " + col);
                 panelMovimientos.add(boton);
+                botonesMovimientos[fila][col] = boton;
             }
         }
     }
+
+   public void colorearBotonesPorFranja(ArrayList<Movimiento> listaMovimientos) {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    LocalDate[] fechas = new LocalDate[3];
+    fechas[0] = LocalDate.parse(labelDiaSelecc.getText(), formatter);
+    fechas[1] = LocalDate.parse(labelDiaSelecc1.getText(), formatter);
+    fechas[2] = LocalDate.parse(labelDiaSelecc2.getText(), formatter);
+
+    for (int fila = 0; fila < 4; fila++) {
+        for (int col = 0; col < 3; col++) {
+            JButton boton = botonesMovimientos[fila][col];
+
+            String[] partes = boton.getText().split(" - ");
+            LocalTime horaInicio = LocalTime.parse(partes[0]);
+            LocalTime horaFin = LocalTime.parse(partes[1]);
+
+            LocalDate fecha = fechas[col];
+            int contador = 0;
+
+            for (Movimiento mov : listaMovimientos) {
+                LocalDateTime fechaHora = mov.getFechaYhora();
+                if (fechaHora.toLocalDate().equals(fecha)) {
+                    LocalTime hora = fechaHora.toLocalTime();
+                    if (!hora.isBefore(horaInicio) && !hora.isAfter(horaFin)) {
+                        contador++;
+                    }
+                }
+            }
+
+            if (contador < 5) {
+                boton.setBackground(Color.GREEN);
+            } else if (contador <= 8) {
+                boton.setBackground(Color.YELLOW);
+            } else {
+                boton.setBackground(Color.RED);
+            }
+        }
+    }
+}
+
 
     
      //Componente de libreria jdatepicker, hecho a mano
@@ -553,6 +596,8 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         this.labelDiaSelecc.setText(fechaSelecc.format(formato));
         this.labelDiaSelecc1.setText(fechaSeleccMas1.format(formato));
         this.labelDiaSelecc2.setText(fechaSeleccMas2.format(formato));
+        
+        this.colorearBotonesPorFranja(sistema.getListaMovimientos());
     }//GEN-LAST:event_botonSeleccionActionPerformed
     
 
