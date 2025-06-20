@@ -188,7 +188,7 @@ public class Sistema extends Observable implements Serializable {
         return true;
     }
 
-    public void registrarCliente(String nombre, String cedula, String direccion, int celular, int añoIngreso) {
+    public void registrarCliente(String nombre, String cedula, String direccion, String celular, int añoIngreso) {
         if (this.verificarCliente(cedula)) {
             Cliente clienteNuevo = new Cliente(nombre, cedula, direccion, celular, añoIngreso);
             this.listaClientes.add(clienteNuevo);

@@ -187,6 +187,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_horaSalidaActionPerformed
 
     private void listaEntradasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaEntradasValueChanged
+    if(!listaEntradas.isSelectionEmpty()){  
         Entrada unaEntrada = (Entrada) this.listaEntradas.getSelectedValue();
         //Hacemos un condicional porque cuando se elimina una entrada de la lista llama a este eventListener y lo carga con null.
         if(unaEntrada != null){
@@ -199,7 +200,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
                     }
         this.labelContrato.setText(tieneContrato);
         }
-           
+    }
     }//GEN-LAST:event_listaEntradasValueChanged
 
     /**

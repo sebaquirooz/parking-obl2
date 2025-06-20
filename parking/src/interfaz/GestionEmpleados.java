@@ -130,7 +130,7 @@ public class GestionEmpleados extends javax.swing.JFrame implements Observer{
         getContentPane().add(jLabel2);
         jLabel2.setBounds(220, 20, 150, 17);
 
-        setBounds(0, 0, 420, 353);
+        setBounds(0, 0, 420, 378);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nombreEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreEmpleadoActionPerformed
@@ -155,12 +155,13 @@ public class GestionEmpleados extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_registrarEmpleadoActionPerformed
 
     private void listaEmpleadosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaEmpleadosValueChanged
+        if(!listaEmpleados.isSelectionEmpty()){
         Empleado empleadoSeleccionado = (Empleado) listaEmpleados.getSelectedValue();
         nombreEmpleadoSeleccionado.setText(empleadoSeleccionado.getNombre());
         ciEmpleadoSeleccionado.setText(empleadoSeleccionado.getCedula());
         direccionEmpleadoSeleccionado.setText(empleadoSeleccionado.getDireccion());
         numEmpleadoSeleccionado.setText(empleadoSeleccionado.getNumeroEmpleado() + "");
-
+        }
     }//GEN-LAST:event_listaEmpleadosValueChanged
 
     /**

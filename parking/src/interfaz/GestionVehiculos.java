@@ -170,6 +170,7 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_registrarVehiculoActionPerformed
 
     private void listaVehiculoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaVehiculoValueChanged
+       if(!listaVehiculo.isSelectionEmpty()){
         Vehiculo vehiculoSelecc = (Vehiculo) listaVehiculo.getSelectedValue();
         String matriculaVehiculo = vehiculoSelecc.getMatricula();
         String marcaVehiculo = vehiculoSelecc.getMarca();
@@ -179,6 +180,7 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
         marcaVehiculoSeleccionado.setText(marcaVehiculo);
         modeloVehiculoSeleccionado.setText(modeloVehiculo);
         notaVehiculoSeleccionado.setText(estadoVehiculo);
+       }
     }//GEN-LAST:event_listaVehiculoValueChanged
 
     /**

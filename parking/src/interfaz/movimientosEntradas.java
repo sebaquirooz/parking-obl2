@@ -180,12 +180,14 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_horaEntradaActionPerformed
 
     private void listaVehiculosEstacionadosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaVehiculosEstacionadosValueChanged
+   if(!listaVehiculosEstacionados.isSelectionEmpty()){
     Vehiculo unVehiculo = (Vehiculo) listaVehiculosEstacionados.getSelectedValue();
     if(unVehiculo.getContrato() == null){
         this.labelContrato.setText("No tiene contrato");
     }
-    else{
-        this.labelContrato.setText("Tiene contrato");
+        else{
+          this.labelContrato.setText("Tiene contrato");
+        }
     }
     }//GEN-LAST:event_listaVehiculosEstacionadosValueChanged
 

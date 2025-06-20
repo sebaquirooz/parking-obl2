@@ -9,6 +9,10 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDateTime;
 
 public class variosReportes extends javax.swing.JFrame implements Observer{
     
@@ -31,6 +35,8 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         update(null,null);              
     }
     
+    protected static final DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy"); //protected para que las subclases puedan acceder y final para valor constante
+
     @Override
     public void update(Observable o, Object arg) {
         this.cargarEstadia();
@@ -40,14 +46,56 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         listaVehiculos.setListData(sistema.obtenerListaVehiculos());
     }
  
-    
     private class MovListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-        // este código se ejecutará al presionar el botón, obtengo cuál botón
+    public void actionPerformed(ActionEvent e) {
         JButton cual = ((JButton) e.getSource());
-        // código a completar según el botón presionado
+        String[] filaCol = cual.getName().split(" ");
+        String fila = filaCol[0];
+        String columna = filaCol[1];
+
+        // Obtener franja horaria del texto del botón
+        String[] partes = cual.getText().split(" - ");
+        LocalTime horaInicio = LocalTime.parse(partes[0]);
+        LocalTime horaFin = LocalTime.parse(partes[1]);
+        System.out.println(horaInicio.toString());
+        // Obtener la fecha del label correspondiente
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate fecha = null;
+
+        if (columna.equals("0")) {
+            fecha = LocalDate.parse(labelDiaSelecc.getText(), formatter);
+        } else if (columna.equals("1")) {
+            fecha = LocalDate.parse(labelDiaSelecc1.getText(), formatter);
+        } else if (columna.equals("2")) {
+            fecha = LocalDate.parse(labelDiaSelecc2.getText(), formatter);
         }
+
+        // Filtrar los objetos de la lista que estén en esa fecha y franja horaria
+        ArrayList<Movimiento> filtrados = new ArrayList<>();
+        for (Movimiento mov : sistema.getListaMovimientos()) {
+            LocalDateTime fechaHora = mov.getFechaYhora();
+            if (fechaHora.toLocalDate().equals(fecha)) {
+                LocalTime hora = fechaHora.toLocalTime();
+                if (!hora.isBefore(horaInicio) && !hora.isAfter(horaFin)) {
+                    filtrados.add(mov);
+                }
+            }
+        }
+            if (filtrados.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No hay movimientos en esta franja horaria.");
+            }
+                else {
+                    StringBuilder mensaje = new StringBuilder("Movimientos encontrados:\n\n");
+                        for (Movimiento mov : filtrados) {
+                            mensaje.append(mov.toString()).append("\n");
+                        }
+                    JOptionPane.showMessageDialog(null, mensaje.toString());
+                }
+            }
     }
+
+
+
     
     public void tabMovimientos(){
         cargarCompFecha();
@@ -62,10 +110,11 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
             for (int col = 0; col < 3; col++) {
                 String texto = horarios[fila]; // el texto ahora depende de la columna
                 JButton boton = new JButton(texto);
-                boton.setBackground(Color.BLACK);
-                boton.setForeground(Color.WHITE);
+                boton.setBackground(Color.green);
+                boton.setForeground(Color.BLACK);
                 boton.setMargin(new Insets(5, 5, 5, 5));
                 boton.addActionListener(new MovListener());
+                boton.setName(fila + " " + col);
                 panelMovimientos.add(boton);
             }
         }
@@ -280,9 +329,9 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         labelEstadia = new javax.swing.JLabel();
         tabMovimientos = new javax.swing.JPanel();
         tabMovimientosBotones = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        labelDiaSelecc2 = new javax.swing.JLabel();
+        labelDiaSelecc = new javax.swing.JLabel();
+        labelDiaSelecc1 = new javax.swing.JLabel();
         botonSeleccion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -365,7 +414,6 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
             }
         });
         tabHistorial.add(toggleOrden);
-
         toggleOrden.setBounds(560, 50, 150, 23);
 
         exportarHistorial.setText("Exportar historial");
@@ -378,7 +426,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         exportarHistorial.setBounds(560, 210, 150, 23);
 
         jTabbedPane1.addTab("Historial", tabHistorial);
-      
+
         tabEstadisticas.setLayout(null);
 
         jScrollPane1.setViewportView(listaClientesContratos);
@@ -424,21 +472,21 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
 
         tabMovimientos.setLayout(null);
 
-        tabMovimientosBotones.setLayout(new java.awt.GridLayout());
+        tabMovimientosBotones.setLayout(new java.awt.GridLayout(1, 0));
         tabMovimientos.add(tabMovimientosBotones);
         tabMovimientosBotones.setBounds(200, 30, 410, 200);
 
-        jLabel1.setText("jLabel1");
-        tabMovimientos.add(jLabel1);
-        jLabel1.setBounds(470, 10, 90, 16);
+        labelDiaSelecc2.setText("Día siguiente + 1");
+        tabMovimientos.add(labelDiaSelecc2);
+        labelDiaSelecc2.setBounds(470, 10, 130, 16);
 
-        jLabel8.setText("jLabel1");
-        tabMovimientos.add(jLabel8);
-        jLabel8.setBounds(200, 10, 90, 16);
+        labelDiaSelecc.setText("Día seleccionado");
+        tabMovimientos.add(labelDiaSelecc);
+        labelDiaSelecc.setBounds(200, 10, 140, 16);
 
-        jLabel9.setText("jLabel1");
-        tabMovimientos.add(jLabel9);
-        jLabel9.setBounds(340, 10, 90, 16);
+        labelDiaSelecc1.setText("Día siguiente");
+        tabMovimientos.add(labelDiaSelecc1);
+        labelDiaSelecc1.setBounds(340, 10, 130, 16);
 
         botonSeleccion.setText("Seleccionar");
         botonSeleccion.addActionListener(new java.awt.event.ActionListener() {
@@ -498,8 +546,13 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_exportarHistorialActionPerformed
 
     private void botonSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSeleccionActionPerformed
-        //ACA agarrar fecha cargar boitones etc
-
+        LocalDate fechaSelecc = model.getValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate fechaSeleccMas1 = fechaSelecc.plusDays(1);
+        LocalDate fechaSeleccMas2 = fechaSelecc.plusDays(2);
+        
+        this.labelDiaSelecc.setText(fechaSelecc.format(formato));
+        this.labelDiaSelecc1.setText(fechaSeleccMas1.format(formato));
+        this.labelDiaSelecc2.setText(fechaSeleccMas2.format(formato));
     }//GEN-LAST:event_botonSeleccionActionPerformed
     
 
@@ -536,23 +589,23 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton exportarHistorial;
     private javax.swing.JButton botonSeleccion;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton exportarHistorial;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel labelDiaSelecc;
+    private javax.swing.JLabel labelDiaSelecc1;
+    private javax.swing.JLabel labelDiaSelecc2;
     private javax.swing.JLabel labelEstadia;
     private javax.swing.JList listaClientesContratos;
     private javax.swing.JList listaEmpleadosMovs;

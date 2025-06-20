@@ -193,10 +193,12 @@ public class movimientosServiciosAdicionales extends javax.swing.JFrame implemen
     }//GEN-LAST:event_botonRegistrarServicioActionPerformed
 
     private void listaServiciosVehiculoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaServiciosVehiculoValueChanged
+      if(!listaServiciosVehiculo.isSelectionEmpty()){
         Servicio servicioElegido = (Servicio) this.listaServiciosVehiculo.getSelectedValue();
         this.fechaSeleccionada.setText(servicioElegido.getFechaYhora().getDayOfMonth() + "//" + servicioElegido.getFechaYhora().getMonthValue() + "//" + servicioElegido.getFechaYhora().getYear());
         this.labelHora.setText(servicioElegido.getFechaYhora().getHour() + ":" + servicioElegido.getFechaYhora().getMinute() + servicioElegido.getFechaYhora().getSecond());
         this.labelCosto.setText(servicioElegido.getCosto() + "");
+      }
     }//GEN-LAST:event_listaServiciosVehiculoValueChanged
 
     public static void main(String args[]) {

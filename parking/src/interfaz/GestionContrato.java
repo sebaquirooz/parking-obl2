@@ -156,6 +156,7 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void listaContratosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaContratosValueChanged
+        if(!listaContratos.isSelectionEmpty()){
         Contrato contratoSelecc = listaContratos.getSelectedValue();
         String valorContrato = contratoSelecc.getValor() + "";
         String vehiculoContrato = contratoSelecc.getVehiculo().toString();
@@ -168,6 +169,7 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
         this.labelValor.setText(valorContrato+ " (Valor)");
         this.labelVehiculo.setText(vehiculoContrato + " (Vehículo)");
         this.labelNroContrato.setText("" + numeroContrato + " (Número contrato)");
+        }
     }//GEN-LAST:event_listaContratosValueChanged
 
     /**

@@ -190,7 +190,7 @@ public class GestionClientes extends javax.swing.JFrame implements Observer{
         String nombreDelCliente = nombreCliente.getText();
         String cedulaDelCliente = ciCliente.getText();
         String direccionDelCliente = direccionCliente.getText();
-        int celularDelCliente = Integer.parseInt(celularCliente.getText());
+        String celularDelCliente = celularCliente.getText();
         int añoDeIngreso = model.getYear();
         if (" ".equals(nombreCliente.getText()) || " ".equals(ciCliente.getText()) || " ".equals(direccionCliente.getText()) || " ".equals(celularCliente.getText())){
             // Alerta faltan campos por llenar
@@ -201,6 +201,7 @@ public class GestionClientes extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_registrarClienteActionPerformed
     
     private void listaClienteValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaClienteValueChanged
+       if(!listaCliente.isSelectionEmpty()){
         Cliente clienteSelecc = (Cliente) listaCliente.getSelectedValue();
         String nombreCliente = clienteSelecc.getNombre();
         String cedulaCliente = clienteSelecc.getCedula();
@@ -211,6 +212,7 @@ public class GestionClientes extends javax.swing.JFrame implements Observer{
         ciClienteSeleccionado.setText(cedulaCliente);
         direccionClienteSeleccionado.setText(direccionCliente);
         añoIngresoCliente.setText(momentoIngreso + "");
+       }
     }//GEN-LAST:event_listaClienteValueChanged
 
     /**
