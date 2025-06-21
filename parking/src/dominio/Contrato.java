@@ -1,3 +1,4 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
 
 public class Contrato {
@@ -10,9 +11,9 @@ public class Contrato {
 
 	private Empleado empleado;
 
-	private int valor;
+	private String valor;
 
-    public Contrato(Cliente unCliente, Vehiculo unVehiculo, Empleado unEmpleado, int unValor, int numeroContrato){
+    public Contrato(Cliente unCliente, Vehiculo unVehiculo, Empleado unEmpleado, String unValor, int numeroContrato){
         this.cliente = unCliente;
         this.empleado = unEmpleado;
         this.vehiculo = unVehiculo;
@@ -36,7 +37,7 @@ public class Contrato {
         this.empleado = empleado;
     }
 
-    public void setValor(int valor) {
+    public void setValor(String valor) {
         this.valor = valor;
     }
 
@@ -56,7 +57,7 @@ public class Contrato {
         return empleado;
     }
 
-    public int getValor() {
+    public String getValor() {
         return valor;
     }
 

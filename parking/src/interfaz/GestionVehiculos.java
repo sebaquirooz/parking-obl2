@@ -1,5 +1,8 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package interfaz;
 import dominio.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.*;
 
 public class GestionVehiculos extends javax.swing.JFrame implements Observer {
@@ -15,8 +18,29 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
         initComponents();
         sistema.addObserver(this);
         update(null,null);
+        aplicarTema();
     }
     
+    public void aplicarTema() {
+        Color fondo;
+        Color texto;
+
+        if (sistema.isModoOscuro()) {
+            fondo = new Color(40, 40, 40);
+            texto = Color.WHITE;
+        } else {
+            fondo = Color.WHITE;
+            texto = Color.BLACK;
+        }
+
+        getContentPane().setBackground(fondo);
+
+        for (Component c : getContentPane().getComponents()) {
+            c.setBackground(fondo);
+            c.setForeground(texto);
+        }
+    }
+
        
     @Override
     public void update(Observable o, Object arg) {
@@ -25,6 +49,8 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
         this.modeloVehiculo.setText("Ingrese modelo");
         this.estadoVehiculo.setText("Ingrese estado");
         listaVehiculo.setListData(sistema.obtenerListaVehiculos());
+        aplicarTema();
+
     }
 
 
@@ -51,6 +77,7 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
         registrarVehiculo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestión de Vehículos");
         getContentPane().setLayout(null);
 
         estadoVehiculo.setText("Ingrese estado");
@@ -141,7 +168,7 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
         getContentPane().add(registrarVehiculo);
         registrarVehiculo.setBounds(50, 210, 90, 23);
 
-        setBounds(0, 0, 416, 358);
+        setBounds(0, 0, 416, 379);
     }// </editor-fold>//GEN-END:initComponents
 
     private void matriculaVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_matriculaVehiculoActionPerformed

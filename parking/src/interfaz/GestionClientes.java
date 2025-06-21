@@ -1,3 +1,4 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package interfaz;
 import dominio.*;
 import java.time.LocalDate;
@@ -5,6 +6,11 @@ import net.sourceforge.jdatepicker.impl.UtilDateModel;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import java.util.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Color;
+
+
 
 public class GestionClientes extends javax.swing.JFrame implements Observer{
 
@@ -19,8 +25,9 @@ public class GestionClientes extends javax.swing.JFrame implements Observer{
     public GestionClientes(Sistema unSistema){
         this.sistema = unSistema;
         initComponents();
-        cargarCompFecha();
+        aplicarTema();
         sistema.addObserver(this);
+        cargarCompFecha();
         update(null,null);
     }
     
@@ -33,6 +40,25 @@ public class GestionClientes extends javax.swing.JFrame implements Observer{
         listaCliente.setListData(sistema.obtenerListaClientes());
     }
     
+   public void aplicarTema() {
+        Color fondo;
+        Color texto;
+
+        if (sistema.isModoOscuro()) {
+            fondo = new Color(40, 40, 40);
+            texto = Color.WHITE;
+        } else {
+            fondo = Color.WHITE;
+            texto = Color.BLACK;
+        }
+
+        getContentPane().setBackground(fondo);
+
+        for (Component c : getContentPane().getComponents()) {
+            c.setBackground(fondo);
+            c.setForeground(texto);
+        }
+    }
     //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
         LocalDate fechaActual = LocalDate.now();
@@ -65,6 +91,7 @@ public class GestionClientes extends javax.swing.JFrame implements Observer{
         registrarCliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestión de Clientes");
         getContentPane().setLayout(null);
 
         celularCliente.setText("Ingrese celular");
@@ -136,19 +163,19 @@ public class GestionClientes extends javax.swing.JFrame implements Observer{
 
         añoIngresoCliente.setText("<Año ingreso>");
         getContentPane().add(añoIngresoCliente);
-        añoIngresoCliente.setBounds(220, 290, 100, 16);
+        añoIngresoCliente.setBounds(220, 290, 150, 16);
 
         nombreClienteSeleccionado.setText("<Nombre>");
         getContentPane().add(nombreClienteSeleccionado);
-        nombreClienteSeleccionado.setBounds(220, 200, 70, 16);
+        nombreClienteSeleccionado.setBounds(220, 200, 150, 16);
 
         ciClienteSeleccionado.setText("<CI>");
         getContentPane().add(ciClienteSeleccionado);
-        ciClienteSeleccionado.setBounds(220, 260, 70, 16);
+        ciClienteSeleccionado.setBounds(220, 260, 160, 16);
 
         direccionClienteSeleccionado.setText("<Dirección>");
         getContentPane().add(direccionClienteSeleccionado);
-        direccionClienteSeleccionado.setBounds(220, 230, 70, 16);
+        direccionClienteSeleccionado.setBounds(220, 230, 140, 16);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Lista de clientes:");
@@ -177,9 +204,11 @@ public class GestionClientes extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_ciClienteActionPerformed
 
     private void eliminarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarClienteActionPerformed
+        if(!listaCliente.isSelectionEmpty()){
         Cliente clienteSelecc = (Cliente) listaCliente.getSelectedValue();
-        sistema.eliminarCliente(clienteSelecc);
         
+        sistema.eliminarCliente(clienteSelecc);
+        }
     }//GEN-LAST:event_eliminarClienteActionPerformed
 
     private void celularClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_celularClienteActionPerformed

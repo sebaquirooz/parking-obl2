@@ -1,3 +1,4 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
 import java.util.*;
 import java.time.*;
@@ -25,6 +26,8 @@ public class Sistema extends Observable implements Serializable {
     private ArrayList<Salida> listaSalidas;
     
     private int contadorContratos;
+    
+    private  boolean modoOscuro = false;
 
 
     public Sistema() {
@@ -38,6 +41,14 @@ public class Sistema extends Observable implements Serializable {
         this.listaSalidas = new ArrayList<>();
         this.listaEntradas = new ArrayList<>();
         this.contadorContratos = 0;
+    }
+
+    public boolean isModoOscuro() {
+        return modoOscuro;
+    }
+
+    public void setModoOscuro(boolean modoOscuro) {
+        this.modoOscuro = modoOscuro;
     }
 
     public void setListaVehiculos(ArrayList<Vehiculo> listaVehiculos) {
@@ -133,7 +144,7 @@ public class Sistema extends Observable implements Serializable {
         return true;
     }
 
-    public void registrarEmpleado(String nombre, String cedula, String direccion, int numeroEmpleado) {
+    public void registrarEmpleado(String nombre, String cedula, String direccion, String numeroEmpleado) {
         if (verificarEmpleado(cedula)) {
             Empleado empleadoNuevo = new Empleado(nombre, cedula, direccion, numeroEmpleado);
             this.listaEmpleados.add(empleadoNuevo);
@@ -161,7 +172,7 @@ public class Sistema extends Observable implements Serializable {
         }
     }
 
-    public void registrarContrato(Cliente unCliente, Vehiculo unVehiculo, Empleado unEmpleado, int unValor) {
+    public void registrarContrato(Cliente unCliente, Vehiculo unVehiculo, Empleado unEmpleado, String unValor) {
         this.contadorContratos++;
         Contrato contratoNuevo = new Contrato(unCliente, unVehiculo, unEmpleado, unValor, contadorContratos);
         this.listaContratos.add(contratoNuevo);
@@ -259,6 +270,11 @@ public class Sistema extends Observable implements Serializable {
 
     public void eliminarCliente(Cliente unCliente) {
         this.listaClientes.remove(unCliente);
+        for (int i = 0; i < this.getListaContratos().size() ; i++) {
+            if(this.getListaContratos().get(i).getCliente().equals(unCliente)){
+                this.getListaContratos().remove(i);
+            }
+        }
         setChanged();
         notifyObservers();
     }

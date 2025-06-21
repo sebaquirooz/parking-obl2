@@ -1,19 +1,20 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
 
 public class Empleado extends Persona{
 
-	private int numeroEmpleado;
+	private String numeroEmpleado;
 
-    public Empleado(String nombre, String cedula, String direccion, int numeroEmpleado) {
+    public Empleado(String nombre, String cedula, String direccion, String numeroEmpleado) {
         super(nombre, cedula, direccion);
         this.numeroEmpleado = numeroEmpleado;
     }
 
-    public int getNumeroEmpleado() {
+    public String getNumeroEmpleado() {
         return numeroEmpleado;
     }
 
-    public void setNumeroEmpleado(int numeroEmpleado) {
+    public void setNumeroEmpleado(String numeroEmpleado) {
         this.numeroEmpleado = numeroEmpleado;
     }
     

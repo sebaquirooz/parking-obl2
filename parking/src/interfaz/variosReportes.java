@@ -1,3 +1,4 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package interfaz;
 import dominio.*;
 import java.util.*;
@@ -30,6 +31,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
     public variosReportes (Sistema unSistema){
         this.sistema = unSistema;
         initComponents();
+        aplicarTema();
         this.cargarCompFecha();
         this.tabMovimientos();
         this.sistema.addObserver(this);
@@ -45,8 +47,31 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         this.cargarListaEmpleados();
         this.cargarListaServicios();
         listaVehiculos.setListData(sistema.obtenerListaVehiculos());
+        aplicarTema();
     }
  
+     public void aplicarTema() {
+        Color fondo;
+        Color texto;
+
+        if (sistema.isModoOscuro()) {
+            fondo = new Color(40, 40, 40);
+            texto = Color.WHITE;
+        } else {
+            fondo = Color.WHITE;
+            texto = Color.BLACK;
+        }
+
+        getContentPane().setBackground(fondo);
+       
+
+        for (Component c : getContentPane().getComponents()) {
+            c.setBackground(fondo);
+            c.setForeground(texto);
+        }
+    }
+    
+    
     private class MovListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(labelDiaSelecc.getText() != "Día seleccionado"){
@@ -378,6 +403,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
         botonSeleccion = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Reportes");
         getContentPane().setLayout(null);
 
         jTabbedPane1.setBorder(new javax.swing.border.MatteBorder(null));
@@ -572,6 +598,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
 
 
     private void exportarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarHistorialActionPerformed
+       if(!this.listaVehiculos.isSelectionEmpty()){
         Movimiento[] historialSeleccionado = this.generarListaHistorial();
         ArchivoGrabacion historial = new ArchivoGrabacion(this.listaVehiculos.getSelectedValue().getMatricula()+".txt");
         for (Movimiento m: historialSeleccionado){
@@ -586,6 +613,7 @@ public class variosReportes extends javax.swing.JFrame implements Observer{
             historial.grabarLinea(linea);
         }
         historial.cerrar();
+       }
     }//GEN-LAST:event_exportarHistorialActionPerformed
 
     private void botonSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSeleccionActionPerformed
