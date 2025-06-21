@@ -1,5 +1,8 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package interfaz;
 import dominio.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.time.LocalDate;
 import java.util.*;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
@@ -18,6 +21,27 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
     
     public movimientosEntradas() {
         initComponents();
+        aplicarTema();
+    }
+    
+     public void aplicarTema() {
+        Color fondo;
+        Color texto;
+
+        if (sistema.isModoOscuro()) {
+            fondo = new Color(40, 40, 40);
+            texto = Color.WHITE;
+        } else {
+            fondo = Color.WHITE;
+            texto = Color.BLACK;
+        }
+
+        getContentPane().setBackground(fondo);
+
+        for (Component c : getContentPane().getComponents()) {
+            c.setBackground(fondo);
+            c.setForeground(texto);
+        }
     }
     
     public movimientosEntradas(Sistema unSistema){
@@ -35,6 +59,7 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
         labelContrato.setText("<Contrato>");
         listaVehiculosEstacionados.setListData(sistema.obtenerListaVehiculosNoEstacionado());
         listaEmpleados.setListData(sistema.obtenerListaEmpleados());
+        aplicarTema();
     }
     
         //Componente de libreria jdatepicker, hecho a mano
@@ -69,6 +94,7 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
         labelContrato = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Entradas");
         getContentPane().setLayout(null);
 
         jScrollPane1.setToolTipText("");
@@ -149,7 +175,7 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
         getContentPane().add(labelContrato);
         labelContrato.setBounds(350, 190, 150, 17);
 
-        setBounds(0, 0, 541, 312);
+        setBounds(0, 0, 541, 339);
     }// </editor-fold>//GEN-END:initComponents
 
     private void registrarEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarEntradaActionPerformed
@@ -180,12 +206,14 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_horaEntradaActionPerformed
 
     private void listaVehiculosEstacionadosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaVehiculosEstacionadosValueChanged
+   if(!listaVehiculosEstacionados.isSelectionEmpty()){
     Vehiculo unVehiculo = (Vehiculo) listaVehiculosEstacionados.getSelectedValue();
     if(unVehiculo.getContrato() == null){
         this.labelContrato.setText("No tiene contrato");
     }
-    else{
-        this.labelContrato.setText("Tiene contrato");
+        else{
+          this.labelContrato.setText("Tiene contrato");
+        }
     }
     }//GEN-LAST:event_listaVehiculosEstacionadosValueChanged
 

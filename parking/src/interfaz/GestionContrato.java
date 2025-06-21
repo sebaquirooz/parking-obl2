@@ -1,5 +1,8 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package interfaz;
 import dominio.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.*;
 
 public class GestionContrato extends javax.swing.JFrame implements Observer {
@@ -8,11 +11,34 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
     
     public GestionContrato() {
         initComponents();
+        aplicarTema();
     }
+    
+    
+    public void aplicarTema() {
+            Color fondo;
+            Color texto;
+
+            if (sistema.isModoOscuro()) {
+                fondo = new Color(40, 40, 40);
+                texto = Color.WHITE;
+            } else {
+                fondo = Color.WHITE;
+                texto = Color.BLACK;
+            }
+
+            getContentPane().setBackground(fondo);
+
+            for (Component c : getContentPane().getComponents()) {
+                c.setBackground(fondo);
+                c.setForeground(texto);
+            }
+        }
 
     public GestionContrato(Sistema unSistema){
         this.sistema = unSistema;
         initComponents();
+        aplicarTema();
         sistema.addObserver(this);
         update(null,null);
     }
@@ -51,6 +77,7 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
         labelEmpleado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestión de Contratos");
         getContentPane().setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -137,7 +164,7 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
         getContentPane().add(labelEmpleado);
         labelEmpleado.setBounds(150, 360, 230, 16);
 
-        setBounds(0, 0, 416, 428);
+        setBounds(0, 0, 416, 467);
     }// </editor-fold>//GEN-END:initComponents
 
     private void valorMensualContratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorMensualContratoActionPerformed
@@ -145,17 +172,19 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
     }//GEN-LAST:event_valorMensualContratoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       if(!listaVehiculosContrato.isSelectionEmpty() && !listaClientesContrato.isSelectionEmpty() && !listaEmpleadosContrato.isSelectionEmpty()){
         Vehiculo vehiculoSelecc = (Vehiculo) listaVehiculosContrato.getSelectedValue();
         Cliente clietneSelecc = (Cliente) listaClientesContrato.getSelectedValue();
         Empleado empleadoSelecc = (Empleado) listaEmpleadosContrato.getSelectedValue();
-        sistema.registrarContrato(clietneSelecc, vehiculoSelecc, empleadoSelecc, Integer.parseInt(this.valorMensualContrato.getText()));
-        
+        sistema.registrarContrato(clietneSelecc, vehiculoSelecc, empleadoSelecc, this.valorMensualContrato.getText());
+       }
         
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void listaContratosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaContratosValueChanged
+        if(!listaContratos.isSelectionEmpty()){
         Contrato contratoSelecc = listaContratos.getSelectedValue();
         String valorContrato = contratoSelecc.getValor() + "";
         String vehiculoContrato = contratoSelecc.getVehiculo().toString();
@@ -168,6 +197,7 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
         this.labelValor.setText(valorContrato+ " (Valor)");
         this.labelVehiculo.setText(vehiculoContrato + " (Vehículo)");
         this.labelNroContrato.setText("" + numeroContrato + " (Número contrato)");
+        }
     }//GEN-LAST:event_listaContratosValueChanged
 
     /**

@@ -1,19 +1,20 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
 import java.util.Date;
 
 public class Cliente extends Persona{
         
-        private int celular;
+        private String celular;
         
 	private int añoIngreso;
     
-    public Cliente(String nombre, String cedula, String direccion, int celular, int añoIngreso) {
+    public Cliente(String nombre, String cedula, String direccion, String celular, int añoIngreso) {
         super(nombre, cedula, direccion);
         this.celular = celular;
         this.añoIngreso = añoIngreso;
     }   
 
-    public void setCelular(int celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 
@@ -21,7 +22,7 @@ public class Cliente extends Persona{
         this.añoIngreso = añoIngreso;
     }
 
-    public int getCelular() {
+    public String getCelular() {
         return celular;
     }
 

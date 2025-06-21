@@ -1,5 +1,8 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package interfaz;
 import dominio.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -21,6 +24,7 @@ public class movimientosServiciosAdicionales extends javax.swing.JFrame implemen
     public movimientosServiciosAdicionales() {
         initComponents();
         cargarCompFecha();
+        aplicarTema();
     }
 
     
@@ -42,9 +46,29 @@ public class movimientosServiciosAdicionales extends javax.swing.JFrame implemen
         this.labelHora.setText("<Hora>");
         this.labelCosto.setText("<Costo>");
         this.costoServicio.setText("Ingrese costo del servicio");
+        aplicarTema();
     }
     
-    
+     public void aplicarTema() {
+        Color fondo;
+        Color texto;
+
+        if (sistema.isModoOscuro()) {
+            fondo = new Color(40, 40, 40);
+            texto = Color.WHITE;
+        } else {
+            fondo = Color.WHITE;
+            texto = Color.BLACK;
+        }
+
+        getContentPane().setBackground(fondo);
+
+        for (Component c : getContentPane().getComponents()) {
+            c.setBackground(fondo);
+            c.setForeground(texto);
+        }
+    }
+     
     //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
         LocalDate fechaActual = LocalDate.now();
@@ -83,6 +107,7 @@ public class movimientosServiciosAdicionales extends javax.swing.JFrame implemen
         labelHora = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Servicios Adicionales");
         getContentPane().setLayout(null);
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -168,7 +193,7 @@ public class movimientosServiciosAdicionales extends javax.swing.JFrame implemen
         getContentPane().add(labelHora);
         labelHora.setBounds(190, 350, 180, 16);
 
-        setBounds(0, 0, 416, 451);
+        setBounds(0, 0, 416, 479);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegistrarServicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarServicioActionPerformed
@@ -193,10 +218,12 @@ public class movimientosServiciosAdicionales extends javax.swing.JFrame implemen
     }//GEN-LAST:event_botonRegistrarServicioActionPerformed
 
     private void listaServiciosVehiculoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaServiciosVehiculoValueChanged
+      if(!listaServiciosVehiculo.isSelectionEmpty()){
         Servicio servicioElegido = (Servicio) this.listaServiciosVehiculo.getSelectedValue();
         this.fechaSeleccionada.setText(servicioElegido.getFechaYhora().getDayOfMonth() + "//" + servicioElegido.getFechaYhora().getMonthValue() + "//" + servicioElegido.getFechaYhora().getYear());
         this.labelHora.setText(servicioElegido.getFechaYhora().getHour() + ":" + servicioElegido.getFechaYhora().getMinute() + servicioElegido.getFechaYhora().getSecond());
         this.labelCosto.setText(servicioElegido.getCosto() + "");
+      }
     }//GEN-LAST:event_listaServiciosVehiculoValueChanged
 
     public static void main(String args[]) {

@@ -1,9 +1,14 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package interfaz;
 import dominio.*;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import javax.swing.JOptionPane;
+import java.awt.Color;
+import java.awt.Component;
+
 
 
 
@@ -17,9 +22,31 @@ public class Menu extends javax.swing.JFrame {
     }
     
     
+    public void aplicarTema() {
+        Color fondo;
+        Color texto;
+
+        if (sistema.isModoOscuro()) {
+            fondo = new Color(40, 40, 40);
+            texto = Color.WHITE;
+        } else {
+            fondo = Color.WHITE;
+            texto = Color.BLACK;
+        }
+
+        getContentPane().setBackground(fondo);
+
+        for (Component c : getContentPane().getComponents()) {
+            c.setBackground(fondo);
+            c.setForeground(texto);
+        }
+    }
+
+    
     public Menu(Sistema unSistema){
         this.sistema = unSistema;
         initComponents();
+        aplicarTema();
     }
 
     
@@ -27,6 +54,7 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         menuBar = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         opcionCliente = new javax.swing.JMenuItem();
@@ -47,7 +75,17 @@ public class Menu extends javax.swing.JFrame {
         jMenuItem13 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menú - SEBASTIÁN Y JUAN MANUEL");
         getContentPane().setLayout(null);
+
+        jButton1.setText("Claro - Oscuro");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(10, 20, 190, 30);
 
         fileMenu.setMnemonic('f');
         fileMenu.setText("Gestión");
@@ -246,7 +284,8 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        // TODO add your handling code here:
+        informacionAutores ventanaAutores = new informacionAutores(sistema);
+        ventanaAutores.setVisible(true);
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
@@ -269,6 +308,12 @@ public class Menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Grabación de datos cancelada.", "Grabación de datos", -1);
         }
     }//GEN-LAST:event_buttonGrabacionActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        sistema.setModoOscuro(!sistema.isModoOscuro());
+        aplicarTema();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     /**
      * @param args the command line arguments
@@ -309,6 +354,8 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu buttonGrabacion;
     private javax.swing.JMenu editMenu;
     private javax.swing.JMenu fileMenu;
+    private javax.swing.JMenu helpMenu;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;

@@ -1,5 +1,8 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package interfaz;
 import dominio.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.util.*;
 
 public class GestionEmpleados extends javax.swing.JFrame implements Observer{
@@ -8,6 +11,27 @@ public class GestionEmpleados extends javax.swing.JFrame implements Observer{
 
     public GestionEmpleados() {
         initComponents();
+        aplicarTema();
+    }
+    
+    public void aplicarTema() {
+        Color fondo;
+        Color texto;
+
+        if (sistema.isModoOscuro()) {
+            fondo = new Color(40, 40, 40);
+            texto = Color.WHITE;
+        } else {
+            fondo = Color.WHITE;
+            texto = Color.BLACK;
+        }
+
+        getContentPane().setBackground(fondo);
+
+        for (Component c : getContentPane().getComponents()) {
+            c.setBackground(fondo);
+            c.setForeground(texto);
+        }
     }
 
     public GestionEmpleados(Sistema unSistema){
@@ -23,6 +47,8 @@ public class GestionEmpleados extends javax.swing.JFrame implements Observer{
         direccionEmpleado.setText("Ingrese dirección");
         numEmpleado.setText("Ingrese número de empleado");
         listaEmpleados.setListData(sistema.obtenerListaEmpleados());
+        aplicarTema();
+
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -45,6 +71,7 @@ public class GestionEmpleados extends javax.swing.JFrame implements Observer{
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestión de Empleados");
         getContentPane().setLayout(null);
 
         numEmpleado.setText("Ingrese número de empleado");
@@ -130,7 +157,7 @@ public class GestionEmpleados extends javax.swing.JFrame implements Observer{
         getContentPane().add(jLabel2);
         jLabel2.setBounds(220, 20, 150, 17);
 
-        setBounds(0, 0, 420, 353);
+        setBounds(0, 0, 420, 389);
     }// </editor-fold>//GEN-END:initComponents
 
     private void nombreEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreEmpleadoActionPerformed
@@ -145,9 +172,8 @@ public class GestionEmpleados extends javax.swing.JFrame implements Observer{
         String nombreDelEmpleado = nombreEmpleado.getText();
         String cedulaDelEmpleado = ciEmpleado.getText();
         String direccionDelEmpleado = direccionEmpleado.getText();
-        int numDelEmpleado = Integer.parseInt(numEmpleado.getText());
+        String numDelEmpleado = numEmpleado.getText();
         if (" ".equals(nombreEmpleado.getText()) || " ".equals(ciEmpleado.getText()) || " ".equals(direccionEmpleado.getText()) || " ".equals(numEmpleado.getText())){
-            // Alerta faltan campos por llenar
         }
         else{
             sistema.registrarEmpleado(nombreDelEmpleado, cedulaDelEmpleado, direccionDelEmpleado, numDelEmpleado);            
@@ -155,12 +181,13 @@ public class GestionEmpleados extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_registrarEmpleadoActionPerformed
 
     private void listaEmpleadosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaEmpleadosValueChanged
+        if(!listaEmpleados.isSelectionEmpty()){
         Empleado empleadoSeleccionado = (Empleado) listaEmpleados.getSelectedValue();
         nombreEmpleadoSeleccionado.setText(empleadoSeleccionado.getNombre());
         ciEmpleadoSeleccionado.setText(empleadoSeleccionado.getCedula());
         direccionEmpleadoSeleccionado.setText(empleadoSeleccionado.getDireccion());
         numEmpleadoSeleccionado.setText(empleadoSeleccionado.getNumeroEmpleado() + "");
-
+        }
     }//GEN-LAST:event_listaEmpleadosValueChanged
 
     /**

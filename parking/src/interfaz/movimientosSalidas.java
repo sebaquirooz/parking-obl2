@@ -1,5 +1,8 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package interfaz;
 import dominio.*;
+import java.awt.Color;
+import java.awt.Component;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -18,6 +21,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
 
     public movimientosSalidas() {
         initComponents();
+        aplicarTema();
     }
 
     public movimientosSalidas(Sistema unSistema){
@@ -27,6 +31,27 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         sistema.addObserver(this);
         update(null,null);
     }
+    
+     public void aplicarTema() {
+        Color fondo;
+        Color texto;
+
+        if (sistema.isModoOscuro()) {
+            fondo = new Color(40, 40, 40);
+            texto = Color.WHITE;
+        } else {
+            fondo = Color.WHITE;
+            texto = Color.BLACK;
+        }
+
+        getContentPane().setBackground(fondo);
+
+        for (Component c : getContentPane().getComponents()) {
+            c.setBackground(fondo);
+            c.setForeground(texto);
+        }
+    }
+    
     
       //Componente de libreria jdatepicker, hecho a mano
     public void cargarCompFecha(){
@@ -44,6 +69,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         horaSalida.setText("Ingrese hora (HH:MM)");
         this.listaEmpleados.setListData(sistema.obtenerListaEmpleados());
         this.listaEntradas.setListData(sistema.obtenerListaEntradas());
+        aplicarTema();
     }
     
     
@@ -73,6 +99,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         jScrollPane4.setViewportView(jTree1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Salidas");
         getContentPane().setLayout(null);
 
         jScrollPane1.setToolTipText("");
@@ -158,7 +185,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         getContentPane().add(horaSalida);
         horaSalida.setBounds(190, 80, 140, 30);
 
-        setBounds(0, 0, 557, 320);
+        setBounds(0, 0, 557, 339);
     }// </editor-fold>//GEN-END:initComponents
 
     private void registrarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarSalidaActionPerformed
@@ -187,6 +214,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
     }//GEN-LAST:event_horaSalidaActionPerformed
 
     private void listaEntradasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaEntradasValueChanged
+    if(!listaEntradas.isSelectionEmpty()){  
         Entrada unaEntrada = (Entrada) this.listaEntradas.getSelectedValue();
         //Hacemos un condicional porque cuando se elimina una entrada de la lista llama a este eventListener y lo carga con null.
         if(unaEntrada != null){
@@ -199,7 +227,7 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
                     }
         this.labelContrato.setText(tieneContrato);
         }
-           
+    }
     }//GEN-LAST:event_listaEntradasValueChanged
 
     /**
