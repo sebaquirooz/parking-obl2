@@ -1,9 +1,10 @@
 //TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
+import java.io.Serializable;
 import java.util.Date;
 import java.time.LocalDateTime;
         
-public class Salida extends Movimiento {
+public class Salida extends Movimiento implements Serializable{
 
     private int tiempoTotal;
     

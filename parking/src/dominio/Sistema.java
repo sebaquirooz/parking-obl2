@@ -1,5 +1,6 @@
 //TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
+
 import java.util.*;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
@@ -18,17 +19,16 @@ public class Sistema extends Observable implements Serializable {
     private ArrayList<Contrato> listaContratos;
 
     private ArrayList<Movimiento> listaMovimientos;
-    
-    private ArrayList<Servicio> listaServicios;
-    
-    private ArrayList<Entrada> listaEntradas;
-    
-    private ArrayList<Salida> listaSalidas;
-    
-    private int contadorContratos;
-    
-    private  boolean modoOscuro = false;
 
+    private ArrayList<Servicio> listaServicios;
+
+    private ArrayList<Entrada> listaEntradas;
+
+    private ArrayList<Salida> listaSalidas;
+
+    private int contadorContratos;
+
+    private boolean modoOscuro = false;
 
     public Sistema() {
         this.listaEmpleados = new ArrayList<>();
@@ -54,7 +54,7 @@ public class Sistema extends Observable implements Serializable {
     public void setListaVehiculos(ArrayList<Vehiculo> listaVehiculos) {
         this.listaVehiculos = listaVehiculos;
     }
-    
+
     public ArrayList<Entrada> getListaEntradas() {
         return listaEntradas;
     }
@@ -181,15 +181,15 @@ public class Sistema extends Observable implements Serializable {
         notifyObservers();
     }
 
-    public void registrarServicio(Vehiculo unVehiculo,Empleado unEmpleado, String unServicio,LocalDateTime unaFechayUnaHora, int unCosto){
-        Servicio servicioNuevo = new Servicio(unVehiculo,unEmpleado,unServicio,unaFechayUnaHora,unCosto);
+    public void registrarServicio(Vehiculo unVehiculo, Empleado unEmpleado, String unServicio, LocalDateTime unaFechayUnaHora, int unCosto) {
+        Servicio servicioNuevo = new Servicio(unVehiculo, unEmpleado, unServicio, unaFechayUnaHora, unCosto);
         this.listaServicios.add(servicioNuevo);
         this.listaMovimientos.add(servicioNuevo);
         unVehiculo.getHistorial().getListaServicios().add(servicioNuevo);
         setChanged();
         notifyObservers();
     }
-    
+
     public boolean verificarCliente(String cedula) {
         for (int i = 0; i < this.listaClientes.size(); i++) {
             if (this.listaClientes.get(i).getCedula().equals(cedula)) {
@@ -218,23 +218,22 @@ public class Sistema extends Observable implements Serializable {
         notifyObservers();
     }
 
-    public void registrarSalida(Entrada unaEntrada, Empleado unEmpleado, LocalDateTime fechayHora, String notaDeSalida){
+    public void registrarSalida(Entrada unaEntrada, Empleado unEmpleado, LocalDateTime fechayHora, String notaDeSalida) {
         unaEntrada.getVehiculo().setEstacionado(false); //Aca entrada solo tiene null en salida, hay que agarrar el super.
         int tiempoTotal = (int) ChronoUnit.MINUTES.between(unaEntrada.getFechaYhora(), fechayHora);
-        Salida unaSalida = new Salida(unaEntrada.getVehiculo(),unEmpleado,fechayHora,notaDeSalida,tiempoTotal,unaEntrada);
+        Salida unaSalida = new Salida(unaEntrada.getVehiculo(), unEmpleado, fechayHora, notaDeSalida, tiempoTotal, unaEntrada);
         unaEntrada.getVehiculo().getHistorial().getListaSalidas().add(unaSalida);
         this.getListaMovimientos().add(unaSalida);
-        this.getListaSalidas().add(unaSalida); 
+        this.getListaSalidas().add(unaSalida);
         unaEntrada.setSalida(unaSalida);
         setChanged();
         notifyObservers();
     }
-    
-    public Servicio[] obtenerListaServicios(){
+
+    public Servicio[] obtenerListaServicios() {
         return this.getListaServicios().toArray(new Servicio[this.getListaServicios().size()]);
     }
-    
-    
+
     public Vehiculo[] obtenerListaVehiculos() {
 
         return this.getListaVehiculos().toArray(new Vehiculo[this.getListaVehiculos().size()]);
@@ -257,21 +256,21 @@ public class Sistema extends Observable implements Serializable {
         }
         return noEstacionados.toArray(new Vehiculo[noEstacionados.size()]);
     }
-    
-    public Vehiculo[] obtenerVehiculoEstacionados(){
+
+    public Vehiculo[] obtenerVehiculoEstacionados() {
         ArrayList<Vehiculo> vehiculosEstacionados = new ArrayList<>();
         for (int i = 0; i < this.getListaVehiculos().size(); i++) {
-            if(this.getListaVehiculos().get(i).isEstacionado()){
+            if (this.getListaVehiculos().get(i).isEstacionado()) {
                 vehiculosEstacionados.add(this.getListaVehiculos().get(i));
             }
         }
-        return vehiculosEstacionados.toArray(new Vehiculo[vehiculosEstacionados.size()]);  
+        return vehiculosEstacionados.toArray(new Vehiculo[vehiculosEstacionados.size()]);
     }
 
     public void eliminarCliente(Cliente unCliente) {
         this.listaClientes.remove(unCliente);
-        for (int i = 0; i < this.getListaContratos().size() ; i++) {
-            if(this.getListaContratos().get(i).getCliente().equals(unCliente)){
+        for (int i = 0; i < this.getListaContratos().size(); i++) {
+            if (this.getListaContratos().get(i).getCliente().equals(unCliente)) {
                 this.getListaContratos().remove(i);
             }
         }
@@ -288,43 +287,41 @@ public class Sistema extends Observable implements Serializable {
         for (Movimiento m : this.getListaMovimientos()) {
             if (m instanceof Entrada) { //Verifico si el movimiento es una Entrada
                 Entrada entrada = (Entrada) m;
-                if (entrada.getSalida() == null){
+                if (entrada.getSalida() == null) {
                     entradasActivas.add(entrada);
                 }
             }
         }
         return entradasActivas.toArray(new Entrada[entradasActivas.size()]);
     }
-    
-    public boolean verificarHora(String hora){
-        boolean retorno = false;
-        if (hora.length() == 5 && hora.charAt(2) == ':' && hora.charAt(3)>= 0 && hora.charAt(3) <= 9 && hora.charAt(4)>= 0 && hora.charAt(4) <= 9){
-            if (hora.charAt(0) == 1 || hora.charAt(0) == 0){
-                if (hora.charAt(1) >= 0 && hora.charAt(1) <= 9){
-                    retorno = true;
-                }
-                
-            }
-            else if (hora.charAt(0) == 2){
-                if (hora.charAt(1) >= 0 && hora.charAt(1) <= 4){
-                    retorno = true;
-                }
-            }
+
+    public boolean verificarHora(String hora) { //Función de ChatGPT.
+        if (hora == null || hora.length() != 5 || hora.charAt(2) != ':') {
+            return false;
+        }
+
+        // Extraemos subcadenas de horas y minutos
+        String horaStr = hora.substring(0, 2);
+        String minStr = hora.substring(3, 5);
+
+        try {
+            int hh = Integer.parseInt(horaStr);
+            int mm = Integer.parseInt(minStr);
+
+            return (hh >= 0 && hh <= 23) && (mm >= 0 && mm <= 59);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public String calcularTiempoTotal(Salida unaSalida) {
+        int horas = unaSalida.getTiempoTotal() / 60;
+        int minutos = unaSalida.getTiempoTotal() % 60;
+        String retorno = horas + " h";
+        if (minutos > 0) {
+            retorno += " - " + minutos + " min";
         }
         return retorno;
     }
-    
-   public String calcularTiempoTotal(Salida unaSalida){
-        int horas = unaSalida.getTiempoTotal()/60;
-        int minutos = unaSalida.getTiempoTotal()% 60;
-        String retorno = horas +" h";
-        if (minutos > 0){
-            retorno+= " - " +minutos +" min";
-        }
-        return retorno;
-    }
-    
-    public void reiniciarSistema(){
-        
-    }
+
 }

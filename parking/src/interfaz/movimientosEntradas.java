@@ -185,16 +185,18 @@ public class movimientosEntradas extends javax.swing.JFrame implements Observer{
         Date fechaEntrada = model.getValue();
         String horaDeEntrada = horaEntrada.getText();
         LocalDate localDate = fechaEntrada.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime horaEnFormato = LocalTime.parse(horaDeEntrada, formatter);
-        LocalDateTime fechayHora = LocalDateTime.of(localDate,horaEnFormato);
-        
-        String notaDeEntrada = notaEntrada.getText();
-        if (listaVehiculosEstacionados.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || " ".equals(horaEntrada.getText()) || " ".equals(notaEntrada.getText()) ){
-            // algo
-        }
-        else {
-            sistema.registrarEntrada(vehiculoSeleccionado, empleadoSeleccionado,fechayHora , notaDeEntrada);
+        if (sistema.verificarHora(horaDeEntrada)){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime horaEnFormato = LocalTime.parse(horaDeEntrada, formatter);
+            LocalDateTime fechayHora = LocalDateTime.of(localDate,horaEnFormato);
+
+            String notaDeEntrada = notaEntrada.getText();
+            if (listaVehiculosEstacionados.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || " ".equals(horaEntrada.getText()) || " ".equals(notaEntrada.getText()) ){
+               
+            }
+            else {
+                sistema.registrarEntrada(vehiculoSeleccionado, empleadoSeleccionado,fechayHora , notaDeEntrada);
+            }
         }
                 
         

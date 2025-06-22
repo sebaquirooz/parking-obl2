@@ -1,7 +1,9 @@
 //TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
 
-public class Contrato {
+import java.io.Serializable;
+
+public class Contrato implements Serializable {
 
 	private int numeroContrato;
 

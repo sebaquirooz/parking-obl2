@@ -138,7 +138,7 @@ public class GestionEmpleados extends javax.swing.JFrame implements Observer{
 
         numEmpleadoSeleccionado.setText("<Num Emplado>");
         getContentPane().add(numEmpleadoSeleccionado);
-        numEmpleadoSeleccionado.setBounds(220, 270, 170, 16);
+        numEmpleadoSeleccionado.setBounds(220, 300, 170, 16);
 
         nombreEmpleadoSeleccionado.setText("<Nombre>");
         getContentPane().add(nombreEmpleadoSeleccionado);
@@ -146,11 +146,11 @@ public class GestionEmpleados extends javax.swing.JFrame implements Observer{
 
         ciEmpleadoSeleccionado.setText("<CI>");
         getContentPane().add(ciEmpleadoSeleccionado);
-        ciEmpleadoSeleccionado.setBounds(220, 300, 150, 16);
+        ciEmpleadoSeleccionado.setBounds(220, 240, 150, 16);
 
         direccionEmpleadoSeleccionado.setText("<Dirección>");
         getContentPane().add(direccionEmpleadoSeleccionado);
-        direccionEmpleadoSeleccionado.setBounds(220, 240, 160, 16);
+        direccionEmpleadoSeleccionado.setBounds(220, 270, 160, 16);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Lista de empleados:");

@@ -171,11 +171,11 @@ public class GestionClientes extends javax.swing.JFrame implements Observer{
 
         ciClienteSeleccionado.setText("<CI>");
         getContentPane().add(ciClienteSeleccionado);
-        ciClienteSeleccionado.setBounds(220, 260, 160, 16);
+        ciClienteSeleccionado.setBounds(220, 230, 160, 16);
 
         direccionClienteSeleccionado.setText("<Dirección>");
         getContentPane().add(direccionClienteSeleccionado);
-        direccionClienteSeleccionado.setBounds(220, 230, 140, 16);
+        direccionClienteSeleccionado.setBounds(220, 260, 140, 16);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Lista de clientes:");

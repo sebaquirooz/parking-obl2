@@ -192,11 +192,11 @@ public class GestionContrato extends javax.swing.JFrame implements Observer {
         String empleadoContrato = contratoSelecc.getEmpleado().toString();
         int numeroContrato = contratoSelecc.getNumeroContrato();
         
-        this.labelCliente.setText(clienteContrato + " (Cliente)");
-        this.labelEmpleado.setText(empleadoContrato + " (Empleado)");
-        this.labelValor.setText(valorContrato+ " (Valor)");
-        this.labelVehiculo.setText(vehiculoContrato + " (Vehículo)");
-        this.labelNroContrato.setText("" + numeroContrato + " (Número contrato)");
+        this.labelCliente.setText(clienteContrato);
+        this.labelEmpleado.setText(empleadoContrato);
+        this.labelValor.setText("$"+ valorContrato);
+        this.labelVehiculo.setText(vehiculoContrato);
+        this.labelNroContrato.setText(""+numeroContrato);
         }
     }//GEN-LAST:event_listaContratosValueChanged
 

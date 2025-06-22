@@ -1,8 +1,9 @@
 //TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
 import java.util.Date;
+import java.io.Serializable;
 
-public class Cliente extends Persona{
+public class Cliente extends Persona implements Serializable{
         
         private String celular;
         
