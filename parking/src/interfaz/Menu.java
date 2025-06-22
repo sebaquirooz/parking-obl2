@@ -260,7 +260,7 @@ public class Menu extends javax.swing.JFrame {
         int confirmacion = JOptionPane.showConfirmDialog(null, "¿Confirma querer recuperar los datos? En caso de no haber datos guardados, se reiniciara el sistema.", "Recuperación de datos.",JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION){
             JOptionPane.showMessageDialog(null, "Datos recuperados.", "Recuperación de datos", -1);
-            Persistencia.cargarSistema();
+            this.sistema = Persistencia.cargarSistema();
         }
         else {
             JOptionPane.showMessageDialog(null, "Grabación de datos cancelada.", "Grabación de datos", -1);

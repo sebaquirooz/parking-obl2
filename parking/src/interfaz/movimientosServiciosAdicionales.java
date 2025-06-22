@@ -204,25 +204,28 @@ public class movimientosServiciosAdicionales extends javax.swing.JFrame implemen
         String horaElegida = this.horaServicio.getText();
         int costoElegido = Integer.parseInt(this.costoServicio.getText());
         LocalDate localDate = fechaElegida.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime horaEnFormato = LocalTime.parse(horaElegida, formatter);
-        LocalDateTime fechaYHora = LocalDateTime.of(localDate,horaEnFormato);
-        
-        
-        if(vehiculoElegido == null || empleadoElegido == null || servicioElegido == null || fechaElegida == null){
-           //Alerta algo no se eligio 
+        if (sistema.verificarHora(horaElegida)){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime horaEnFormato = LocalTime.parse(horaElegida, formatter);
+            LocalDateTime fechaYHora = LocalDateTime.of(localDate,horaEnFormato);
+
+
+            if(vehiculoElegido == null || empleadoElegido == null || servicioElegido == null || fechaElegida == null){
+               
+            }
+            else{
+                sistema.registrarServicio(vehiculoElegido, empleadoElegido, servicioElegido, fechaYHora, costoElegido);
+                    }
         }
-        else{
-            sistema.registrarServicio(vehiculoElegido, empleadoElegido, servicioElegido, fechaYHora, costoElegido);
-                }
     }//GEN-LAST:event_botonRegistrarServicioActionPerformed
 
     private void listaServiciosVehiculoValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaServiciosVehiculoValueChanged
       if(!listaServiciosVehiculo.isSelectionEmpty()){
         Servicio servicioElegido = (Servicio) this.listaServiciosVehiculo.getSelectedValue();
-        this.fechaSeleccionada.setText(servicioElegido.getFechaYhora().getDayOfMonth() + "//" + servicioElegido.getFechaYhora().getMonthValue() + "//" + servicioElegido.getFechaYhora().getYear());
-        this.labelHora.setText(servicioElegido.getFechaYhora().getHour() + ":" + servicioElegido.getFechaYhora().getMinute() + servicioElegido.getFechaYhora().getSecond());
-        this.labelCosto.setText(servicioElegido.getCosto() + "");
+        this.fechaSeleccionada.setText(servicioElegido.getFechaYhora().getDayOfMonth() + "/" + servicioElegido.getFechaYhora().getMonthValue() + "/" + servicioElegido.getFechaYhora().getYear());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        this.labelHora.setText(servicioElegido.getFechaYhora().format(formatter));
+        this.labelCosto.setText("$" +servicioElegido.getCosto() + "");
       }
     }//GEN-LAST:event_listaServiciosVehiculoValueChanged
 

@@ -1,9 +1,10 @@
 //TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Historial {
+public class Historial implements Serializable {
 
 	private ArrayList<Entrada> listaEntradas;
 

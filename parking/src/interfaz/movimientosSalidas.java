@@ -196,17 +196,19 @@ public class movimientosSalidas extends javax.swing.JFrame implements Observer{
         String notaDeSalida = notaSalida.getText();
         
         LocalDate localDate = fechaSalida.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        LocalTime horaEnFormato = LocalTime.parse(horaDeSalida, formatter);
-        LocalDateTime fechayHora = LocalDateTime.of(localDate,horaEnFormato);
-        if (listaEntradas.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || " ".equals(horaSalida.getText()) || " ".equals(horaSalida.getText()) ){
-            // algo
-        }
-        sistema.registrarSalida(entrada, empleadoSeleccionado, fechayHora, notaDeSalida);
-        
-            if(sistema.getListaSalidas().getLast().getEntrada().equals(entrada)){
-                this.labelTiempoTotal.setText(sistema.calcularTiempoTotal(sistema.getListaSalidas().getLast()));
+        if (sistema.verificarHora(horaDeSalida)){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+            LocalTime horaEnFormato = LocalTime.parse(horaDeSalida, formatter);
+            LocalDateTime fechayHora = LocalDateTime.of(localDate,horaEnFormato);
+            if (listaEntradas.getSelectedValue() == null || listaEmpleados.getSelectedValue() == null || " ".equals(horaSalida.getText()) || " ".equals(horaSalida.getText()) ){
+                
             }
+            sistema.registrarSalida(entrada, empleadoSeleccionado, fechayHora, notaDeSalida);
+
+                if(sistema.getListaSalidas().getLast().getEntrada().equals(entrada)){
+                    this.labelTiempoTotal.setText(sistema.calcularTiempoTotal(sistema.getListaSalidas().getLast()));
+                }
+        }
     }//GEN-LAST:event_registrarSalidaActionPerformed
 
     private void horaSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horaSalidaActionPerformed

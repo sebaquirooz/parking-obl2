@@ -1,7 +1,9 @@
 //TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
 
-public class Vehiculo {
+import java.io.Serializable;
+
+public class Vehiculo implements Serializable {
 
 	private String matricula;
 

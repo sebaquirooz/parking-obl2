@@ -1,12 +1,13 @@
 //TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
 
+import java.io.Serializable;
 import java.util.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
 
-public class Movimiento {
+public class Movimiento implements Serializable {
 
     private Vehiculo vehiculo;
 

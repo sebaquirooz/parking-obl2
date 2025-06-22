@@ -1,10 +1,11 @@
 //TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package dominio;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class Servicio extends Movimiento {
+public class Servicio extends Movimiento implements Serializable {
 
 	private String tipo;
         

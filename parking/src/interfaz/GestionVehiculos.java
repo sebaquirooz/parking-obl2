@@ -139,7 +139,7 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
 
         notaVehiculoSeleccionado.setText("<Estado>");
         getContentPane().add(notaVehiculoSeleccionado);
-        notaVehiculoSeleccionado.setBounds(220, 270, 150, 16);
+        notaVehiculoSeleccionado.setBounds(220, 300, 150, 16);
 
         matriculaVehiculoSeleccionado.setText("<Matricula>");
         getContentPane().add(matriculaVehiculoSeleccionado);
@@ -147,11 +147,11 @@ public class GestionVehiculos extends javax.swing.JFrame implements Observer {
 
         marcaVehiculoSeleccionado.setText("<Marca>");
         getContentPane().add(marcaVehiculoSeleccionado);
-        marcaVehiculoSeleccionado.setBounds(220, 300, 160, 16);
+        marcaVehiculoSeleccionado.setBounds(220, 240, 160, 16);
 
         modeloVehiculoSeleccionado.setText("<Modelo>");
         getContentPane().add(modeloVehiculoSeleccionado);
-        modeloVehiculoSeleccionado.setBounds(220, 240, 150, 16);
+        modeloVehiculoSeleccionado.setBounds(220, 270, 150, 16);
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Lista de vehiculos:");

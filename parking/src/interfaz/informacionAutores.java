@@ -1,3 +1,4 @@
+//TRABAJO DESARROLLADO POR: SEBASTIÁN QUIROZ - 323189 | JUAN MANUEL REOLON - 331598//
 package interfaz;
 import dominio.*;
 import java.awt.Color;
